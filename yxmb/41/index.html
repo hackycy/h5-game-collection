@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!--
+/*!
+ * 超级英雄宝石方块
+ * Version: 2.0稳定版
+ * 适用版本: IE9 及更高、谷歌chrom v48.0 或更高、360浏览器8.1或更高
+ * Copyright: 2016, LQ.
+ * Date: 2016-4-15
+ * Last updated: 2016-4-23
+ */
+-->
+<title>HTML5英雄宝石块消消乐游戏</title>
+	<link rel="stylesheet" href="_css/jwe.css" />
+
+    <script src="_js/jquery.min.js"></script>
+    <script type="text/javascript" src="_js/method.js"></script>
+
+<!--	<script src="_js/ui/jquery.ui.core.js"></script>
+	<script src="_js/ui/jquery.ui.widget.js"></script>
+	<script src="_js/ui/jquery.ui.mouse.js"></script>
+	<script src="_js/ui/jquery.ui.draggable.js"></script>-->
+
+    <script type="text/javascript" src="_js/jwe.js"></script>
+    <script type="text/javascript" src="_js/jwe.core.js"></script>
+    <script type="text/javascript" src="_js/jwe.game.js"></script>
+    <script type="text/javascript" src="_js/jwe.ctrl.js"></script>
+    <script type="text/javascript" src="_js/jwe.animate.js"></script>
+    <script type="text/javascript" src="_js/jwe.arithmetic.js"></script>
+    
+    <script>
+	$(document).ready(function(){
+//		_dir = "x1a2";
+//		_extName = "png";
+		_bgExtName="png";
+		_UniTypeNumber =6;
+		
+		
+/*		$("#btnAgain")
+		.bind("click",function(){	gameRest1Day();	});*/
+
+		$("#btnReset")
+		.bind("click",function(){	location.reload();	});
+
+		$("#btnReset2")
+		.bind("click",function(){	location.reload();	});
+
+		gameStart();
+
+	});
+	
+	</script>
+</head>
+
+<body>
+	<div id="bgTmp1"></div>
+	<div id="bgTmp2"><img src="_img/bg/bg000.png" /></div>
+	<div id="uGirl1"></div>
+    
+    <h2 id="topH" align="center">总分：<span id="sumScore">0</span></h2>
+    
+    <div id="scorePanel"><hr id="cLine" /></div>
+    <table id="panelTb" class="panelTb" align="center" ></table>
+    <div id="gameTimeBar"><div id="gameTime">???</div></div>
+    
+	<h3 id="btmH" align="center">
+		<!--<button id="btnAgain" class="aC1 clr1">休息一下</button>-->
+		<button id="btnReset" class="aC1 clr2">重头开始</button>
+	</h3>
+    
+	<div id="txtTit" class="warn1"></div>
+	<div id="txtTit2" class="warn2"></div>
+    
+	<div id="debugPanel"></div>
+	<div id="cartoonPanel" class="cartoonPanel"></div>
+    
+ 	<div id="endPanel">
+    	<h3 align="center">成绩统计</h3>
+    	<p>
+        	总分：<span id="finSumScore">0</span>
+            <!--<a id="fuckA">Let it Go</a>-->
+        </p>
+        <p>
+            <div align="center" id="finUni"></div>
+            <br />
+            GAME OVER
+        </p>
+        <div id="btnPnl" align="center">
+			<button id="btnReset2" class="aC2 clr2">再玩一次</button>
+        </div>
+        <div id="aSpeech"></div>
+    </div>
+
+</body>
+</html>

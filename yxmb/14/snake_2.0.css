@@ -1,0 +1,335 @@
+/*全局属性*/
+* {
+    margin: 0;
+    padding: 0;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+html,body{
+    height: 100%;
+    width: 100%;
+    position: fixed;
+}
+.fl {
+   float: left;
+}
+.fr {
+    float: right;
+}
+.positonAb {
+    position: absolute;
+}
+.littleFinger {
+    cursor: pointer;
+}
+/*动画*/
+/*鼠标悬浮字体放大抖动*/
+@-webkit-keyframes rubberBand{0%{-webkit-transform:scale3d(1,1,1);transform:scale3d(1,1,1)}
+    30%{-webkit-transform:scale3d(1.25,.75,1);transform:scale3d(1.25,.75,1)}
+    40%{-webkit-transform:scale3d(0.75,1.25,1);transform:scale3d(0.75,1.25,1)}
+    50%{-webkit-transform:scale3d(1.15,.85,1);transform:scale3d(1.15,.85,1)}
+    65%{-webkit-transform:scale3d(.95,1.05,1);transform:scale3d(.95,1.05,1)}
+    75%{-webkit-transform:scale3d(1.05,.95,1);transform:scale3d(1.05,.95,1)}
+    100%{-webkit-transform:scale3d(1,1,1);transform:scale3d(1,1,1)}
+}
+@keyframes rubberBand{0%{-webkit-transform:scale3d(1,1,1);transform:scale3d(1,1,1)}
+    30%{-webkit-transform:scale3d(1.25,.75,1);transform:scale3d(1.25,.75,1)}
+    40%{-webkit-transform:scale3d(0.75,1.25,1);transform:scale3d(0.75,1.25,1)}
+    50%{-webkit-transform:scale3d(1.15,.85,1);transform:scale3d(1.15,.85,1)}
+    65%{-webkit-transform:scale3d(.95,1.05,1);transform:scale3d(.95,1.05,1)}
+    75%{-webkit-transform:scale3d(1.05,.95,1);transform:scale3d(1.05,.95,1)}
+    100%{-webkit-transform:scale3d(1,1,1);transform:scale3d(1,1,1)}
+}
+.rubberBand{-webkit-animation-name:rubberBand;animation-name:rubberBand}
+.guide3:hover{
+    -webkit-animation: rubberBand 2s ease 0s 1 both;
+}
+.guide4:hover{
+    -webkit-animation: rubberBand 2s ease 0s 1 both;
+}
+.guide5:hover{
+    -webkit-animation: rubberBand 2s ease 0s 1 both;
+}
+/*从上而下进入*/
+@keyframes fadeInDownBig {
+    from {
+        opacity: 0;
+        transform: translate3d(0, -2000px, 0);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+/*向右移除*/
+@keyframes bounceOutRight {
+    20% {
+        opacity: 1;
+        transform: translate3d(-20px, 0, 0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translate3d(2000px, 0, 0);
+    }
+}
+/*从左进入*/
+@keyframes bounceInLeft {
+    from, 60%, 75%, 90%, to {
+        animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    }
+
+    0% {
+        opacity: 0;
+        transform: translate3d(-3000px, 0, 0);
+    }
+
+    60% {
+        opacity: 1;
+        transform: translate3d(25px, 0, 0);
+    }
+
+    75% {
+        transform: translate3d(-10px, 0, 0);
+    }
+
+    90% {
+        transform: translate3d(5px, 0, 0);
+    }
+
+    to {
+        transform: none;
+    }
+}
+
+/* 主启界面*/
+.main-start-interface {
+    /*display: none;*/
+    width: 650px;
+    height: 500px;
+    position:absolute;
+    top:50%;
+    left:45%;
+    margin:-250px 0 0 -250px;
+    background-image: url(./images/backGroundImg.png);
+    background-size: 650px 500px;
+    -webkit-animation: fadeInDownBig 2s ease 0s 1 both;
+}
+.guide1 {
+    left: 41.5%;
+    top: 21%;
+    color: #09C085;
+}
+.guide2 {
+    left: 72.5%;
+    top: 34%;
+    color: #F47A45;
+}
+.guide3 {
+    left: 52.5%;
+    top: 44%;
+    color: #23AAE1;
+}
+.guide4 {
+    left: 31.5%;
+    top: 60%;
+    color: #B385DE;
+}
+.guide5 {
+    left: 14%;
+    top: 48%;
+    color: #F05655;
+}
+
+/*游戏界面*/
+.game-interface {
+    position: relative;
+    display: none;
+    width: 810px;
+    height: 600px;
+    margin: 10px auto;
+    /*background-image: url(./images/gameBGImg1.jpg);*/
+    border: 1px dotted #000;
+}
+.left-side {
+    position: absolute;
+    display: inline-block;
+    width: 120px;
+    height: 600px;
+}
+.left-side .start-pause {
+    width: 120px;
+    height: 100px;
+}
+.left-side .start-pause img {
+    width: 120px;
+    height: 100px;
+}
+.game-main {
+    position: absolute;
+    left: 120px;
+    display: inline-block;
+    width: 560px;
+    height: 600px;
+    border-left: 1px dotted #000;
+    border-right: 1px dotted #000;
+}
+.right-side {
+    position: absolute;
+    right: 0;
+    display: inline-block;
+    width: 118px;
+    height: 600px;
+}
+.game-main-header {
+    width: 100%;
+    height: 40px;
+    border-bottom: 1px dotted #000;
+}
+.game-main-content {
+    position: absolute;
+    width: 100%;
+    height: 560px;
+}
+.game-main-header-score {
+    display: inline-block;
+    width: 279px;
+    height: 40px;
+    border-right: 1px dotted #000;
+
+}
+.game-main-header-whenUsed {
+    display: inline-block;
+    width: 280px;
+    height: 40px;
+}
+.whenUsed-image {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    padding: 8px 5px 2px 5px;
+}
+.whenUsed-image img {
+    width: 25px;
+    height: 25px;
+}
+.best-score {
+    width: 120px;
+}
+.key-down {
+    position: absolute;
+    width: 128px;
+    bottom: -4px;
+    left: -10px
+}
+.key-down img{
+    width: 128px;
+    height: 90px;
+}
+.space {
+    position: absolute;
+    width: 128px;
+    bottom: 125px;
+    left: -10px
+}
+.space img{
+    width: 128px;
+    height: 30px;
+}
+/*游戏设置弹框*/
+.setGameModal {
+    display: none;
+    width: 100%;
+    height: 100%;
+}
+.setGameModal-layer {
+    width: 100%;
+    height: 100%;
+    background: #000;
+    opacity: .3;
+}
+.setGameModal-content {
+    position: absolute;
+    top:30%;
+    left: 35%;
+    width: 300px;
+    height: 200px;
+    padding: 25px;
+    background-color: #fff;
+    border-radius: 10%;
+}
+.setGameModal-height {
+    height: 55px;
+    line-height: 55px;
+}
+.gameBGLabel {
+
+}
+.gameBGLabel img {
+    display: inline;
+    width: 40px;
+    height: 30px;
+}
+.setGameModal-content-button {
+    text-align: center;
+}
+.setGameModal-content-button input{
+    width: 80px;
+    height: 30px;
+    border: none;
+    cursor: pointer;
+}
+#sureSet {
+    background-color: #23AAE1;
+    color: #fff;
+}
+#cancelSet {
+    background-color: #FF0000;
+    color: #fff;
+}
+/* loser 弹框 */
+.loserModal {
+    position: absolute;
+    display: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+}
+.loserModal-layer {
+    width: 100%;
+    height: 100%;
+    background: #000;
+    opacity: .3;
+}
+.loserModal-content {
+    position: absolute;
+    top: 10%;
+    left: 40%;
+    width: 300px;
+    height: 400px;
+}
+.loserModal-content img {
+    width: 300px;
+    height: 300px;
+}
+.loserModal-button {
+    width: 300px;
+    text-align: center;
+}
+.loserModal-button input {
+    margin-top: 20px;
+    padding: 10px;
+    cursor: pointer;
+}
+.loserModal-info p {
+    font-weight: bold;
+}
+.playAgain {
+    margin-rigth: 10px;
+}
+.cancelLoserModal {
+    margin-left: 10px;
+}

@@ -1,0 +1,408 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>HTML5响应式翻牌游戏</title>
+
+<style>
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.tile {
+  display: block;
+  float: left;
+  border-radius: 5%;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+}
+
+.tile:nth-of-type(4n + 1) {
+  clear: left;
+}
+
+.tile:after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 5%;
+  position: absolute;
+  /*left:0; top:0;*/
+  bottom: 0;
+  right: 0;
+
+  transition: transform 0.2s;
+}
+
+.tile_open:after {
+  transition: transform 0.2s;
+  transform: translateX(-105%);
+}
+
+.tile .fa {
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  color: #fff;
+}
+
+.tile_closed {
+  cursor: normal;
+  opacity: 0.3;
+  transition: opacity 0.5s;
+}
+
+/*Colours*/
+
+body {
+  background-color: #112;
+}
+.tile:after {
+  background-color: #900;
+}
+.tile:hover:after {
+  background-color: #b00;
+}
+
+.tile {
+  background-color: #00c;
+}
+.tile_closed {
+  background-color: #00c;
+}
+
+/*Dimensions*/
+/*This is be used to make it more responsive*/
+
+.tile_container {
+  overflow: hidden;
+  width: 90vmin;
+  height: 90vmin;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.tile .fa {
+  font-size: 70px;
+  font-size: 10vmin;
+  line-height: 100px;
+  line-height: 16vmin;
+}
+
+.tile {
+  width: 100px;
+  width: 17%;
+  height: 100px;
+  height: 17%;
+  margin: 20px;
+  margin: 4%;
+}
+
+/*Overlay*/
+
+.overlay_win {
+  position: absolute;
+  top: 25vmin;
+  left: 0;
+  height: 40vmin;
+  width: 100%;
+  text-align: center;
+}
+.overlay_win {
+  background-color: #b00;
+}
+
+.overlay_win h2 {
+  font-size: 15vmin;
+  line-height: 15vmin;
+  margin: 5vmin 0px;
+}
+.overlay_win h2 {
+  color: #112;
+  font-family: 'Roboto', sans-serif;
+}
+
+#replay {
+  font-size: 7vmin;
+  display: inline-block;
+  border-radius: 1vmin;
+  padding: 2vmin 4vmin;
+  font-family: 'Roboto', sans-serif;
+  cursor: pointer;
+}
+
+#replay {
+  background-color: #112;
+  color: #b00;
+}
+
+#replay:hover {
+  color: #e00;
+}
+
+.overlay_win {
+  opacity: 0;
+  transition: opacity 0.4s;
+  pointer-events: none;
+}
+.overlay_win_open {
+  opacity: 0.9;
+  transition: opacity 0.4s;
+  pointer-events: auto;
+}
+</style>
+</head>
+<body>
+
+<link rel="stylesheet" href="css/font-awesome.css">
+
+  <div class="tile_container">
+
+    <div id="tile_0" class="tile">
+      <i id="tile_icon_0" class="fa"></i>
+    </div>
+
+    <div id="tile_1" class="tile">
+      <i id="tile_icon_1" class="fa"></i>
+    </div>
+
+    <div id="tile_2" class="tile">
+      <i id="tile_icon_2" class="fa"></i>
+    </div>
+
+    <div id="tile_3" class="tile">
+      <i id="tile_icon_3" class="fa"></i>
+    </div>
+
+    <div id="tile_4" class="tile">
+      <i id="tile_icon_4" class="fa"></i>
+    </div>
+
+    <div id="tile_5" class="tile">
+      <i id="tile_icon_5" class="fa"></i>
+    </div>
+
+    <div id="tile_6" class="tile">
+      <i id="tile_icon_6" class="fa"></i>
+    </div>
+
+    <div id="tile_7" class="tile">
+      <i id="tile_icon_7" class="fa"></i>
+    </div>
+
+    <div id="tile_8" class="tile">
+      <i id="tile_icon_8" class="fa"></i>
+    </div>
+
+    <div id="tile_9" class="tile">
+      <i id="tile_icon_9" class="fa"></i>
+    </div>
+
+    <div id="tile_10" class="tile">
+      <i id="tile_icon_10" class="fa"></i>
+    </div>
+
+    <div id="tile_11" class="tile">
+      <i id="tile_icon_11" class="fa"></i>
+    </div>
+
+    <div id="tile_12" class="tile">
+      <i id="tile_icon_12" class="fa"></i>
+    </div>
+
+    <div id="tile_13" class="tile">
+      <i id="tile_icon_13" class="fa"></i>
+    </div>
+
+    <div id="tile_14" class="tile">
+      <i id="tile_icon_14" class="fa"></i>
+    </div>
+
+    <div id="tile_15" class="tile">
+      <i id="tile_icon_15" class="fa"></i>
+    </div>
+
+  </div>
+
+  <div class="overlay_win" id="overlay_win">
+    <h2>You win!</h2>
+    <div id="replay">Play again</div>
+  </div>
+<script>
+//These functions help add, remove or toggle css classes
+
+function tog_class(id, cl) {
+  var elem = document.getElementById(id);
+  if (elem.classList.contains(cl) === true) {
+    elem.classList.remove(cl);
+  } else {
+    elem.classList.add(cl);
+  }
+}
+
+function add_class(id, cl) {
+  var elem = document.getElementById(id);
+  if (elem.classList.contains(cl) !== true) {
+    elem.classList.add(cl);
+  }
+}
+
+function rem_class(id, cl) {
+  var elem = document.getElementById(id);
+  if (elem.classList.contains(cl) === true) {
+    elem.classList.remove(cl);
+  }
+}
+
+//This function adds/removes the selected class of a selected tile
+
+function tog_elem(i, elem) {
+  document.getElementById("tile_" + i).onclick = function() {
+    tog_class("tile_" + i, "tile_open");
+    setTimeout(function() {
+      tog_class("tile_icon_" + i, "fa-" + elem);
+    }, 0);
+  };
+}
+
+//This function adds the selected class of a selected tile
+
+function add_elem(i, elem) {
+  document.getElementById("tile_" + i).onclick = function() {
+    window.opentile = i;
+    add_class("tile_" + i, "tile_open");
+    add_class("tile_icon_" + i, "fa-" + elem);
+
+    if (window.tilecount == 1) {
+      if (i != window.lasttile && window.A[i] == window.A[window.lasttile]) {
+        //checks if the 2 stmbols match and aren't the same tile
+        var first = document.getElementById("tile_" + i); //get tile id
+        var second = document.getElementById("tile_" + window.lasttile); //get tile id
+
+        first.classList.add("tile_closed"); //remove tiles
+        second.classList.add("tile_closed"); //remove tiles
+
+        first.onclick = ""; //remove event handlers
+        second.onclick = ""; //remove event handlers
+
+        window.paircount++; //increment pair count
+        if (window.paircount == 8) {
+          //win condition
+          //alert('You win!');//show victory banner here
+          add_class("overlay_win", "overlay_win_open");
+        }
+      } else {
+        rem_delay(window.opentile, window.lasttile); //clears the tiles with a 1 second delay(to let the player see the tile)
+      }
+
+      window.tilecount = 0; //resets the opened tile counter to 0
+    } else {
+      window.lasttile = i; //sets the last tile
+      window.tilecount++;
+    } //increments the tile count
+  };
+}
+
+//This function removes all tile classes (used to hide tiles)
+
+function rem_select(i) {
+  rem_class("tile_" + i, "tile_open");
+  rem_class("tile_icon_" + i, "fa-eye");
+  rem_class("tile_icon_" + i, "fa-star");
+  rem_class("tile_icon_" + i, "fa-heart");
+  rem_class("tile_icon_" + i, "fa-diamond");
+}
+
+//this function hides tiles, with a delay
+//it is called when the tiles don't match
+
+function rem_delay(first, second) {
+  setTimeout(function() {
+    rem_select(first); //closes open tiles
+    rem_select(second); //closes open tiles
+  }, 1000);
+}
+
+//This function shuffles the tiles
+
+function shuffle() {
+  var j;
+  var t;
+
+  var A = [
+    "eye",
+    "eye",
+    "eye",
+    "eye",
+    "star",
+    "star",
+    "star",
+    "star",
+    "heart",
+    "heart",
+    "heart",
+    "heart",
+    "diamond",
+    "diamond",
+    "diamond",
+    "diamond"
+  ];
+
+  for (i = 0; i < 16; i++) {
+    j = Math.floor(Math.random() * (i + 1));
+    t = A[i];
+    A[i] = A[j];
+    A[j] = t;
+  }
+  console.log(A);
+  return A;
+}
+
+//this function resets all tiles
+
+function reset_tiles() {
+  for (i = 0; i < 16; i++) {
+    rem_select(i); //turns around tiles
+    add_elem(i, A[i]); //adds events
+    rem_class("tile_" + i, "tile_closed"); //Tiles back to normal opacity..
+  }
+}
+
+//this function resets the game
+
+function reset() {
+  window.A = shuffle(); //shuffle tiles and reset variables
+  window.paircount = 0;
+  window.tilecount = 0;
+  window.lasttile = null;
+  window.opentile = null;
+
+  reset_tiles(); //reset all tiles
+
+  rem_class("overlay_win", "overlay_win_open"); //hide victory banner
+}
+
+//variables
+
+var A = shuffle(); //shuffle the tiles
+var paircount = 0; //tracks the number of matches
+var tilecount = 0; //tracks the number of open tiles
+var lasttile = null; //tracks the last open tile
+var opentile = null; //tracks the current open tile
+
+//do stuff here
+
+for (i = 0; i < 16; i++) {
+  add_elem(i, A[i]); //adds event handlers to the tiles.
+}
+
+document.getElementById("overlay_win").onclick = function() {
+  reset();
+};
+</script>
+
+</body>
+</html>

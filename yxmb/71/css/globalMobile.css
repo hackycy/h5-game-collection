@@ -1,0 +1,165 @@
+﻿/*
+    作者:helang
+    邮箱:helang.love@qq.com
+    jQuery插件库:http://www.jq22.com/mem395541
+    CSDN博客:https://blog.csdn.net/u013350495
+    微信公众号:web-7258
+*/
+
+/*全局样式*/
+body{
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+    font-size: 0.28rem;
+    font-family: Helvetica,"Helvetica Neue",Arial,sans-serif;
+    letter-spacing: 0;
+    word-wrap:break-word;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+/*表单元素默认字体大小及字体*/
+input,select,textarea{
+    font-size: 0.28rem;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+/* 列式弹性盒子 */
+.flex_col {
+    display: -webkit-flex;
+    -webkit-flex-direction: row;
+    -webkit-flex-wrap: nowrap;
+    -webkit-justify-content: flex-start;
+    -webkit-align-items: center;
+    -webkit-align-content: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: center;
+}
+/* 行式弹性盒子 */
+.flex_row {
+    display: -webkit-flex;
+    -webkit-flex-direction: column;
+    -webkit-flex-wrap: nowrap;
+    -webkit-justify-content: flex-start;
+    -webkit-align-items: flex-start;
+    -webkit-align-content: flex-start;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: flex-start;
+}
+/* 弹性盒子弹性容器 */
+.flex_col .flex_grow{
+    width: 0;
+    -webkit-flex-grow: 1;
+    flex-grow: 1;
+}
+.flex_row .flex_grow{
+    overflow-x: hidden;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    -webkit-flex-grow: 1;
+    flex-grow: 1;
+}
+/* 弹性盒子允许换行 */
+.flex_col.flex_wrap{
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+/* 弹性盒子快速分栏 */
+.flex_col.flex_col_2>*{
+    width: 50%;
+}
+.flex_col.flex_col_3>*{
+    width: 33.33333%;
+}
+.flex_col.flex_col_4>*{
+    width: 25%;
+}
+.flex_col.flex_col_5>*{
+    width: 20%;
+}
+.flex_col.flex_col_6>*{
+    width: 16.66666%;
+}
+
+/* 超链接点击高亮 */
+a{
+    -webkit-tap-highlight-color:transparent;
+    text-decoration: none;
+}
+
+/* 对齐方式 */
+.align_l{
+    text-align: left;
+}
+.align_c{
+    text-align: center;
+}
+.align_r{
+    text-align: right;
+}
+
+/* 字体大小 */
+.size_12{
+    font-size: 0.24rem;
+}
+.size_14{
+    font-size: 0.28rem;
+}
+.size_16{
+    font-size: 0.32rem;
+}
+.size_18{
+    font-size: 0.36rem;
+}
+.size_20{
+    font-size: 0.40rem;
+}
+
+/* 字体颜色 */
+.color_333 {
+    color: #333;
+}
+.color_666 {
+    color: #666;
+}
+.color_999 {
+    color: #999;
+}
+.color_fff {
+    color: #fff;
+}
+.color_6dc{
+    color: #6dca6d;
+}
+.color_09f{
+    color: #0099ff;
+}
+.color_ffc{
+    color: #ffc029;
+}
+.color_d51{
+    color: #d51917;
+}
+
+/* 背景色*/
+.bg_fff{
+    background-color: #ffffff;
+}
+.bg_f3{
+    background-color: #f3f3f3;
+}
+.bg_f6{
+    background-color: #f6f6f6;
+}
+.bg_f9{
+    background-color: #f9f9f9;
+}

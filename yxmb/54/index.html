@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>消除QQ表情小游戏</title>
+<script src="js/global.js"></script>
+</head>
+<style>
+*{margin:0;padding:0; list-style:none;}
+body{font:12px/1.5em "微软雅黑";background:f1f1f1; }
+.head{ text-align:center; padding:20px 0}
+.head p{ line-height:30px;}
+.head h2{ font-size:20px; padding:10px 0}
+.head input{ padding:1px 3px;}
+.wrap{width:700px; height:400px; border:1px solid #555; margin:0 auto; position:relative;top:0;left:0}
+.side{ width:120px; height:90px; border:1px solid #555; position:absolute; top:-1px; right:100%}
+.side p{ padding:0px 15px; line-height:25px; font-size:16px;}
+.side p:nth-of-type(1){ margin-top:15px;}
+.main{width:100%;height:100%; position:absolute; top:0; left:0; overflow:hidden}
+.main i{width:24px; height:24px; border-radius:50%; display:block; position:absolute; top:0; left:0; cursor:pointer}
+.main img{ width:24px;}
+</style>
+<script>
+window.onload = function(){
+	var oBox = $('#box'),
+		oBtn = getTagName(document,'input')[0],
+		oMin = getClass(oBox,'.main')[0];
+	var aB = getTagName(oBox,'b');
+	var W = parseInt(getCss(oMin,'width')),
+		H = parseInt(getCss(oMin,'height'));
+	oBtn.onclick = function(){
+		this.disabled = true;
+		this.value = '游戏正在进行中...'
+		console.dir(oBtn)
+		oMin.innerHTML = '<i></i>'
+		var oI = getTagName(oMin,'i')[0];
+		var b = 0,t = 0;		
+		var k = 2
+		aB[0].innerHTML = b
+		aB[1].innerHTML = t	
+		fn()
+		function fn(){					
+			oI.style.top = '0';
+			oI.style.left = $fn.random([0,W-24]) + 'px';
+			oI.innerHTML = '<img src="QQexp/'+ $fn.random([1,15]) +'.gif"/>'
+			$fn.Move(oI,'top',k,H-24,function(){
+				++t
+				aB[1].innerHTML = t
+				$fn.shaKe(oBox,'top',10,function(){
+					if(!score()) fn()
+				})			
+			})
+		}
+		
+		function score(){
+			if(t == 10){
+				alert('失败')
+				oBtn.disabled = false;
+				oBtn.value = '开始游戏'
+				oI.style.top = '-23px';
+				return true
+			}
+			if(b == 30){
+				alert('你赢了')
+				oBtn.disabled = false;
+				oBtn.value = '开始游戏'
+				oI.style.top = '-23px';
+				return true
+			}				
+		}
+		
+		oI.onmousedown = function(){
+			clearInterval(oI.timer)
+			this.innerHTML = '<img src="QQexp/s.gif"/>'
+			oI.timer = null;
+			++b
+			k+=0.2
+			k.toFixed(1)			
+			aB[0].innerHTML = b
+			$fn.shaKe(oI,'left',10,function(){
+				if(!score()) fn()
+			})
+		}
+	}	
+}
+</script>
+
+<body>
+    <div class="head">
+        <h2>你的鼠标有多快？</h2>
+        <p>游戏说明：点击“开始游戏”，随机掉下QQ表情，点中它，千万别让它掉下去！！</p>
+        <p><input type="button"  value="开始游戏"  /></p>    
+    </div>
+	<div id="box" class="wrap">
+    	<div class="side">
+        	<p>得分：<b>0</b> 分</p>
+            <p>失分：<b>0</b> 分</p>
+        </div>
+        <div class="main"></div>
+    </div>
+</body>
+</html>

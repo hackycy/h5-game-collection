@@ -1,0 +1,162 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>jQuery图片消除小游戏代码 - 源码之家</title>
+</head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+
+<style type="text/css">
+
+html,body{
+	padding: 0;
+	background: #00bff3;
+	margin: 0;
+}
+.page_mengceng{
+	position: fixed;
+	top: 0;
+	display: none;
+	z-index: 1000;
+	left: 0;
+    height: 100%;
+    width: 100%;
+}
+.card_border{
+	width: 340px;
+	height: 340px;
+	margin: 0 auto;
+	margin-top: 100px;
+	font-size: 0;
+}
+.card{
+	height: 73px;
+    width: 73px;
+    cursor: pointer;
+	display: inline-block;
+	box-shadow: 5px 5px rgba(0,0,0,0.5);
+	overflow: hidden;
+	border-radius: 10px;
+	margin-left: 10px;
+	margin-top: 10px;
+}
+.card_backImg{
+	position: relative;
+	z-index: 1;
+	height: 73px;
+    width: 73px;
+}
+.card_img{
+	position: absolute;
+	border-radius: 10px;
+	height: 73px;
+    width: 73px;
+}
+.card_IndexNum{
+	opacity: 0;
+	z-index: -1;
+	position: relative;
+}
+.card_backImg_active{
+	margin-top: -73px;
+	margin-left: -73px;
+	opacity: 0;
+	-webkit-animation: active 0.3s;
+}
+@-webkit-keyframes active {
+	0% {
+		margin-top: 0px;
+		margin-left: 0px;
+		opacity: 1;
+	}
+	100% {
+        margin-top: -73px;
+        margin-left: -73px;
+        opacity: 0;
+	}
+}
+.card_backImg_Unactive{
+	margin-top: 0px;
+	margin-left: 0px;
+	opacity: 1;
+	-webkit-animation: unactive 0.3s;
+}
+@-webkit-keyframes unactive {
+	0% {
+		margin-top: -73px;
+        margin-left: -73px;
+        opacity: 0;
+	}
+	100% {
+        margin-top: 0px;
+		margin-left: 0px;
+		opacity: 1;
+	}
+}
+</style>
+
+<body>
+
+<div class="page_mengceng"></div>
+<div class="card_border"></div>
+
+</body>
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript">
+	
+var ary=[0,1,2,3,4,5,6,7];
+
+ary.push(...ary);
+var num=ary.length;
+var time=ary.length;
+var DomAry=[]
+var dobleAry_index=[];
+var dobleAry_Num=[];
+
+(function(){
+    for(var j=0;j<time;j++){
+		var random=Math.floor(Math.random()*num);
+		 for(var i=0;i<ary.length;i++){
+		 if(random==i){
+		 DomAry.push(ary[i]);
+		 $(".card_border").append("<div class='card'><div class='card_IndexNum'>"+ary[i]+"</div><img src='images/"+ary[i]+".png' class='card_img'><img src='images/f.png' class='card_backImg'></div>")
+		 ary.splice(i,1);
+		 num--
+		}
+	  }
+	}
+})()
+
+var el=document.getElementsByClassName("card_backImg");
+for(var i=0;i<el.length;i++){
+	var a=el[i];
+	a.index=i;
+	a.onclick=function() {
+		$(this).removeClass('card_backImg_Unactive');
+	    $(this).addClass('card_backImg_active');
+	    dobleAry_Num.push($(this).siblings(".card_IndexNum").html())
+	    dobleAry_index.push($(this).parent().index())
+	    if(dobleAry_index.length==2){
+	       if(dobleAry_Num[0]==dobleAry_Num[1]){
+		         dobleAry_Num.length=0
+			     dobleAry_index.length=0
+	       }else{
+	       	  $(".page_mengceng").show();
+	          setTimeout(function(){
+	              $(".page_mengceng").hide();
+	              $(".card").eq(dobleAry_index[0]).children(".card_backImg").addClass('card_backImg_Unactive')
+	              $(".card").eq(dobleAry_index[1]).children(".card_backImg").addClass('card_backImg_Unactive')
+			      dobleAry_Num.length=0
+				  dobleAry_index.length=0
+			  },500)
+	       }
+	    }
+	};
+}
+
+</script>
+<div style="text-align:center;">
+<a href="javascript:location.reload();">重新开始</a>
+</div>
+</html>

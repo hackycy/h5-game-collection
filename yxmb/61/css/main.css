@@ -1,0 +1,303 @@
+@charset "utf-8";
+/**
+ * 公共样式
+ */
+*{
+	margin: 0px;
+	padding: 0px;
+	border: 0px;
+}
+body {
+	background: #ffffff;
+	color: #000000;
+	font-size: 14px;
+	font-family: 'Arial Unicode MS', Verdana, Arial, Helvetica, sans-serif;
+}
+ul, ol {
+	list-style-type: none;
+}
+input, textarea, select {
+	vertical-align: middle;
+	font-size: 14px;
+	padding: 2px;
+	font-family: 'Arial Unicode MS', Verdana, Arial, Helvetica, sans-serif;
+}
+a, a:hover {
+	text-decoration: none;
+}
+
+/**
+ * main page
+ */
+#hitmouse{
+	position:relative;
+	margin:40px auto;
+	width:750px;
+	height:550px;
+}
+#hitmouse .background {
+    background-image:url(../images/set_board.png);
+	background-repeat:no-repeat;
+}
+#hitmouse .icon {
+	background-image: url(../images/icon.png);
+	background-repeat: no-repeat;
+}
+
+#hitmouse .block {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 750px;
+	height: 550px;
+}
+
+/**
+ * 预备界面
+ */
+#gameCover {
+	background-position: 0px 0px;
+}
+#btnSound {
+	display: block;
+	position: absolute;
+	right: 30px;
+	top: 30px;
+	width: 52px;
+	height: 52px;
+	background-position: -331px -132px;	
+}
+#btnSound.disabled {
+
+	background-position: -331px -80px;
+}
+
+#btnPlay {
+	display: block;
+	position: absolute;
+	right: 85px;
+	top: 205px;
+	width:180px;
+	height:70px;
+	background-position: -12px -693px;
+}
+#btnPlay:hover {
+	background-position: -192px -693px;
+}
+
+#btnHelp {
+	display: block;
+	position: absolute;
+	right: 85px;
+	top: 300px;
+	width: 180px;
+	height: 70px;
+	background-position: -12px -620px;
+}
+#btnHelp:hover {
+	background-position: -191px -620px;
+}
+#btnAboutMe {
+	display: block;
+	position: absolute;
+	right: 85px;
+	top: 400px;
+	width: 180px;
+	height: 70px;
+	background-position: -14px -835px;
+}
+#btnAboutMe:hover {
+	background-position: -194px -835px;
+}
+/**
+ *进度条
+*/
+#progressText {
+	display: block;
+	position: absolute;
+	right:185px;
+	top: 480px;
+}
+/**
+ *  帮助界面
+ */
+#HelpDiv{
+   display:none;
+   position:absolute;
+   left:5px;
+   top:20px;
+}
+#btnBack {
+	display: block;
+	position: absolute;
+	right: 254px;
+	top:380px;
+	width:200px;
+	height:70px;
+	background-position: -21px -914px;
+}
+#btnBack:hover {
+	background-position: -227px -916px;
+}
+
+/**
+ * 游戏主体
+ */
+#gameBody {
+	display: none;
+}
+#gameCanvas canvas {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+}
+#btnPause {
+	display: block;
+	position: absolute;
+	right: 30px;
+	top: 30px;
+	width: 57px;
+	height: 57px;
+	background-position: -326px -195px;
+}
+#btnPause.disabled {
+    right:28px;
+	top:32px;
+	background-position: -392px -198px;
+}
+#numberBefore{
+	position: absolute;
+	left: 442px;
+	top: 159px;
+	width: 80px;
+	height: 40px;
+	background-position: -22px -158px;
+}
+#number {
+	position: absolute;
+	left: 528px;
+	top: 132px;
+	width: 136px;
+	height: 38px;
+}
+#number span {
+	
+	width: 16px;
+	height: 36px;
+	background-image: url(../images/icon.png);
+	background-repeat: no-repeat;
+	float: left;
+	margin: 30px 3px 0px 0px;
+}
+#number .number0 {
+	background-position: -24px -213px;
+}
+#number .number1 {
+	background-position: -43px -213px;
+}
+#number .number2 {
+	background-position: -59px -213px;
+}
+#number .number3 {
+	background-position: -78px -213px;
+}
+#number .number4 {
+	background-position: -96px -213px;
+}
+#number .number5 {
+	background-position: -114px -213px;
+}
+#number .number6 {
+	background-position: -132px -213px;
+}
+#number .number7 {
+	background-position: -150px -213px;
+}
+#number .number8 {
+	background-position: -168px -213px;
+}
+#number .number9 {
+	background-position: -186px -213px;
+}
+#nextLoding{
+    display:none;
+  	position:relative;
+	width: 644px;
+	height: 204px;
+	left: 56px;
+	top: 248px;
+	background-image:url(../images/next.png);
+	background-repeat:no-repeat;
+	cursor:pointer;
+}
+#currentScore{
+  position:absolute;
+    left:323px;
+  top:41px;
+  width:225px;
+  height:43px;
+  line-height: 33px;
+	font-size: 26px;
+	font-weight:bold;
+	color: #ffb34a;
+}
+#requireScore{
+  position:absolute;
+  left:323px;
+  top:82px;
+  width:225px;
+  height:47px;
+  line-height: 33px;
+	font-size: 26px;
+	font-weight:bold;
+	color: #ffb34a;
+}
+
+
+/**
+ * 游戏结束
+ */
+#gameOver {
+	display: none;
+	background-image:url(../images/bg_gameover.png);
+	background-repeat:no-repeat;
+}
+#name, #score {
+	display: block;
+	position: absolute;
+	left: 204px;
+	top: 465px;
+	height: 33px;
+	line-height: 33px;
+	font-size: 26px;
+	font-weight:bold;
+	color: #ffb34a;
+	width: 346px;
+}
+#score {
+	top: 328px;
+}
+#btnRetry {
+	display: block;
+	position: absolute;
+	left: 188px;
+	top: 385px;
+	width: 177px;
+	height: 74px;
+	background-position: -15px -763px;
+}
+#btnRetry:hover {
+	background-position: -193px -763px;
+}
+#btnBackToMenu {
+	display: block;
+	position: absolute;
+	right: 162px;
+	top:395px;
+	width:200px;
+	height:65px;
+	background-position: -21px -914px;
+}
+#btnBackToMenu:hover {
+	background-position: -227px -916px;
+}

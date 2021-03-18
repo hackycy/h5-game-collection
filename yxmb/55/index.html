@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>！</title>     	 
+<meta name="viewport" content="initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0, width=device-width,target-densitydpi=device-dpi"> 
+<link rel="stylesheet" type="text/css" href="css/css.css" />
+<script type="text/javascript" src="js/js.js"></script>
+<script type="text/javascript" src="js/config.js"></script>
+<style>
+
+</style>
+<script type="text/javascript">
+var isDesktop = navigator['userAgent'].match(/(ipad|iphone|ipod|android|windows phone)/i) ? false : true;
+var fontunit        = isDesktop ? 20 : ((window.innerWidth>window.innerHeight?window.innerHeight:window.innerWidth)/320)*10;
+document.write('<style type="text/css">'+
+	'html,body {font-size:'+(fontunit<30?fontunit:'30')+'px;}'+
+	(isDesktop?'#welcome,#GameTimeLayer,#GameLayerBG,#GameScoreLayer.SHADE{position: absolute;}':
+	'#welcome,#GameTimeLayer,#GameLayerBG,#GameScoreLayer.SHADE{position:fixed;}@media screen and (orientation:landscape) {#landscape {display: box; display: -webkit-box; display: -moz-box; display: -ms-flexbox;}}')+
+	'</style>');
+</script>
+</head>
+<body >
+	<div id="gamepage">
+		<canvas id="canvas1" width="360" height="460"></canvas>
+	</div>
+	<div id="gameend" style="display:none;width:200px;height:150px;margin-top: 170px;margin-left: 80px;background: #30A5EB;">
+		<div style="width:200px;height:50px;">
+			<span style="width: 200px;height: 50px;background: #6C7DD8;font-size: 27px;text-align: center;line-height: 44px;" >game over!</span>
+		</div>
+		<div style="width:200px;height:50px;margin-top: 50px; *">
+			<span id="score" style="width: 200px;height: 50px;font-size: 27px;text-align: center;line-height: 44px;" ></span>
+			
+		</div>
+	</div>
+	<div id="gamestart" onclick="startgame()" style="background-color: rgba(0,0,0,.8);text-align: center;font-weight: bold;overflow: hidden;position: fixed;">
+		<div style="color: rgb(254, 240, 2); font-size: 2.6em;">游戏说明：
+		
+		</div>
+		<div style="color: rgb(254, 240, 2); font-size: 1.3em;margin-top:4.0em;text-align: left;">
+			操作说明
+			</br>
+			【1.长按屏幕飞机向上飞行】【2.双击屏幕飞机向上加速飞行】【3.撞击障碍物游戏失败】<br>
+			【源码下载：blog.96xy.cn】
+		</div>
+		
+	</div>
+	<div id="gameendbtn" class="mybtn" style="display:none;margin-top: 269px;margin-left: 108px;" onclick="restart()">重新开始</div>
+</body>
+<script>
+        var imgUrl = "Icon.png";
+        var lineLink = "http://blog.96xy.cn/";
+        var descContent = '我再游戏中获得了'+Math.floor(planescore/10)+'分，快来试试吧。';
+        var shareTitle = 'Cross-country plane';
+        var appid = '';
+         
+        function shareFriend() {
+            WeixinJSBridge.invoke('sendAppMessage',{
+                "appid": appid,
+                "img_url": imgUrl,
+                "img_width": "200",
+                "img_height": "200",
+                "link": lineLink,
+                "desc": descContent,
+                "title": shareTitle
+            }, function(res) {
+                //_report('send_msg', res.err_msg);
+            })
+        }
+        function shareTimeline() {
+            WeixinJSBridge.invoke('shareTimeline',{
+                "img_url": imgUrl,
+                "img_width": "200",
+                "img_height": "200",
+                "link": lineLink,
+                "desc": descContent,
+                "title": shareTitle
+            }, function(res) {
+                   //_report('timeline', res.err_msg);
+            });
+        }
+        function shareWeibo() {
+            WeixinJSBridge.invoke('shareWeibo',{
+                "content": descContent,
+                "url": lineLink,
+            }, function(res) {
+                //_report('weibo', res.err_msg);
+            });
+        }
+        // 当微信内置浏览器完成内部初始化后会触发WeixinJSBridgeReady事件。
+        document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+            // 发送给好友
+            WeixinJSBridge.on('menu:share:appmessage', function(argv){
+                shareFriend();
+            });
+            // 分享到朋友圈
+            WeixinJSBridge.on('menu:share:timeline', function(argv){
+                shareTimeline();
+            });
+            // 分享到微博
+            WeixinJSBridge.on('menu:share:weibo', function(argv){
+                shareWeibo();
+            });
+        }, false);
+</script>
+</html>

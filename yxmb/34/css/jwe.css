@@ -1,0 +1,150 @@
+﻿@charset "utf-8";/* -----jwe样式表-----3.0 */
+
+/*临时浮动容器。重要*/
+.tmpFlo{
+	padding:0; margin:0;
+	position:absolute;
+	z-index:99;
+}
+
+/***********************************************/
+/*游戏棋盘*/
+.panelTb{
+	position:absolute;	text-align:center;	vertical-align:middle;	border-collapse:collapse;	overflow:hidden;
+	cursor:pointer;
+	border:3px solid #aaa;
+	background:url(../_img/sys/alpha.png) repeat;
+	z-index:50;	
+}
+.panelTb td{	text-align:center;	vertical-align:middle;	margin:0; padding:0;}
+.panelTb .uni, .tmpFlo .uni{
+	margin:0;	position:relative;	display:block; text-align:center;	vertical-align:middle;	cursor:pointer;
+	/*padding:2%; */ padding:0;
+}
+.panelTb .uni img, .tmpFlo .uni img{width:100%;	height:100%;}
+
+/***********************************************/
+
+.warn1{
+	display:none;	position:absolute;
+	font-weight:900;
+	color:#000;
+	background-color:#fff;
+	text-align:center;
+	width:100%;	height:100%;
+	left:0;	top:0;
+	z-index:900;
+}
+
+.warn2{
+	display:none;	position:absolute;
+	padding-top:10px;
+	padding-bottom:15px;
+	color:#000;
+	text-align:center;
+	width:100%;
+	left:0;	top:0;
+	background-color:#97D8F7;
+	font-weight:bold;
+	z-index:899;
+}
+
+/***********************************************/
+/*棋子计分面板*/
+#scorePanel{	position:absolute; color:#000; left:0; top:0; padding:20px; z-index:60;}
+#scorePanel div{white-space:nowrap; padding:0; margin:0; display:block; overflow:visible;}
+#scorePanel .uni{	display:inline-block;	margin-right:5px;	cursor:pointer;}
+#scorePanel .uni img{width:100%;	height:100%;	border:none; vertical-align:middle;}
+#scorePanel #cLine{	font-weight:800;}
+#scorePanel #sumScore{color:#d31b00; font-size:2em;}
+#scorePanel .good{margin-bottom:1.1em; margin-right:1.15em} /*够分了的图标*/
+#scorePanel .good img{	width:135%; height:135%;} /*够分了的图标Img*/
+
+/*棋子单独计数栏*/
+.scBar{}
+
+/***********************************************/
+
+/*播放动画的容器*/
+.cartoonPanel{
+	display:none;	position:absolute;	margin:0; padding:0;
+	background-color:#CCC;
+	border:1px solid #ccc;	z-index:99; /*!*/
+	cursor:pointer;
+}
+.cartoonPanel img{width:100%; height:100%;border:none;}
+
+/***********************************************/
+
+/*游戏时间条*/
+#timeBar{	position:absolute;border:1px solid ccc;	background-color:#d31b00;	z-index:49;}
+#timeBar #gameTime{color:#000;text-align:center;vertical-align:bottom;width:100%;height:50%;
+	background:url(../_img/sys/timeBar.jpg) bottom repeat-x #e0c1ff;
+	position:inherit;	bottom:0;
+}
+/***********************************************/
+
+/*游戏开始前大面板*/
+#introPanel{
+	opacity:1;
+	background:url(../_img/sys/pic1.jpg) center center no-repeat #97D8F7;	/*根据需要调整图片源*/
+	color:#000;
+}
+
+/***********************************************/
+/*游戏结束后大面板*/
+#endPanel{ display:none;	/*background-color:#97D8F7;*/	color:#000;}
+#endPanel #finSumScore{	color:#d31b00;	font-weight:bold;}
+#endPanel #aSTAT:hover{	color:#F00;}
+#endPanel p{	width:100%; padding:0; margin:0;}
+#endPanel #finUni{	padding:1em 3em 1em 3em;	margin-bottom:.5em;	font-size:0.6em; /*结尾角色介绍字体*/}
+#endPanel .uni{	position:inherit;	width:20%;}
+#endPanel .uni img{border:none;width:100%; height:100%;}
+/***********************************************/
+
+#bg1, #bg2{	position:absolute;	left:0;	top:0;	z-index:-98; /*!*/}
+#bg1 img, #bg2 img{border:none;width:100%; height:100%;}
+
+/***********************************************/
+/*游戏完成度信息统计面板*/
+#statPanel{ display:none;
+	margin-top:4%;	padding-top:8px;
+	width:100%;	text-align:center;
+	background-color:#97D8F7;
+	cursor:pointer;
+}
+#statPanel .statUni{
+	padding:0;
+	vertical-align:top;
+	font-size:20px; font-weight:bold;
+	background-color:#FFF;
+	border:1px solid #333; /*f39d77*/
+	width:15%; height:60%;
+}
+#statPanel .statUni .infoD{
+	white-space:nowrap; /*!*/
+	background-color:#EEE;
+	padding:8px;
+	border-bottom:2px solid #CCC;
+	position:relative !important;
+	z-index:5 !important;
+}
+#statPanel .statUni img{
+	width:100%;
+	border:none;
+}
+/***********************************************/
+.giMM{
+	position:absolute;	padding:0;	margin:0;	bottom:0;
+	height:80%;	z-index:20;
+}
+.giMM img{	border:none;	height:100%;}
+
+.highLv{
+	position:absolute;
+	z-index:1000;
+}
+
+.theEnd{
+	margin:0.5em;
+}

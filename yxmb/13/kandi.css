@@ -1,0 +1,44 @@
+body {
+  font-family: arial, sans-serif;
+  font-size: 16px;
+}
+
+.wrapper {
+	width: 600px;
+	height: 360px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	position: absolute;
+	left: 20px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: 1px solid black;
+  z-index: 1;
+  width: 600px;
+  height: 360px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+#game-over {
+  display: none;
+  text-align: center;
+  padding-top: 92px;
+  z-index: 7;
+  width: 600px;
+  height: 360px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  overflow: auto;
+  margin: auto;
+  position: absolute;
+}

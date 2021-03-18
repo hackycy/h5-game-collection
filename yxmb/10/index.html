@@ -1,0 +1,135 @@
+﻿<html>
+<head>
+<meta charset="utf-8" />
+<title>jQuery制作2048中文版小游戏代码</title>
+
+<link rel="stylesheet" href="css/fiame.css" />
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/quietflow.min.js"></script>
+<script type="text/javascript" src="js/frame.js"></script>
+
+</head>
+<body>
+
+<section id="section1">
+	<h1>2048:wsad控制方向</h1>
+	<h2 class="h2_1">得--分</h2>
+	<h2 class="h2">模式选择:</h2>
+	<div id="game">
+	</div>
+	<div class="head clear">
+		<div class="scoreShow left">
+			<span>Score:</span>
+			<!--分数栏-->
+			<span id="score"></span>
+		</div>
+		<div class="selction right" onClick="getModel(event)">
+			<a href="#" class="model" value="3">3X3</a>
+			<a href="#" class="model" value="4">4X4</a>
+			<a href="#" class="model" type="button">5X5</a>
+			<a href="#" class="model" type="button">6X6</a>
+		</div>
+	</div>
+	<div id="gridPanel"></div>
+	<div id="gameover">
+		<h1 id="Score"></h1>
+		<a href="#" id="again" onClick="obj.gameStart()">Try again</a>
+	</div>
+	<div class="button">
+		<button class="button1 button2" id="buton1">上</button>
+		<button class="button1" id="buton2">左</button>
+		<button class="button1" id="buton3">下</button>
+		<button class="button1" id="buton4">右</button>
+	</div>
+</section>
+<audio src="MP3/winner.mp3" id="winner" controls   hidden="true">
+<audio src="MP3/512.mp3"    id="a512" controls    hidden="true">
+<audio src="MP3/lose.mp3"    id="lose" controls    hidden="true">
+<audio src="MP3/2.mp3"      id="a2" controls      hidden="true">
+<audio src="MP3/1024.mp3"   id="a1024" controls   hidden="true">
+</body>
+<!--  <script language="javascript" type="text/javascript">
+        function autoPlay() {
+            var myAuto = document.getElementById('myaudio');
+            myAuto.play();
+        }
+        function closePlay() {
+            var myAuto = document.getElementById('myaudio');
+            myAuto.pause();
+            myAuto.load();
+        }
+ </script> -->
+<script>
+$(function() {
+    // body... 
+    function unScroll() {
+    var top = $(document).scrollTop();
+    $(document).on('scroll.unable',function (e) {
+        $(document).scrollTop(top);
+    })
+    }
+    unScroll();
+    var random = Math.floor(Math.random() * (7 - 0 + 1) + 0);
+    console.log(random);
+    switch (random) {
+        case 0:
+            bouncingBalls();
+            break;
+        case 1:
+            starfield();
+            break;
+        case 2:
+            vortex();
+            break;
+        case 3:
+            shootingLines();
+            break;
+        default:
+            simpleGradient();
+            break;
+    }
+    function bouncingBalls(argument) {
+        $("body").quietflow({
+            theme: "bouncingBalls",
+            specificColors: [
+                "rgba(255, 10, 50, .5)",
+                "rgba(10, 255, 50, .5)",
+                "rgba(10, 50, 255, .5)",
+                "rgba(0, 0, 0, .5)"
+            ]
+        })
+    }
+
+    function simpleGradient(argument) {
+        $("body").quietflow({
+            theme: "simpleGradient",
+            primary: "#B066FE",
+            accent: "#63E2FF"
+        })
+    }
+
+    function starfield() {
+        $("body").quietflow({
+            theme: "starfield"
+        })
+    }
+
+    function vortex() {
+        $("body").quietflow({
+            theme: "vortex",
+            miniRadii: 40
+        })
+    }
+
+    function shootingLines() {
+        $("body").quietflow({
+            theme: "shootingLines",
+            backgroundCol: "#141C26",
+            lineColor: "#05E0E0",
+            lineGlow: "#00ff00"
+        })
+    }
+})
+</script>
+</html>

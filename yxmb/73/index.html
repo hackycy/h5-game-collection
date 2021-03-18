@@ -1,0 +1,42 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>16宫格翻牌匹配HTML5游戏</title>
+<meta name="description" content="">
+
+<link rel="stylesheet prefetch" href="https://fonts.googleapis.com/css?family=Coda">
+<link rel="stylesheet prefetch" href="css/font-awesome.min.css">
+<link rel="stylesheet" href="css/app.css">
+
+</head>
+<body>
+
+<div class="container">
+	<header>
+		<h1>16宫格翻牌匹配</h1>
+	</header>
+
+	<section class="score-panel">
+		<ul class="stars">
+			<li><i class="fa fa-star"></i></li>
+			<li><i class="fa fa-star"></i></li>
+			<li><i class="fa fa-star"></i></li>
+		</ul>
+
+		翻开 <span class="moves">0</span> 次
+
+		<div class="restart" onClick="run()">
+			<i class="fa fa-repeat"> 重玩</i>
+		</div>
+	</section>
+
+	<ul class="deck" id="deck">
+
+	</ul>
+</div>
+
+<script src="js/jquery.min.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

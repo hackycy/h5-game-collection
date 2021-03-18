@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>俄罗斯方块</title>
+		<style type="text/css">
+			
+			.MainFrame
+			{
+				border: 1px solid burlywood;
+				margin: 10px auto;
+				position: relative;
+				background-color: silver;
+			}
+			
+			.MainFramediv
+			{
+				float: left;
+				margin: 1px;
+				position: absolute;
+				/*z-index: -1;*/
+			}
+			
+			.smallDiv
+			{
+				margin: 1px;
+				position: absolute;
+			}
+			
+			.smallDivblack
+			{
+				/*float: left;*/
+				margin: 1px;
+				/*margin: 1px;*/
+				position: absolute;
+				/*z-index: 2;*/
+			}
+			
+			#tetris{
+				width: 50%;
+				margin: 0 auto;
+				padding: 0;
+				/*border: 1px solid silver;*/
+			}
+			#tetris:after{
+				content:  "";
+				Display:  block;
+				Clear:  both;
+			}
+			
+			#control{
+				float: left;
+				border: 1px solid silver;
+				width: 150px;
+				height: 578px;
+				margin-top: 10px;
+				margin-left: 20px;
+				padding-top: 30px;
+				font-size: 24px;
+				font-weight: 400;
+				color: blue;
+				text-align: center;
+			}
+			#level,#regame{
+				width: 100px;
+				height: 30px;
+				border: 1px solid blue;
+				font-size: 16px;
+				color: red;
+				font-weight: 300;
+			}
+			#control p{
+				margin-top: 200px;
+			}
+			#regame{
+				margin-top: 100px;
+				font-weight: 600;
+				background-color: azure;
+			}
+			
+			
+			#TFrime{
+				float: left;
+			}
+			
+			
+			#info{
+				float: left;
+				border: 1px solid silver;
+				width: 150px;
+				height: 578px;
+				margin: 10px auto;
+				padding-top: 30px;
+				text-align: center;
+				color: blue;
+				font-size: 24px;
+				font-weight: 400;
+			}
+			#nextfigure{
+				width: 100px;
+				height: 100px;
+				background-color: silver;
+				margin: 0 auto;
+				margin-bottom: 100px;
+				position: relative;
+			}
+			
+			.drawdiv{
+				background-color: red;
+				margin: 1px;
+				border: 1px solid silver;
+				position: absolute;
+			}
+			
+		</style>
+		<script src="js/GameFrame.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/graph.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/index.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body onLoad="initGame()">
+		<div id="tetris">
+			<div id="control">
+				难度：
+				<div><select id="level" onChange="changespeed()">
+					<option value="1000">简单</option>
+					<option value="500">一般</option>
+					<option value="200">困难</option>
+				</select></div>
+				<input type="button" id="regame" value="重 新 开 始" onClick="regame()" />
+				<p>
+					【↑】变换<br />
+					【←】左移<br />
+					【→】右移<br />
+					【↓】加速<br />
+				</p>
+			</div>
+			<div id="TFrime"></div>
+			<div id="info">
+				下一个图形:
+				<div id="nextfigure">
+					
+				</div>
+				<div>分数：<span id="score">0</span></div>
+			</div>
+		</div>
+	</body>
+</html>

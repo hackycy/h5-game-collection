@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>【手机端】看图猜词小游戏</title>
+		 <script>
+  			var num = 1 / window.devicePixelRatio;
+			document.write('<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale='+num+',minimum-scale='+num+',maximum-scale='+num+'" />')
+			var fontNum = document.documentElement.clientWidth / 10;
+			var html = document.getElementsByTagName('html')[0];
+			html.style.fontSize = fontNum + 'px';
+ 		 </script>
+ 		 <style>
+ 		 	body{
+ 		 		overflow: hidden;
+ 		 	}
+ 		 	ul,li{
+ 		 		margin: 0;
+ 		 		padding: 0;
+ 		 		list-style: none;
+ 		 	}
+ 		 	#warp{
+ 		 		position: absolute;
+ 		 		left: 0;
+ 		 		top: 0;
+ 		 		right: 0;
+ 		 		bottom: 0;
+ 		 		background: url(img/bj.jpg) no-repeat;
+ 		 		background-size:100% 100% ;
+ 		 	}
+ 		 	header{
+ 		 		width: 100%;
+ 		 		height: 1.24rem;
+ 		 		background: url(img/bj-top.jpg) repeat-x;
+ 		 		position: relative;
+ 		 	}
+ 		 	.sl{
+ 		 		width: 1.44rem;
+ 		 		height: 1.44rem;
+ 		 		position: absolute;
+ 		 		left: calc(50% - 0.72rem);
+ 		 		background: url(img/level.png) no-repeat;
+ 		 		background-size:100% 100% ; 
+ 		 		font: 1.066666rem/1.44rem "微软雅黑";
+ 		 		color: #FFFFFF;
+ 		 		text-align: center;
+ 		 	}
+ 		 	.content{
+ 		 		width: 100%;
+ 		 		height: 100%;
+				position: relative;
+ 		 	}
+ 		 	.heder{
+ 		 		width: 5.466666rem;
+ 		 		height: 1.04rem;
+ 		 		background:url(img/bj-bt.png) no-repeat;
+ 		 		background-size:100% 100% ; 
+ 		 		position: absolute;
+ 		 		left: calc(50% - 2.733333rem);
+ 		 		top: 0.533333rem;
+ 		 		font: 0.533333rem/0.8rem "微软雅黑";
+ 		 		text-align: center;
+ 		 		color: #FFFFFF;
+ 		 		z-index: 2;
+ 		 	}
+ 		 	.img{
+ 		 		width: 4.266666rem;
+ 		 		height: 4.266666rem;
+ 		 		background: url(img/1.png) no-repeat; 
+ 		 		background-size: 100% 100%;
+ 		 		border: 0.106666rem solid #FFFFFF;
+ 		 		position: absolute;
+ 		 		top: 1.49rem;
+ 		 		left: calc(50% - 2.133333rem);
+ 		 	}
+ 		 	.wz{
+ 		 		position: absolute;
+ 		 		top:7.4rem;
+ 		 	}
+ 		 	.wz li{
+ 		 		float: left;
+ 		 		position: relative;
+ 		 		margin-right: 0.066666rem;
+ 		 		width: 1.333333rem;
+ 		 		height: 1.333333rem;
+ 		 		background: #111;
+ 		 		border-radius: 0.133333rem;
+ 		 		color: #FFFFFF;
+ 		 		text-align: center;
+ 		 	}
+ 		 	.x{
+ 		 		width: 8rem;
+ 		 		height: 0.066666rem;
+ 		 		background: #111;
+ 		 		position: absolute;
+ 		 		top: 9.333333rem;
+ 		 		left: calc(50% - 4rem);
+ 		 	}
+ 		 	.wz1{
+ 		 		width: 8rem;
+ 		 		position: absolute;
+ 		 		left: calc(50% - 4rem);
+ 		 		top: 10.666666rem;
+ 		 	}
+ 		 	.wz1 li{
+ 		 		float: left;
+ 		 		width: 0.933333rem;
+ 		 		height: 0.933333rem;
+ 		 		background: #FFFFFF;
+ 		 		margin: 0.026666rem;
+ 		 		color: #000000;
+ 		 		font: 0.666666rem/0.933333rem "微软雅黑";
+ 		 		text-align: center;
+ 		 		border-radius:0.066666rem ;
+ 		 	}
+ 		 	.zg{
+ 		 		position: absolute;
+ 		 		left: 0;
+ 		 		top: 0;
+ 		 		bottom: 0;
+ 		 		right: 0;
+ 		 		z-index: 4;
+ 		 		background: rgba(0,0,0,.3);
+ 		 	}
+ 		 	.next{
+ 		 		width: 5.333333rem;
+ 		 		height: 1.333333rem;
+ 		 		position: absolute;
+ 		 		font: 1.2rem/1.333333rem "微软雅黑"; 
+ 		 		left: calc(50% - 2.6666665rem);	
+ 		 		top: 5.333333rem;	
+ 		 		background: #6ba94e; 	
+ 		 		border-bottom: 0.133333rem solid #256f00;	
+ 		 		border-radius:0.133333rem ;
+ 		 		text-align: center;
+ 		 		z-index: 6;
+ 		 		color: #FFF;
+ 		 	}
+ 		 </style>
+	</head>
+	<body>
+		<div id="warp">
+			<header>
+				<span class="sl">
+					1
+				</span>
+			</header>
+			<div class="content">
+				<span class="heder">电影&电视</span>
+				<img class="img" src=""/>
+				<ul class="wz">
+					
+				</ul>
+				<span class="x"></span>
+				<ul class="wz1">
+					
+				</ul>
+			</div>
+		</div>
+		<script src="jquery.min.js"></script>
+		<script>
+			
+			
+			//数据库
+			//-------------------------------------
+			var arr=[{
+				title:'饮品',
+				data:'url(img/1.png) no-repeat',
+				wz:['可','口','可','乐'],
+				gs:4
+			},
+			{
+				title:'人名',
+				data:'url(img/2.png) no-repeat',
+				wz:['爱','因','斯','坦'],
+				gs:4
+			},
+			{
+				title:'饮品',
+				data:'url(img/3.png) no-repeat',
+				wz:['雪','碧'],
+				gs:2
+			},
+			{
+				title:'企业',
+				data:'url(img/4.png) no-repeat',
+				wz:['中','国','石','化'],
+				gs:4
+			},
+			{
+				title:'人物',
+				data:'url(img/5.png) no-repeat',
+				wz:['罗','纳','尔','多'],
+				gs:4
+			},
+			{
+				title:'电影&电视剧',
+				data:'url(img/6.png) no-repeat',
+				wz:['金','刚'],
+				gs:2
+			},
+			{
+				title:'电影&电视剧',
+				data:'url(img/7.png) no-repeat',
+				wz:['泰','坦','尼','克','号'],
+				gs:5
+			},
+			{
+				title:'企业',
+				data:'url(img/8.png) no-repeat',
+				wz:['南','孚'],
+				gs:2
+			},
+			{
+				title:'人物',
+				data:'url(img/9.png) no-repeat',
+				wz:['希','特','勒'],
+				gs:3
+			},
+			{
+				title:'电影&电视剧',
+				data:'url(img/10.png) no-repeat',
+				wz:['忍','者','神','龟'],
+				gs:4
+			},
+			{
+				title:'电影&电视剧',
+				data:'url(img/11.png) no-repeat',
+				wz:['大','白','鲨'],
+				gs:3
+			},
+			{
+				title:'企业',
+				data:'url(img/12.png) no-repeat',
+				wz:['亚','马','逊'],
+				gs:3
+			},
+			{
+				title:'电影&电视剧',
+				data:'url(img/13.png) no-repeat',
+				wz:['侏','罗','纪','公','园'],
+				gs:5
+			},
+			{
+				title:'人物',
+				data:'url(img/14.png) no-repeat',
+				wz:['乔','布','斯'],
+				gs:3
+			},
+			{
+				title:'电影&电视剧',
+				data:'url(img/15.png) no-repeat',
+				wz:['星','球','大','战'],
+				gs:4
+			},
+			{
+				title:'人物',
+				data:'url(img/17.png) no-repeat',
+				wz:['马','三','立'],
+				gs:3
+			},
+			{
+				title:'人物',
+				data:'url(img/18.png) no-repeat',
+				wz:['金','正','恩'],
+				gs:3
+			},
+			{
+				title:'电影&电视剧',
+				data:'url(img/19.png) no-repeat',
+				wz:['冰','河','世','纪'],
+				gs:4
+			},
+			{
+				title:'企业',
+				data:'url(img/20.png) no-repeat',
+				wz:['老','干','妈'],
+				gs:3
+			},
+			{
+				title:'人物',
+				data:'url(img/24.png) no-repeat',
+				wz:['科','比'],
+				gs:2
+			},
+			{
+				title:'电影&电视',
+				data:'url(img/25.png) no-repeat',
+				wz:['断','背','山'],
+				gs:3
+			},
+			{
+				title:'品牌',
+				data:'url(img/26.png) no-repeat',
+				wz:['阿','迪','达','斯'],
+				gs:4
+			},
+			{
+				title:'人物',
+				data:'url(img/27.png) no-repeat',
+				wz:['蒋','介','石'],
+				gs:3
+			},
+			{
+				title:'品牌',
+				data:'url(img/28.png) no-repeat',
+				wz:['宝','马'],
+				gs:2
+			},
+			{
+				title:'电影&电视',
+				data:'url(img/29.png) no-repeat',
+				wz:['杀','死','比','尔'],
+				gs:4
+			},
+			{
+				title:'人物',
+				data:'url(img/30.png) no-repeat',
+				wz:['刘','翔'],
+				gs:2
+			},
+			{
+				title:'食物',
+				data:'url(img/31.png) no-repeat',
+				wz:['奥','利','奥'],
+				gs:3
+			},
+			{
+				title:'电影&电视',
+				data:'url(img/32.png) no-repeat',
+				wz:['阿','甘','正','传'],
+				gs:4
+			},
+			{
+				title:'人物',
+				data:'url(img/33.png) no-repeat',
+				wz:['郭','德','钢'],
+				gs:3
+			},
+			{
+				title:'电影&电视',
+				data:'url(img/34.png) no-repeat',
+				wz:['皮','卡','丘'],
+				gs:3
+			},
+			{
+				title:'人物',
+				data:'url(img/35.png) no-repeat',
+				wz:['林','书','豪'],
+				gs:3
+			},
+			{
+				title:'品牌',
+				data:'url(img/36.png) no-repeat',
+				wz:['奔','驰'],
+				gs:2
+			},
+			{
+				title:'电影&电视',
+				data:'url(img/37.png) no-repeat',
+				wz:['盗','梦','空','间'],
+				gs:4
+			},
+			{
+				title:'电影&电视',
+				data:'url(img/38.png) no-repeat',
+				wz:['哈','利','波','特'],
+				gs:4
+			},
+			{
+				title:'品牌',
+				data:'url(img/39.png) no-repeat',
+				wz:['科','达'],
+				gs:2
+			},
+			{
+				title:'人物',
+				data:'url(img/40.png) no-repeat',
+				wz:['关','羽'],
+				gs:2
+			},
+			{
+				title:'电影&电视',
+				data:'url(img/41.png) no-repeat',
+				wz:['黑','客','帝','国'],
+				gs:4
+			},
+			{
+				title:'人物',
+				data:'url(img/42.png) no-repeat',
+				wz:['萨','达','姆'],
+				gs:3
+			},
+			{
+				title:'电影&电视',
+				data:'url(img/43.png) no-repeat',
+				wz:['南','方','公','园'],
+				gs:4
+			},
+			{
+				title:'品牌',
+				data:'url(img/44.png) no-repeat',
+				wz:['因','特','尔'],
+				gs:3
+			},
+			{
+				title:'电影&电视',
+				data:'url(img/46.png) no-repeat',
+				wz:['复','仇','者','联','盟'],
+				gs:5
+			},
+			{
+				title:'电影&电视',
+				data:'url(img/47.png) no-repeat',
+				wz:['特','洛','伊'],
+				gs:3
+			},
+			{
+				title:'电影&电视',
+				data:'url(img/49.png) no-repeat',
+				wz:['生','活','大','爆','炸'],
+				gs:5
+			},
+			{
+				title:'人名',
+				data:'url(img/3.png) no-repeat',
+				wz:['爱','因','斯','坦'],
+				gs:4
+			},
+			{
+				title:'电影&电视',
+				data:'url(img/50.png) no-repeat',
+				wz:['黑','鹰','坠','落'],
+				gs:4
+			},
+			{
+				title:'成语',
+				data:'url(img/51.png) no-repeat',
+				wz:['全','心','入'],
+				gs:3
+			}]
+		//jq代码	
+//---------------------------------
+//本地缓存
+
+	var strKey = "strKey";  
+    var storage = window.localStorage;  
+       	  
+    //-------------------
+    
+			var sz=[];
+			var b=0;
+			var bb=0;
+			function len(bb){
+				sz=arr[bb].wz.slice();
+				sz.length=24;
+			};
+			$('body')[0].onload=onStart();
+			
+			//-------------------------------------
+			
+				function onStart(){  
+		            if(storage.getItem(strKey)!=null){  
+		            	bb=Number.parseInt(storage.getItem(strKey));
+		            }
+		    	}
+				
+		        function bendihuancun(){  	
+		           	storage.setItem(strKey, bb);    
+		        }	
+		    //-------------------------------------
+			//上面的li生成函数
+			function scWz(bb){
+				for(var i=0;i<arr[bb].gs;i++){
+					$('.wz')[0].innerHTML+='<li></li>';
+				}
+				
+				$('.wz').css('left',(document.body.clientWidth/2)-($('.wz').width()/2)+'px')
+			};
+			function bt(bb){
+				$('.heder').html(arr[bb].title)
+			};
+		//图片地址切换
+			function img(bb){
+				$('.sl').html(bb+1)
+				$('.img').css('background',arr[bb].data)
+				$('.img').css('background-size','100% 100%')
+			};
+				//下面的html点击总函数
+			function scWz1(bb){
+				var str='<li></li>'
+				for(var i=0;i<24;i++){
+					$('.wz1')[0].innerHTML+=str;
+				}
+				for(var i=0;i<sz.length;i++){
+					if(typeof sz[i]=='undefined'){
+						sz[i]=randomText()
+					}
+				}
+			//数组随机数	
+			sz.sort(function (){
+				return 0.5-Math.random()
+			})
+			//随机结果存储到下面的所有html中
+			for(var i=0;i<sz.length;i++){
+					$('.wz1 li')[i].innerHTML=sz[i];
+				}
+			//随机产生汉字
+			function randomText(){
+				var _str = "";
+				var _base = 20000;
+				var _range = 1999;
+				var _lower = parseInt(Math.random() * _range);
+				_str = String.fromCharCode(_base + _lower);
+				return _str;
+			}
+			}
+			
+			ffn()
+			//整个ffn文件是  包括各种小事件 全部封装到一起直接调用
+			function ffn(){
+				len(bb)
+				bt(bb)
+				scWz(bb)
+				scWz1(bb)
+				img(bb)
+				//点击下面文字，发生相应变化，并且提升到上面的html中
+				
+			$(".wz1 li").on('touchstart',function (){
+				if(b<$('.wz li').length){
+					$(this).css('opacity','0')
+					var _thisHtml=$(this).html()
+					for(var i=0;i<$('.wz li').length;i++){
+						if($('.wz li').eq(i).html()==''){
+							$('.wz li').eq(i).html(_thisHtml)
+							b++;
+							break
+						}
+					}
+				}
+				pd()
+
+				//判断所有当前上面文字的内容是不是和数组内部文字相等，如果相等就通关调用fn
+				function pd(){
+					if(b==$(".wz li").length){
+					for(var i=0;i<$(".wz li").length;i++){
+						if($(".wz li").eq(i).html()==arr[bb].wz[i]){
+							if(i==$(".wz li").length-1){
+								var str='<div class="zg"></div>'
+								var div=$('<div class="next">下一关</div>')
+								$('body').append(str)
+								$('body').append(div)
+								fn()
+								}
+							}else{
+								$('.wz li').css('color','red')
+								$('.wz li').animate({'left':'+=30px'},50)
+								$('.wz li').animate({'left':'-=60px'},100)
+								$('.wz li').animate({'left':'+=30px'},50)
+								break;
+							}
+						}
+					}
+				};
+				
+			})
+			
+			//点击上面小文字  点击那个就把对应的内容清空把下面文字还原
+			$(".wz li").click(function (){
+				var _thisHtml=$(this).html()
+				$('.wz li').css('color','')
+				$(this).html('')
+				b--
+				for(var i=0;i<$(".wz1 li").length;i++){
+					if($(".wz1 li").eq(i).html()==_thisHtml){
+						$('wz li').eq(i).html('')
+						$(".wz1 li").eq(i).css('opacity',1)
+						break
+					}
+				}
+			})
+			}
+			//重置所有变量，删除原来多余的内容
+			function fn(){
+				$('.next').click(function (){
+					
+					$('div').remove('.zg')
+					$('div').remove('.next')
+					$('.wz').empty()
+					$('.wz1').empty()
+					bb=bb*1+1
+					bendihuancun()
+					b=0
+					sz=[]
+					ffn()
+				})
+			}
+			
+//		 	console.log(localhost);
+		 	
+		</script>
+	</body>
+</html>

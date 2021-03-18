@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>2048军旗版</title>
+    <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0, maximum-scale=1, user-scalable=no, minimal-ui">
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <div class="heading">
+        <h1 class="title">2048军旗版</h1>
+        <div class="scores-container">
+            <div class="score-container">
+                <div class="score-addition"></div>
+            </div>
+            <div class="best-container"></div>
+        </div>
+    </div>
+    <div class="above-game">
+        <a class="restart-button">新游戏</a>
+    </div>
+    <div class="game-container">
+        <div class="game-message">
+            <p>
+            </p>
+            <div class="lower">
+                <a class="keep-playing-button">继续前进</a>
+                <a class="retry-button">再试一次</a>
+                <div class="score-sharing"></div>
+            </div>
+        </div>
+        <div class="grid-container">
+            <div class="grid-row">
+                <div class="grid-cell">
+                </div>
+                <div class="grid-cell">
+                </div>
+                <div class="grid-cell">
+                </div>
+                <div class="grid-cell">
+                </div>
+            </div>
+            <div class="grid-row">
+                <div class="grid-cell">
+                </div>
+                <div class="grid-cell">
+                </div>
+                <div class="grid-cell">
+                </div>
+                <div class="grid-cell">
+                </div>
+            </div>
+            <div class="grid-row">
+                <div class="grid-cell">
+                </div>
+                <div class="grid-cell">
+                </div>
+                <div class="grid-cell">
+                </div>
+                <div class="grid-cell">
+                </div>
+            </div>
+            <div class="grid-row">
+                <div class="grid-cell">
+                </div>
+                <div class="grid-cell">
+                </div>
+                <div class="grid-cell">
+                </div>
+                <div class="grid-cell">
+                </div>
+            </div>
+        </div>
+        <div class="tile-container"></div>
+    </div>
+
+	<p>（大/小）键盘上下左右按键，开始游戏</p>
+    <script src="bind_polyfill.js"></script>
+</body>
+</html>

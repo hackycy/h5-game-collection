@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>猜成语</title>
+
+<link rel="stylesheet" href="css/globalMobile.css">
+<link rel="stylesheet" href="css/idiom.css?t=1">
+
+</head>
+<body>
+<div class="flex_col hl_idiom">
+	<div>
+		<div class="flex_col flex_col_2 size_16 color_666">
+			<div>
+				<span>第</span>
+				<span class="color_09f" id="hl-pass">0</span>
+				<span>关</span>
+			</div>
+			<div class="align_r">
+				<span>金币</span>
+				<span class="color_d51" id="hl-gold">0</span>
+			</div>
+		</div>
+
+		<div class="img_box">
+			<div style="background-image: url('img/001.jpg')" id="hl-img"></div>
+		</div>
+
+		<div class="flex_col flex_col_2 align_c color_09f">
+			<div>
+				<div class="btn" id="hl-reminder">提示</div>
+			</div>
+			<div>
+				<div class="btn" id="hl-about">关于</div>
+			</div>
+		</div>
+
+		<div class="select_box selected_box flex_col flex_col_4 align_c color_fff size_18" id="hl-selected">
+		</div>
+
+		<div class="select_box flex_col flex_col_4 flex_wrap align_c color_fff size_18" id="hl-select">
+		</div>
+	</div>
+</div>
+<div class="top_msg align_c color_ffc">（星益小游戏平台）猜成语</div>
+<div class="bottom_msg align_c color_ffc">（下载更多源码）星益博客：blog.96xy.cn</div>
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/idiom.js"></script>
+<script type="text/javascript">
+	/* 猜成语数据 */
+	var idiomData=[
+		['001.jpg','一刀两断文字书写墨水难行','一刀两断','比喻断绝关系。形容行事乾脆爽快。'],
+		['002.jpg','一日千里走路行步阳山示炸','一日千里','形容良马跑得很快。比喻进步神速或事业发展得很快。'],
+		['004.jpg','一目了然眼睛看视文字平洗','一目了然','看一眼就完全清楚明白。'],
+		['008.jpg','一见锺情射箭爱字中穿赞脸','一见锺情','喻男女双方第一次见面便互相喜爱。'],
+		['010.jpg','一刻千金头转向嚣浮轻巧鹰','一刻千金','一刻时光，价值千金。形容时间非常宝贵。']
+	];
+
+	$.HLidiom({
+		pass:0,     //当前关卡，从0开始
+		gold:20    //当前金币数量
+	},idiomData);
+</script>
+</body>
+</html>

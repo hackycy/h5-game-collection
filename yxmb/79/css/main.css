@@ -1,0 +1,59 @@
+body,ul,p,h1,h2,h3,h4,h5,dl,dd,form,input,textarea,select{ padding:0; margin:0; font-family:Microsoft YaHei,Arial, Helvetica,"\534E\6587\9ED1\4F53", sans-serif; font-size:12px; color:#ccc;}
+li { list-style:none;}
+img { border:none; vertical-align: middle;}
+a {  color:#ccc; text-decoration:none; font-style:normal}
+a:hover { text-decoration:none;}
+i,em{ font-style:normal}
+
+body{
+	min-width:320px;
+	max-width: 640px;
+	margin: 0 auto;
+  width:100%;height:100%;margin:0 auto;
+  position: relative;background:#fff1a0;
+}
+
+.fl{
+	float:left;
+}
+.fr{
+	float:right;
+}
+/*清除浮动*/
+.clearfix:after {
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+  visibility: hidden;
+}
+
+#width{width:95%;margin:0 auto;}
+#width img{width:100%;margin:0 auto;}
+
+.zjxx{width: 100%;height: 100%;margin:0 auto; }
+.zjxx ul{width:80%;margin:0 auto;	background:#ffffff ;height:21rem;position:absolute;top:5%;left:9%;overflow-y:auto;}
+.zjxx ul li{width: 100%;height:3rem;border-bottom: 1px solid #CCCCCC;}
+.zjxx ul li i{display: block;width: 1.7rem;margin-left: 0%;margin-top: 4%;float: left;}
+.zjxx ul li i img{width:2rem;height:2rem;border-radius:50%;}
+
+
+.zjxx ul li p{display: block;height: 2rem;line-height: 2rem;margin-left: 6%;margin-top: 5%;float: left;font-size: 0.6rem;color: #222222;}
+.zjxx ul li p.one {width:1.7rem;color:#fcbb4b;font-size:1.52rem;}
+.zjxx ul li p.one img{width:1.5rem;}
+
+
+.zjxx ul li .nameAndTime span{display: block;line-height: 1.5em;}
+.zjxx ul li .nameAndTime time{display: block;line-height:1.5em;color: #777777;}
+.zjxx ul li .jp{float: right;margin-right: 7%;}
+
+.zjxx ul li .jp img{width:2rem;height:2rem;border-radius:50%;}
+.zjxx ul li .nameAndTime time img{width:20%;}
+
+
+
+
+
+
+
+

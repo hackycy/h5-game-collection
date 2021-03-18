@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta charset="UTF-8">
+<title>变色弹球跳台阶</title>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+
+<meta property="og:site_name" content="CodePen">
+<meta property="og:description" content="A game made to inspire developers to use GSAP, ES6 and Flexbox">
+<link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Roboto:400,700,900'>
+
+<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<div class="splash"></div>
+<div class="container">
+  <div class="start-game game-full-flex" id="start-game">
+    <div class="start-game-top">【星益博客：blog.96xy.cn】</div>
+    <div class="logo-holder">
+      <p class="logo"> <span>星</span> <span>益</span> <span>小</span> <span>游</span> <span>戏</span></p>
+      <a class="play-button" href="#" onClick="game.start()">开始</a>
+      <h4 class="hint">注意: 红色优先</h4>
+    </div>
+    <div class="how-to-play">
+      <div class="section section-1">
+        <h4>弹跳球<br>改变颜色</h4>
+        <div class="content">
+          <div class="ball-demo" id="ball-demo"></div>
+        </div>
+      </div>
+      <div class="section section-2">
+        <h4>点击栏切换颜色<br>
+          (红，黄，紫)</h4>
+        <div class="content">
+          <div class="bar bar-1" data-index="0"></div>
+          <div class="bar bar-2"></div>
+          <div class="bar bar-3"></div>
+        </div>
+      </div>
+      <div class="section section-3">
+        <h4>总是匹配<br>球棒颜色</h4>
+        <div class="content">
+          <div class="ball-demo" id="ball-demo"></div>
+          <div class="bar bar-1"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="stop-game game-full-flex">
+    <div class="score-container">
+      <h1>失败</h1>
+      <div class="final-score"></div>
+      <div class="result"></div>
+      <h2>下载更多源码</h2>
+      <p> <a class="tweet" href="http://blog.96xy.cn"> <i class="fa fa-twitter" aria-hidden="true"></i> 查看 </a> </p>
+      <div> <a class="play-again" href="#" onClick="game.start()">再玩一次</a> <a class="main-menu" href="#" onClick="game.intro()">菜单</a> </div>
+    </div>
+  </div>
+  <div class="small-glows"></div>
+  <div class="glow">
+    <div class="sun"></div>
+  </div>
+  <div class="waves">
+    <div class="top_wave"></div>
+    <div class="wave1"></div>
+    <div class="wave2"></div>
+    <div class="wave3"></div>
+    <div class="wave4"></div>
+  </div>
+  <div class="mounts">
+    <div class="mount1"></div>
+    <div class="mount2"></div>
+  </div>
+  <div class="clouds"></div>
+  <div class="scene">
+    <div class="learn-to-play">点击栏改变颜色！</div>
+    <div class="score" id="score"></div>
+    <div class="ball-holder"></div>
+    <div class="sticks" id="sticks"></div>
+  </div>
+  <div class="noise"></div>
+</div>
+<script src="js/jquery.min.js"></script> 
+<script src='js/TweenMax.min.js'></script> 
+<script src="js/index.js"></script>
+</body>
+</html>

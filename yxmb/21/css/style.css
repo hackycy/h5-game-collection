@@ -1,0 +1,28 @@
+html {
+    overflow: hidden;
+    height: 100%;
+    background: #191919;
+    width: 100%;
+}
+
+#canvas {
+    background: url('../img/space.jpg') no-repeat;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+}
+
+#canvas.playing {
+    cursor: url('../img/aim_red.png') 17.5 17.5,auto !important;
+}
+
+.full-screen {
+    position: fixed;
+    width: 35px;
+    height: 35px;
+    background: url(../img/full-screen.png) no-repeat;
+    z-index: 10;
+    display: block;
+    right: 10px;
+    bottom: 10px;
+}

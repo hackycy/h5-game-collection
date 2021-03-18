@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no"/>
+    <title>接金币</title>
+    <style type="text/css">
+        html,body{width:100%;height:100%;padding:0;margin:0;overflow:hidden}
+    </style>
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            var box = $('#box');
+            box.css('width',window.innerWidth);
+            box.css('height',window.innerHeight);
+
+        });
+    </script>
+</head>
+<body>
+    <div id="box" style="border: 0;margin: 0;padding: 0;overflow: hidden;background-color: #000000;">
+        <canvas id="canvas" style="display: block;">
+            <script type="text/javascript">
+                var B = 0.56;
+                var canvasW = window.innerWidth;
+                var canvasH = canvasW/B;
+                if(canvasH > window.innerHeight) canvasH = window.innerHeight;
+                var canvasObj = $('#canvas');
+                canvasObj.css('margin-top',(window.innerHeight-canvasH)/2);
+                canvasObj.attr('width',canvasW);
+                canvasObj.attr('height',canvasH);
+                var ca=document.getElementById("canvas");
+
+                var ctx=ca.getContext("2d");
+                var bj1=new Image();
+
+                var player=new Image();
+                var tu=new Array();
+
+                bj1.src="images/bj.jpg";
+                player.src="images/ren.png";
+                var playerWidth =123*B;
+                var playerHeight =213*B;
+
+                var h=20;
+                var gk=1;
+                var sudu=10;
+                var zl=100;
+                var chi=0;
+                var shi=0;
+                var fs=0;
+                var sm=1;
+                var bj=bj1;
+                function object(){
+                    this.x=0;
+                    this.y=0;
+                    this.l=11;
+                    this.image=new Image();
+                }
+
+                var sprite=new object();
+                //sprite.x=(canvasW - playerWidth)/2;
+                sprite.x=0;
+                sprite.y=canvasH-playerHeight;
+                //sprite.y=canvasH-playerHeight;
+
+                sprite.image=player;
+
+                addListener(ca,"mousemove",m);
+
+                var beginTime = new Date();
+                var gameTime = 15;
+                var remainTime;
+                function checkTime()
+                {
+                    var nowTime = new Date();
+                    remainTime = gameTime-parseInt((nowTime.getTime()-beginTime.getTime())/1000);
+                    document.getElementById('m').innerHTML = remainTime;
+                }
+                var range = canvasW - 60*B;
+                function chansheng(){
+                    if(shi%h==0){
+                        for(var j=2*chi;j<2*(chi+1);j++){
+                            tu[j]=new object();
+                            var i=Math.round(Math.random()*range);
+                            if(j==2*chi+1)
+                            {
+                                while(Math.abs(i-tu[2*chi].x)<30){
+                                    i=Math.round(Math.random()*range);
+                                }
+                            }
+                            var k=Math.round(Math.random()*zl);
+                            if(k < 90){
+                                tu[j].image.src="images/1.png";
+                                tu[j].q = 1;
+                            }else if(k < 97){
+                                tu[j].image.src="images/2.png";
+                                tu[j].q = 2;
+                            }else{
+                                tu[j].image.src="images/3.png";
+                                tu[j].q = 3;
+                            }
+                            tu[j].x=i;
+                            tu[j].y=-Math.round(Math.random()*300);
+                        }
+                        chi++;
+                        if(chi==10) chi=0;
+                    }
+                    shi++;
+                }
+
+
+                function sudukongzhi(){
+                    if(remainTime > 10){
+                        h=5;
+                        sudu=30;
+                    }else if(remainTime > 5){
+                        h=5;
+                        sudu=50;
+                    }else{
+                        h=5;
+                        sudu=60;
+                    }
+                }
+                function draw(){
+                    sudukongzhi();
+                    chansheng();
+                    for(var i=0;i<tu.length;i++){
+                        if(jianche(sprite,tu[i])) {
+                            if(tu[i].q == 1){
+                                fs+=1;
+                            }else if(tu[i].q == 2){
+                                fs+=5;
+                            }else{
+                                fs+=10;
+                            }
+                            tu[i].y+=200;
+                        }else if(!jianche(sprite,tu[i])){
+                            //ctx.drawImage(tu[i].image,tu[i].x,tu[i].y,60*B,60*B);
+                            tu[i].y+=sudu;
+                        }
+                        ctx.drawImage(tu[i].image,tu[i].x,tu[i].y,60*B,60*B);
+                    }
+                }
+
+                function jianche(a,b){
+                    var c=a.x-b.x;
+                    var d=a.y-b.y;
+                    if(c < b.image.width*B && c>-a.image.width*B  && d<b.image.height*B && d>-a.image.height*B){
+                        return true;
+                    }else{
+                        return false;
+                    }
+                }
+                function addListener(element,e,fn){
+                    if(element.addEventListener){
+                        element.addEventListener(e,fn,false);
+                    } else {
+                        element.attachEvent("on" + e,fn);
+                    }
+                }
+
+                function m(event){
+                    sprite.x=event.clientX-playerWidth/2;
+                    if(sprite.x+playerWidth>=canvasW) sprite.x=canvasW-playerWidth;
+                    else if(sprite.x<=playerWidth/2) sprite.x=0;
+                }
+//                function m(event){
+//                    var last=event.clientX-playerWidth/2;
+//
+//                    if(last+playerWidth>=canvasW) last=canvasW-playerWidth;
+//                    else if(last<=playerWidth/2) last=0;
+//                    if(last < sprite.x){
+//                        for(var i=sprite.x;i>last;i--){
+//                            sprite.x = i;
+//                            ctx.drawImage(sprite.image,sprite.x,sprite.y,playerWidth,playerHeight);
+//                        }
+//                    }else{
+//                        for(var j=0;j<last;j+10){
+//                            sprite.x = j;
+//                            ctx.drawImage(sprite.image,sprite.x,sprite.y,playerWidth,playerHeight);
+//                        }
+//                    }
+//                }
+                function stop()
+                {
+                    clearInterval(interval);
+                }
+                interval = setInterval(function(){
+                    ctx.clearRect(0,0,canvasW,canvasH);
+                    ctx.drawImage(bj,0,0,canvasW,canvasH);
+                    ctx.drawImage(sprite.image,sprite.x,sprite.y,playerWidth,playerHeight);
+                    draw();
+                    document.getElementById("f").innerHTML=fs;
+                    checkTime();
+                    if(remainTime==0) {stop()}
+                },100);
+            </script>
+        </canvas>
+        <div id="f" style="font-size:20px; width:10%;height:5%;position:absolute; top:4.2%; left: 25%;text-align:right" ></div>
+        <div  id="m" style="font-size:20px; width:7%;height:5%;position:absolute; top:4.2%; left: 85.5%;text-align:right"></div>
+    </div>
+</body>
+</html>

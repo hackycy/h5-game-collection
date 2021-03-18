@@ -1,0 +1,490 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>jQuery蜘蛛纸牌电脑版游戏代码 - 源码之家</title>
+<meta charset="utf-8" />
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" />
+<meta content="webkit" name="renderer" />
+<meta content="width=device-width, initial-scale=1" name="viewport" />
+<meta content="Title" name="apple-mobile-web-app-title" />
+<meta content="yes" name="apple-mobile-web-app-capable" />
+<meta content="black" name="apple-mobile-web-app-status-bar-style" />
+<meta content="True" name="HandheldFriendly" />
+
+<link rel="stylesheet" href="css/public.css">
+
+<script src="js/jquery.min.js"></script>
+
+</head>
+<body>
+
+<div class="gameView" id="gameView">
+<div class="gameBg"></div>
+<div class="pokerBox" id="pokerBox"></div>
+</div>
+
+<script type="text/javascript">
+	$('#pokerBox').on('mousedown','img',function(event){
+		event.preventDefault();
+	})
+
+	var pickLeft = pickTop = 0;
+	var pickObj = null;
+	$('body').on('mousedown','#pokerBox .pokerLine .pokerLi',function(event){
+		var check = checkCanPickPoker(this);
+		if(check.state){
+			var e = event || window.event;
+			pickLeft = e.offsetX;
+			pickTop = e.offsetY;
+			pickObj = $(this); 
+
+			var groupTop = Number($(this).attr('groupTop'));
+			var html = '';
+			$(this).closest('.pokerLine').find('.pokerLi').each(function(){
+				if($(this).attr('groupTop')>=groupTop){
+					html += $(this).prop('outerHTML');
+					$(this).attr('state','move');
+				}
+			});
+
+			var itLeft = e.clientX - pickLeft;
+			var itTop = e.clientY - pickTop;
+			$('#pokerBox .pokerMoveGroup').show().css({
+				top: itTop,
+				left: itLeft,
+			}).html(html);
+		}else{
+			gAlert({
+				txt: '该牌不允许被拖动',
+			});
+		}
+	}).on('mousemove',function(event){
+		if(pickObj){
+			var e = event || window.event;
+			var itLeft = e.clientX - pickLeft;
+			var itTop = e.clientY - pickTop;
+			$('#pokerBox .pokerMoveGroup').css({
+				top: itTop,
+				left: itLeft,
+			})
+		}
+	}).on('mouseup',function(event){
+		if(pickObj){
+			var endLeft = Number($('#pokerBox .pokerMoveGroup').css('left').replace('px',''))+50;
+			var leftKb = $('#gameView')[0].offsetLeft;
+			var range = 0;
+			if(endLeft<=leftKb+120+10){ // 处于第一列
+				range = 1;
+			}else if(endLeft>=leftKb+120*9+10){ // 处于最后一列
+				range = 10;
+			}else{
+				range = Math.ceil((endLeft-leftKb)/120);
+			}
+
+			var moveCard = pickObj;
+			var endCard = $('#pokerBox .pokerLine[group="'+range+'"] .pokerLi:last');
+
+			if(endCard.length>0){
+				var moveCardSplit = moveCard.attr('card').split('-');
+				var endCardSplit = endCard.attr('card').split('-');
+				// if(moveCardSplit[0]==endCardSplit[0]&&moveCardSplit[1]==endCardSplit[1]-1){
+				if(moveCardSplit[1]==endCardSplit[1]-1){
+					$('#pokerBox .pokerLine[group="'+range+'"]').append($('#pokerBox .pokerMoveGroup').html());
+					$('#pokerBox .pokerLine[group="'+range+'"] .pokerLi').attr({
+						grouptop: function(){ return $(this).index()+1 },
+						groupleft: range,
+					})
+					$('#pokerBox .pokerLine .pokerLi[state="move"]').remove();
+				}
+			}else{
+				$('#pokerBox .pokerLine[group="'+range+'"]').append($('#pokerBox .pokerMoveGroup').html());
+				$('#pokerBox .pokerLine[group="'+range+'"] .pokerLi').attr({
+					grouptop: 1,
+					groupleft: range,
+				})
+				$('#pokerBox .pokerLine .pokerLi[state="move"]').remove();
+			}
+
+			$('#pokerBox .pokerLine .pokerLi[state="move"]').removeAttr('state');
+
+			$('#pokerBox .pokerMoveGroup').hide().css({
+				top: 0,
+				left: 0,
+			}).empty();
+			pickLeft = pickTop = 0;
+			pickObj = null;
+		}
+
+		checkNoOpenPoker(); // 检测并翻开没有翻开的扑克
+		checkDonePoker(); // 检测是否可以直接收取正确排序的卡牌
+	})
+
+	$('#pokerBox').on('click','.pokerDeposit',function(){
+		keepSendPoker();
+	})
+
+	// 初始化页面布局
+	function initView(){
+		var html = html2 = '';
+		for(var i=1;i<=10;i++){
+			html += '<div class="pokerBr" style="left: '+(120*i-100)+'px" group="'+i+'"></div>';
+			html2 += '<div class="pokerLine" style="left: '+(120*i-100)+'px" group="'+i+'"></div>';
+		}
+		var html3 = '<div class="pokerDeposit"></div>'; // 牌堆
+		var html4 = '<div class="pokerMoveGroup"></div>'; // 移动牌组
+		var html5 = '<div class="pokerDoneGroup"></div>'; // 完成牌组
+		$('#pokerBox').html(html+html2+html3+html4+html5);
+	}
+
+	// 生成随机扑克牌数组
+	var pokerData = {
+		type: [ 'a', 'b', 'c', 'd' ], // [a 方片] [b 梅花] [c 黑桃] [d 红桃]
+		num: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
+	};
+	var pokerAllCount = 0;
+	var pokerAllPet = [];
+	var pokerSendNum = 0;
+	var pokerDifficult = 1; // [1 简单（单色）] [2 中等（双色）] [3 困难（四色）]
+	function initRandomPoker(){
+		pokerAllCount = 0;
+		pokerAllPet = [];
+		pokerSendNum = 0;
+		for(var i=1;i<=pokerData.type.length;i++){
+			for(var t=1;t<=pokerData.num.length;t++){
+				var d = pokerData.type[i-1]+'-'+pokerData.num[t-1];
+				pokerAllPet.push(d,d);
+			}
+		}
+		// console.log(pokerAllPet);
+		pokerAllCount = pokerAllPet.length;
+		pokerAllPet = shuffle(pokerAllPet);
+	}
+
+	// 数组随机排序
+	function shuffle(arr){
+		var len = arr.length;
+		for(var i = 0; i < len - 1; i++){
+			var idx = Math.floor(Math.random() * (len - i));
+			var temp = arr[idx];
+			arr[idx] = arr[len - i - 1];
+			arr[len - i -1] = temp;
+		}
+		return arr;
+	}
+
+	// 生成扑克牌卡片
+	function initPokerCard(){
+		var html = '';
+		for(var i=1;i<=pokerAllCount;i++){
+			var sort = pokerAllCount-i+1;
+			var card = pokerAllPet[sort-1];
+
+			// if(sort == 34){
+			// 	card = 'a-3'
+			// }else if(sort == 44){
+			// 	card = 'a-2'
+			// }else if(sort == 54){
+			// 	card = 'a-1'
+			// }
+
+			html += '<div class="pokerLi" isOpen="no" sort="'+sort+'" card="'+card+'" style="left: '+(i*2-1)+'px;">'+
+						'<div class="img">'+
+							'<img src="img/'+card+'.png" name="face" />'+
+							'<img src="img/f-1.png" name="back" />'+
+						'</div>'+
+					'</div>';
+		}
+		$('#pokerBox .pokerDeposit').append(html);
+	}
+
+	// 首次发牌动画
+	function initFirstSendPoker(){
+		var pokerLineView = 54; // [ 6, 6, 6, 6, 5, 5, 5, 5, 5, 5 ]
+		var pokerLineStart = 1;
+		var pokerLineInset = null;
+		setTimeout(function(){
+			pokerLineInset = setInterval(function(){
+				var s = pokerLineStart;
+				if(s<=54){ // 执行首次发牌
+					var groupTop = Math.ceil(s/10);
+					var top = (groupTop-1)*30;
+					var groupLeft = (s-1)%10+1;
+					var left = (groupLeft-1)*120;
+					animateSendPoker(s,{
+						param: {
+							top: -612+top,
+							left: left,
+							// 'z-index': s,
+						},
+						group: {
+							groupTop: groupTop,
+							groupLeft: groupLeft,
+						},
+					});
+					pokerLineStart++;
+					pokerSendNum++;
+				}else{
+					clearInterval(pokerLineInset);
+					setTimeout(function(){
+						for(var i=pokerLineView-9;i<=pokerLineView;i++){ // 执行首次翻牌
+						// for(var i=pokerLineView-54;i<=pokerLineView;i++){ // 执行首次翻牌
+							animateOpenPoker(i);
+						}
+					},200)
+				}
+			},100)
+		},800)
+	}
+
+	// 继续发牌
+	function keepSendPoker(){
+		var canSend = true;
+		$('#pokerBox .pokerLine').each(function(){
+			if($(this).find('.pokerLi').length==0){
+				canSend = false;
+			}
+		})
+		if(canSend){
+			var lastAllNum = pokerSendNum;
+			var pokerLineStart = lastAllNum+1;
+			var pokerLineInset = null;
+			pokerLineInset = setInterval(function(){
+				var s = pokerLineStart;
+				if(s<=lastAllNum+10){ // 每轮发牌10张
+					var groupLeft = s-lastAllNum;
+					var left = (groupLeft-1)*120;
+					var groupTop = $('#pokerBox .pokerLine[group="'+groupLeft+'"] .pokerLi').length+1;
+					var top = (groupTop-1)*30;
+					animateSendPoker(s,{
+						param: {
+							top: -612+top,
+							left: left,
+							// 'z-index': s,
+						},
+						group: {
+							groupTop: groupTop,
+							groupLeft: groupLeft,
+						},
+					},function(){
+						animateOpenPoker(s);
+					});
+					pokerLineStart++;
+					pokerSendNum++;
+				}else{
+					clearInterval(pokerLineInset);
+				}
+			},100)
+		}else{
+			gAlert({
+				txt: '不允许在有空列的时候发牌',
+			})
+		}
+	}
+
+	// 执行发牌动画 [s 序号] [j 参数] [c 回调函数]
+	function animateSendPoker(s,j,c){
+		var obj = $('#pokerBox .pokerDeposit .pokerLi[sort="'+s+'"]');
+		obj.attr(j.group).animate(j.param,150,function(){
+			$('#pokerBox .pokerLine[group="'+j.group.groupLeft+'"]').append(obj.addClass('importantClass').prop('outerHTML'));
+			obj.remove();
+			if(c){ c(); }
+		});
+	}
+
+	// 执行翻牌动画 [s 序号] [j 参数] [c 回调函数]
+	function animateOpenPoker(s,j,c){
+		$('#pokerBox .pokerLine .pokerLi[sort="'+s+'"]').attr('isOpen','yes');
+	}
+
+	// 检测是否可以拖动
+	function checkCanPickPoker(obj){
+		var result = {
+			state: false, // 是否可以拖动 [true 可以] [false 不可以]
+			dropGroupTop: 0, // 拖动的卡牌序号
+		}
+		if($(obj).attr('isOpen')=='yes'){
+			var groupTop = Number($(obj).attr('groupTop'));
+			var groupCardArr = [];
+			$(obj).closest('.pokerLine').find('.pokerLi').each(function(){
+				if($(this).attr('groupTop')>=groupTop){
+					var c = $(this).attr('card').split('-');
+					groupCardArr.push({
+						a: c[0],
+						b: Number(c[1]),
+						g: $(this).attr('groupTop'),
+					});
+				}
+			})
+			// console.log(groupCardArr);
+
+			result.state = true;
+			result.dropGroupTop = groupCardArr[0].g;
+
+			if(groupCardArr.length>1){
+				for(var i=0;i<=groupCardArr.length-2;i++){
+					var nowCard = groupCardArr[i];
+					var nextCard = groupCardArr[i+1];
+					if( !(nowCard.a==nextCard.a && nowCard.b==nextCard.b+1) ){
+						result.state = false;
+						result.dropGroupTop = 0;
+					}
+				}
+			}
+		}
+		return result;
+	}
+
+	// 检测并翻开没有翻开的扑克
+	function checkNoOpenPoker(){
+		if(pokerSendNum<54){ return false; }
+		$('#pokerBox .pokerLine').each(function(){
+			if($(this).find('.pokerLi:last').attr('isOpen')=='no'){
+				$(this).find('.pokerLi:last').attr('isOpen','yes');
+			}
+		})
+	}
+
+	// 检测是否可以直接收取正确排序的卡牌
+	function checkDonePoker(){
+		if(pokerSendNum<54){ return false; }
+		$('#pokerBox .pokerLine .pokerLi[isopen="yes"][card$="-13"]').each(function(){
+			var checkBit = $(this).attr('card').split('-')[0];
+			var checkTop = Number($(this).attr('groupTop'));
+			var pobj = $(this).closest('.pokerLine');
+			var isDone = true;
+			var pushCard = [ $(this).attr('sort') ];
+			for(var i=1;i<=12;i++){
+				var s = pobj.find('.pokerLi[isopen="yes"][groupTop="'+(checkTop+i)+'"]');
+				pushCard.push(s.attr('sort'));
+				if(pobj.find('.pokerLi[isopen="yes"][groupTop="'+(checkTop+i)+'"]').attr('card')!=checkBit+'-'+(13-i)){
+					isDone = false;
+					break;
+				}
+			}
+			if(isDone){
+				pushCard.reverse();
+				moveDonePoker(pushCard);
+			}
+		})
+	}
+
+	// 收起正确排序的卡牌
+	function moveDonePoker(arr){
+		var endTop = $('#pokerBox .pokerDoneGroup').offset().top;
+		var endLeft = $('#pokerBox .pokerDoneGroup').offset().left;
+		var html = '';
+		$.each(arr, function(a,b){
+			var s = $('#pokerBox .pokerLine .pokerLi[sort="'+b+'"]');
+			var top = s.offset().top;
+			var left = s.offset().left;
+			s.removeClass('importantClass').css({
+				'position': 'fixed',
+				'left': left,
+				'top': top,
+			});
+			html += s.prop('outerHTML');
+			s.animate({ top: endTop, left: endLeft },250,function(){
+				s.remove();
+				if(a==arr.length-1){
+					$('#pokerBox .pokerDoneGroup').append(html);
+				}
+			});
+		});
+	}
+
+	// 弹框
+	function gAlert(json){
+		var json = $.extend({
+			txt: '',
+			txtCenter: false,
+			btn: '',
+			btnCall: null,
+			btn2: '',
+			btn2Call: null,
+			btn3: '',
+			btn3Call: null,
+		},json)
+		// console.log(json);
+
+		var hasBtn = hasBtn2 = hasBtn3 = false;
+		if(json.btn&&json.btn!=''){ hasBtn = true; }
+		if(json.btn2&&json.btn2!=''){ hasBtn2 = true; }
+		if(json.btn3&&json.btn3!=''){ hasBtn3 = true; }
+
+		var html = '<div class="gAlert" state="now">'+
+						'<div class="txt" style="'+(json.txtCenter?'text-align:center;':'')+'">'+json.txt+'</div>'+
+						(hasBtn||hasBtn2||hasBtn3?
+							'<div class="tool disFlex heiAuto widAuto">'+
+								(hasBtn?'<div class="btn btn1">'+json.btn+'</div>':'')+
+								(hasBtn2?'<div class="btn btn2">'+json.btn2+'</div>':'')+
+								(hasBtn3?'<div class="btn btn3">'+json.btn3+'</div>':'')+
+							'</div>'
+						:'')+
+					'</div>';
+		$('.gAlert:not(.out)').addClass('out').attr('state','out');
+		$('body').append(html);
+		var sobj =  $('.gAlert[state="now"]');
+		sobj.find('.btn').click(function(){
+			sobj.addClass('out').attr('state','out');
+			if($(this).hasClass('btn1')&&json.btnCall){
+				json.btnCall();
+			}else if($(this).hasClass('btn2')&&json.btn2Call){
+				json.btn2Call();
+			}else if($(this).hasClass('btn3')&&json.btn3Call){
+				json.btn3Call();
+			}
+		})
+
+		if(!hasBtn&&!hasBtn2&&!hasBtn3){
+			sobj.css('width','auto');
+			var width = sobj.outerWidth();
+			sobj.css({'margin-left': -width/2});
+			setTimeout(function(){
+				sobj.addClass('out').attr('state','out');
+			},2000)
+		}
+
+		setTimeout(function(){
+			sobj.css('top',30);
+		},200)
+	}
+
+	// 选择游戏难度
+	function chooseGameDifficulty(){
+		gAlert({
+			txt: '请选择游戏难度',
+			txtCenter: true,
+			btn: '简单（单色）',
+			btnCall: function(){
+				pokerDifficult = 1;
+				pokerData.type = [ 'c', 'c', 'c', 'c' ];
+				initGame();
+			},
+			btn2: '中等（双色）',
+			btn2Call: function(){
+				pokerDifficult = 2;
+				pokerData.type = [ 'c', 'd', 'c', 'd' ];
+				initGame();
+			},
+			btn3: '困难（四色）',
+			btn3Call: function(){
+				pokerDifficult = 3;
+				pokerData.type = [ 'a', 'b', 'c', 'd' ];
+				initGame();
+			},
+		});
+	}
+
+	// 开始游戏
+	function initGame(){
+		initRandomPoker(); // 生成随机扑克牌数组
+		initPokerCard(); // 生成扑克牌卡片
+		initFirstSendPoker(); // 触发首次发牌动画
+	}
+
+	initView(); // 初始化页面布局
+	chooseGameDifficulty(); // 选择游戏难度
+</script>
+
+</body>
+</html>

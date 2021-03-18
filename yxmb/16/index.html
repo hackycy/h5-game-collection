@@ -1,0 +1,103 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>HTML5 canvas激流勇进小游戏代码 - 源码之家</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: url("images/qq.jpg");
+}
+
+canvas {
+  display:block;
+  /*margin: 40px auto 20px;*/
+  border: 1px solid #333;
+  box-shadow: 0 0 16px 2px rgba(0,0,0,0.8);
+    margin:0px auto;
+}
+
+p, a {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 19px;
+  color: #777;
+  display: block;
+  width: 400px;
+  margin: 0 auto;
+  text-align: center;
+  text-decoration:none;
+    margin-top: 15px;
+}
+
+.info {
+  margin:14px auto;
+  text-align: justify;
+  font-size: 18px;
+  color: #999;
+}
+.startGame{
+    position: relative;
+    width: 400px;
+    height: 400px;
+    margin:0px auto;
+    background: url("images/123.jpg");
+}
+.startGame a{
+    display: block;
+    width: 100px;
+    height: 40px;
+    line-height: 40px;
+    position: absolute;
+    left:50%;
+    margin-left: -50px;
+    bottom: 20px;
+    color:white;
+    border:1px solid white;
+}
+
+a {
+  color:#3377ee;
+}
+</style>
+</head>
+<body>
+
+<div class="kbBox" id="kbBox"></div>
+
+<div class="startGame" id="startGame">
+    <a href="javascript:void(0)" id="enterGame">进入游戏</a>
+</div>
+
+<div class="gameId" id="gameId" style="display: none;">
+    <canvas id="canvas"></canvas>
+    <p>游戏玩法：使用左键、右键和上箭头键移动。</p>
+</div>
+
+<script src="game.js"></script>
+<script>
+    window.onload = function () {
+        var height = document.documentElement.clientHeight;
+        var kbBox = document.getElementById("kbBox");
+        var top = height - 400;
+        console.log(top);
+        kbBox.setAttribute("style","height:"+top/2+"px");
+
+        var startGameId = document.getElementById("startGame");
+        var enterGameId = document.getElementById("enterGame");
+        var gameId = document.getElementById("gameId");
+        enterGameId.onclick = function () {
+            gameId.setAttribute("style","display:block");
+            startGameId.setAttribute("style","display:none");
+            Loop();
+        }
+    }
+</script>
+
+</body>
+</html>
+

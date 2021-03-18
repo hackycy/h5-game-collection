@@ -1,0 +1,165 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/** END RESET **/
+
+/* Surroundings */
+
+body {
+  font-family: 'Helvetica', Arial, sans-serif;
+  background: #171617;
+  color: #E9F0EF;
+}
+
+h1 {
+  font-size: 45px;
+  text-align: center;
+  padding-top: 50px;
+}
+
+
+ /* Button Status */
+#mine-grid button {
+  width: 25px;
+  height: 25px;
+  border: 1px solid #171617 !important;
+  border-right: 0;
+  border-bottom: 0;
+  background: #2D3E4A;
+  line-height: 21px;
+  font-size: 13px;
+  padding-bottom: 6px;
+  display: inline-block;
+}
+
+#mine-grid button.open {
+  background: #E9F0EF;
+  color: #2D3E4A;
+}
+
+#mine-grid button.exploded {
+  background: #A705ED !important;
+  color: #E9F0EF;
+}
+
+#mine-grid button.flagged {
+  background: #95DCED;
+}
+
+#minesweeper.easy #mine-grid button[data-x="7"],
+#minesweeper.medium #mine-grid button[data-x="15"],
+#minesweeper.hard #mine-grid button[data-x="15"] {
+  border-bottom: 1px solid #171617 !important;
+}
+
+#minesweeper.easy #mine-grid button[data-y="7"],
+#minesweeper.medium #mine-grid button[data-y="15"],
+#minesweeper.hard #mine-grid button[data-y="29"] {
+  border-right: 1px solid #171617 !important;
+}
+
+
+ /* Board */
+#minesweeper {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  border: 1px solid #D2D3A9;
+  padding: 20px;
+}
+
+#minesweeper.easy {
+  width: 200px;
+}
+
+#minesweeper.mid {
+  width: 400px;
+}
+
+#minesweeper.hard {
+  width: 750px;
+}
+
+ /* Menu */
+
+.menu ul {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.level-select,
+.menu ul {
+  text-align: center;
+}
+
+.level-select li,
+.menu ul li {
+  display: inline-block;
+  width: 30%;
+}
+
+.level-select button {
+  width: 100%;
+  height: 30px;
+  border: 0;
+  background: #2D3E4A;
+  color: #E9F0EF;
+  cursor: pointer;
+}
+
+.reset button {
+  width: 25px;
+  height: 25px;
+  line-height: 18px;
+  border-radius: 50%;
+  border: 0;
+  transform: rotate(90deg);
+  padding-left: 10px;
+  background: #E9F0EF;
+  color: #2D3E4A;
+  cursor: pointer;
+}
+
+

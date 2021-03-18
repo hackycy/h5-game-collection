@@ -1,0 +1,1343 @@
+﻿<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+<meta charset="UTF-8">
+<title>HTML5青蛙吃苍蝇小游戏代码 - 源码之家</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=1.0, minimum-scale=1.0, maximum-scale=1.0">
+
+<style>
+      /* NOTE: The styles were added inline because Prefixfree needs access to your styles and they must be inlined if they are on local disk! */
+      @keyframes squiggly {
+  0% {
+    filter: url("#squiggly-0");
+  }
+  25% {
+    filter: url("#squiggly-1");
+  }
+  50% {
+    filter: url("#squiggly-3");
+  }
+  100% {
+    filter: url("#squiggly-4");
+  }
+}
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #fff;
+  color: #000;
+  font-size: 2.5vh;
+}
+
+body {
+  font-family: arial;
+}
+body.dark {
+  color: #fff;
+}
+
+.card {
+  overflow: hidden;
+  max-width: 20em;
+  padding: 1em;
+  margin: 0 auto 1em;
+  background: rgba(255, 255, 255, 0.25);
+  border: 1px solid #000;
+  border-radius: 0.25em;
+}
+
+.btn {
+  display: block;
+  margin: 0 auto 0.5em;
+  padding: 1em;
+  max-width: 20em;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-decoration: none !important;
+  text-transform: uppercase;
+  text-shadow: none !important;
+  background: #fff;
+  transition: all 0.2s;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  border-radius: 4px;
+  color: #000;
+}
+
+.checkbox {
+  display: inline-block;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.checkbox input {
+  display: none;
+}
+.checkbox span {
+  display: block;
+  padding: 1em;
+  background: #fff;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  color: #000;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+.checkbox input:checked + span {
+  border-color: #000;
+}
+
+.play .text {
+  font-size: 2em;
+}
+
+.scoreboard .scoreboard-list {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+  text-align: right;
+}
+
+.game .hud {
+  padding: 0 1rem;
+  font-size: 1.5rem;
+  letter-spacing: 1px;
+}
+.dark .game .hud {
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1), 0 -1px 0 rgba(0, 0, 0, 0.1), 1px 0 0 rgba(0, 0, 0, 0.1), -1px 0 0 rgba(0, 0, 0, 0.1), 1px 1px 0 rgba(0, 0, 0, 0.1), -1px -1px 0 rgba(0, 0, 0, 0.1), -1px 1px 0 rgba(0, 0, 0, 0.1), 1px -1px 0 rgba(0, 0, 0, 0.1);
+}
+.game .hud .label {
+  display: block;
+  font-size: 0.6em;
+  font-weight: normal;
+  text-transform: uppercase;
+}
+.game .hud .value {
+  font-size: 2em;
+  font-weight: bold;
+  line-height: 1;
+}
+.game .time {
+  float: left;
+}
+.game .score {
+  float: right;
+}
+
+.dark .win {
+  text-shadow: 0 1px 0 black, 0 -1px 0 black, 1px 0 0 black, -1px 0 0 black, 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;
+}
+.win .score {
+  float: left;
+}
+.win .best {
+  float: right;
+}
+.win .label {
+  display: block;
+  font-size: 0.6em;
+  font-weight: normal;
+  text-transform: uppercase;
+}
+.win .value {
+  font-size: 2em;
+  font-weight: bold;
+  line-height: 1;
+}
+.win .highscore {
+  display: block;
+  clear: both;
+}
+.win .highscore.is-hidden {
+  display: none;
+}
+
+.screen {
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+  padding: 1em;
+  overflow: hidden;
+  text-align: center;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(-1em);
+  transition: all 0.2s 0.1s;
+}
+.screen.is-active {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0);
+}
+.screen.game {
+  padding-left: 0;
+  padding-right: 0;
+  background: none;
+}
+.screen h1 {
+  text-transform: uppercase;
+}
+
+.sky {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transition: all 0.5s;
+  background: #fff;
+  cursor: pointer;
+}
+.outlines .sky {
+  background: #fff;
+}
+.light .sky {
+  background: #aedef7;
+}
+.dark .sky {
+  background: #002;
+}
+.sky:before {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.0001), #fff);
+  opacity: 0.5;
+  content: '';
+  transition: all 0.2s;
+}
+.dark .sky:before {
+  opacity: 0.3;
+}
+
+@keyframes twinkle {
+  0% {
+    border-left-color: white;
+    border-right-color: rgba(255, 255, 255, 0);
+  }
+  33.3334% {
+    border-left-color: rgba(255, 255, 255, 0);
+    border-right-color: white;
+  }
+  66.6667% {
+    border-left-color: rgba(255, 255, 255, 0);
+    border-right-color: white;
+  }
+  100% {
+    border-left-color: white;
+    border-right-color: rgba(255, 255, 255, 0);
+  }
+}
+.stars {
+  position: fixed;
+  left: 2em;
+  right: 2em;
+  top: 4em;
+  height: 2px;
+  transform: rotate(40deg);
+  border-width: 0 2px;
+  border-style: solid;
+  border-color: #fff;
+  opacity: 0;
+  transform: translateY(-5em);
+  transition: all 0.5s;
+  will-change: opacity;
+  animation: twinkle 6s infinite alternate;
+}
+.dark .stars {
+  opacity: 1;
+  transform: translateY(0);
+}
+.stars:before, .stars:after {
+  position: fixed;
+  top: 6em;
+  left: 2em;
+  right: 0em;
+  height: inherit;
+  border: inherit;
+  transform: rotate(-15deg);
+  opacity: 0.5;
+  content: '';
+  will-change: opacity;
+}
+.stars:before {
+  animation: twinkle 3s infinite alternate-reverse;
+}
+.stars:after {
+  top: 0.5em;
+  left: 3em;
+  right: 6em;
+  opacity: 1;
+  transform: rotate(-30deg);
+  animation: twinkle 6s infinite alternate;
+}
+
+.moon {
+  position: fixed;
+  bottom: 20em;
+  left: 50%;
+  width: 10em;
+  height: 10em;
+  background: #fff;
+  border-radius: 50%;
+  transition: all 0.5s ease-in-out;
+  transform: translateY(2em);
+  box-shadow: 0 0 4em #fff, 0 0 12em #fff, 0 0 0 6em rgba(211, 230, 235, 0.025), 0 0 0 12em rgba(211, 230, 235, 0.025), 0 0 0 18em rgba(211, 230, 235, 0.025);
+  opacity: 0;
+}
+.moon:before, .moon:after {
+  position: absolute;
+  top: 20%;
+  left: 10%;
+  width: 30%;
+  height: 30%;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 0 1em rgba(0, 0, 0, 0.1);
+  content: '';
+  opacity: 0.1;
+}
+.moon:after {
+  top: auto;
+  left: auto;
+  bottom: 10%;
+  right: 10%;
+  width: 50%;
+  height: 50%;
+  opacity: 0.1;
+}
+.dark .moon {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.mountains {
+  opacity: 0.3;
+}
+.dark .mountains {
+  opacity: 0.9;
+}
+
+.mountain {
+  position: fixed;
+  left: -100%;
+  bottom: -3em;
+  width: 200%;
+  height: 14em;
+  background: #fff;
+  border-radius: 0 100% 0 0;
+  transition: all 0.5s ease-in-out;
+}
+.light .mountain {
+  background: #a4c18b;
+}
+.dark .mountain {
+  background: #0a0a2a;
+}
+.mountain--2 {
+  left: auto;
+  right: -10%;
+  height: 10em;
+  border-radius: 100% 0 0 0;
+}
+
+.grass {
+  display: none;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 8em;
+  background: #fff;
+  transition: all 0.5s ease-in-out;
+}
+.light .grass {
+  background: #a7cc67;
+}
+.dark .grass {
+  background: #0f0f2f;
+}
+
+.water {
+  position: fixed;
+  z-index: 2;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3em;
+  transition: all 0.5s ease-in-out;
+  background: #fff;
+}
+.light .water {
+  background: #5f96d5;
+}
+.dark .water {
+  background: #0f0f2f;
+}
+
+.tree {
+  position: absolute;
+  z-index: 3;
+  right: 38%;
+  top: -6.8em;
+  width: 1.5em;
+  height: 10em;
+  transition: all 0.5s;
+  background: #fff;
+  transform: scale(0.2, 0.2);
+  transform-origin: 50% 100%;
+}
+.light .tree {
+  background: #6f4817;
+}
+.dark .tree {
+  background: #0a0a2a;
+}
+.tree:before, .tree:after {
+  position: absolute;
+  left: 50%;
+  bottom: 2em;
+  display: inline-block;
+  width: 0;
+  transform: translateX(-50%);
+  transition: all 0.5s ease-in-out;
+  border-width: 0 6em 12em;
+  border-style: solid;
+  border-color: transparent;
+  border-radius: 0 0 100% 100% / 0 0 1em 1em;
+  border-bottom-color: #fff;
+  content: '';
+}
+.light .tree:before, .light .tree:after {
+  border-bottom-color: #2d5e3b;
+}
+.dark .tree:before, .dark .tree:after {
+  border-bottom-color: #0a0a2a;
+}
+.tree:after {
+  width: 0;
+  bottom: 9em;
+  border-width: 0 3em 6em;
+}
+.tree--2 {
+  left: auto;
+  right: 1.5em;
+  top: -5.9em;
+  transform: scale(0.2, 0.2);
+}
+.tree--3 {
+  top: -5.5em;
+  right: 47%;
+  transform: scale(0.4, 0.4);
+}
+
+.lily {
+  @extends .shadow;
+  position: fixed;
+  z-index: 3;
+  left: 50%;
+  bottom: 0.5em;
+  height: 1.5em;
+  width: 12em;
+  transform: translateX(-50%);
+  background: #fff;
+  border: 1px solid #000;
+  border-bottom: 0;
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+}
+.light .lily {
+  background: #777;
+}
+.dark .lily {
+  background: #223;
+}
+.lily--2 {
+  left: -9em;
+  bottom: 5em;
+  border: none;
+  animation-delay: 2s;
+  opacity: 0.6;
+  transform: scale(0.5, 0.3);
+}
+.lily--3 {
+  right: -7em;
+  left: auto;
+  bottom: 6em;
+  border: none;
+  animation-delay: -2s;
+  opacity: 0.4;
+  transform: scale(0.2, 0.15);
+}
+
+.shadow, .fly, .fly:before, .fly:after, .player .body, .player .belly, .player .arms .arm, .player .legs .leg, .player .eyes .eye, .player .tongue-inner {
+  box-shadow: none;
+}
+
+.flies {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  overflow: hidden;
+}
+.flies .path {
+  flex: 1 1 50%;
+  padding: 1em 0;
+  text-align: center;
+  transition: transform 0.2s;
+  will-change: transform;
+}
+.flies .path:nth-child(odd) {
+  transform: translateX(-100%);
+}
+.flies .path:nth-child(even) {
+  transform: translateX(100%);
+}
+.flies .path.is-active:nth-child(odd) {
+  transform: translateX(-20%);
+}
+.flies .path.is-active:nth-child(even) {
+  transform: translateX(20%);
+}
+.flies .path.is-hidden {
+  visibility: hidden;
+}
+
+.target {
+  display: inline-block;
+  width: 4em;
+  height: 4em;
+  line-height: 4em;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 50%;
+}
+
+.fly {
+  z-index: 99;
+  display: inline-block;
+  width: 0.8em;
+  height: 0.8em;
+  border-radius: 50%;
+  background: #000;
+  border: 1px solid #000;
+  will-change: transform;
+  transform: translateY(50%);
+}
+.fly:before, .fly:after {
+  position: absolute;
+  z-index: -1;
+  bottom: 50%;
+  width: 0.8em;
+  height: 0.5em;
+  border-radius: 60%;
+  background: #fff;
+  border: 1px solid #000;
+  will-change: transform;
+  content: '';
+}
+.fly:before {
+  right: 60%;
+  transform: rotate(15deg);
+  transform-origin: 100% 50%;
+  animation: flapLeft 0.08s infinite;
+}
+.fly:after {
+  left: 60%;
+  transform: rotate(-15deg);
+  transform-origin: 0% 50%;
+  animation: flapRight 0.08s infinite;
+}
+.fly--dead {
+  animation: none;
+}
+
+@keyframes fly {
+  from {
+    transform: translateX(-30em);
+  }
+  to {
+    transform: translateX(30em);
+  }
+}
+@keyframes flapLeft {
+  from {
+    transform: rotate(-15deg);
+  }
+  to {
+    transform: rotate(25deg);
+  }
+}
+@keyframes flapRight {
+  from {
+    transform: rotate(25deg);
+  }
+  to {
+    transform: rotate(-15deg);
+  }
+}
+@keyframes float {
+  0% {
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    transform: translateX(-50%) translateY(0.2em);
+  }
+  100% {
+    transform: translateX(-50%) translateY(0);
+  }
+}
+.player {
+  z-index: 99999;
+  position: absolute;
+  left: 50%;
+  bottom: 2em;
+  display: inline-block;
+  font-size: 0.9rem;
+  transform: translateX(-50%);
+}
+.player .body {
+  position: relative;
+  width: 6.5em;
+  height: 9.75em;
+  transform: translateY(0);
+  transition: all 0.2s;
+  background: #fff;
+  border-radius: 4em 4em 4em 4em / 3em 3em 2em 2em;
+  border: 1px solid black;
+  will-change: transform;
+}
+.light .player .body {
+  background: #9fb761;
+}
+.dark .player .body {
+  background: #7f9761;
+}
+.player.is-active .body {
+  animation: body 0.25s;
+}
+.player .belly {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  height: 50%;
+  bottom: -0.5em;
+  left: 0.25em;
+  right: 0.25em;
+  background: #fff;
+  border-bottom: 1px solid #000;
+  border-radius: 0 0 50% 50% / 0 0 1em 1em;
+}
+.light .player .belly {
+  background: #f8efdf;
+}
+.dark .player .belly {
+  background: #f8efdf;
+}
+.player .crown {
+  display: none;
+  z-index: -10;
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-bottom: 1px;
+  border-width: 2em 1.5em 0;
+  border-style: solid;
+  border-color: transparent gold gold;
+  transform: translateX(-50%);
+}
+.player .crown:before {
+  position: absolute;
+  bottom: 0;
+  left: -1em;
+  border-width: 0 1em 2em;
+  border-style: solid;
+  border-color: gold transparent;
+  content: '';
+}
+.player .arms {
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  right: 0;
+  bottom: -0.5em;
+  will-change: transform;
+}
+.player .arms .arm {
+  position: absolute;
+  bottom: 0em;
+  width: 2.5em;
+  height: 4em;
+  background: #fff;
+  border: 1px solid black;
+}
+.light .player .arms .arm {
+  background: #9fb761;
+}
+.dark .player .arms .arm {
+  background: #7f9761;
+}
+.player .arms .arm:before {
+  position: absolute;
+  top: -2.5em;
+  width: 1em;
+  height: 2.75em;
+  background: #fff;
+  border: 1px solid black;
+  border-bottom: none;
+  content: '';
+}
+.light .player .arms .arm:before {
+  background: #9fb761;
+}
+.dark .player .arms .arm:before {
+  background: #7f9761;
+}
+.player .arms .arm .hand {
+  position: absolute;
+  bottom: -0.25em;
+  width: 2em;
+  height: 0.5em;
+  font-size: 1.25em;
+  background: #fff;
+  border: 1px solid black;
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0 !important;
+}
+.light .player .arms .arm .hand {
+  background: #9fb761;
+}
+.dark .player .arms .arm .hand {
+  background: #7f9761;
+}
+.player .arms .arm .hand .toe {
+  position: absolute;
+  bottom: -0.25em;
+  width: 0.5em;
+  height: 0.5em;
+  background: #fff;
+  border: 1px solid black;
+  border-radius: 50%;
+}
+.light .player .arms .arm .hand .toe {
+  background: #9fb761;
+}
+.dark .player .arms .arm .hand .toe {
+  background: #7f9761;
+}
+.player .arms .arm .hand .toe:first-child {
+  left: -0.25em;
+}
+.player .arms .arm .hand .toe:nth-child(2n) {
+  z-index: 2;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.player .arms .arm .hand .toe:last-child {
+  right: -0.25em;
+}
+.player .arms .arm--left {
+  left: -1em;
+  margin-left: -2px;
+  border-radius: 0 100% 0 70%;
+}
+.player .arms .arm--left:before {
+  left: -1px;
+  border-right: none;
+  border-radius: 100% 0 0 0;
+}
+.player .arms .arm--left .hand {
+  left: 0.5em;
+  border-left: 0;
+  border-radius: 0 100% 0 0;
+}
+.player .arms .arm--right {
+  right: -1em;
+  margin-right: -2px;
+  border-radius: 100% 0 70% 0;
+}
+.player .arms .arm--right:before {
+  right: -1px;
+  border-left: none;
+  border-radius: 0 100% 0 0;
+}
+.player .arms .arm--right .hand {
+  right: 0.5em;
+  border-right: 0;
+  border-radius: 100% 0 0 0;
+}
+.player.is-active .arms {
+  animation: arms 0.25s;
+}
+.player .legs {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.5em;
+}
+.player .legs .leg {
+  position: absolute;
+  z-index: -1;
+  bottom: 0;
+  width: 6em;
+  height: 5em;
+  transform: rotate(0);
+  transform-origin: 50% 100%;
+  transition: all 0.2s;
+  background: #fff;
+  border: 1px solid black;
+  will-change: transform;
+}
+.light .player .legs .leg {
+  background: #718644;
+}
+.dark .player .legs .leg {
+  background: #516644;
+}
+.player .legs .leg--left {
+  left: -2.5em;
+  border-radius: 25% 75% 25% 75%;
+}
+.player .legs .leg--right {
+  right: -2.5em;
+  border-radius: 75% 25% 75% 25%;
+}
+.player.is-active .leg--left {
+  animation: leftLeg 0.25s;
+}
+.player.is-active .leg--right {
+  animation: rightLeg 0.25s;
+}
+.player .eyes {
+  position: absolute;
+  z-index: -5;
+  top: 0em;
+  left: 0em;
+  right: 0em;
+}
+.player .eyes .eye {
+  position: absolute;
+  top: 0em;
+  display: inline-block;
+  width: 2.3em;
+  height: 2.3em;
+  background: #fff;
+  border: 1px solid black;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.player .eyes .eye--left {
+  left: -0em;
+}
+.player .eyes .eye--right {
+  right: -0em;
+}
+.player .eyes .eye:before, .player .eyes .eye:after {
+  position: absolute;
+  z-index: 6;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  transform: translateY(1px);
+  transition: all 0.2s;
+  background: #fff;
+  border-top: 1px solid #000;
+  content: '';
+  will-change: transform;
+}
+.light .player .eyes .eye:before, .light .player .eyes .eye:after {
+  background: #718644;
+}
+.dark .player .eyes .eye:before, .dark .player .eyes .eye:after {
+  background: #516644;
+}
+.player .eyes .eye:before {
+  bottom: 100%;
+  margin-bottom: 1px;
+}
+.player .eyes .eye:after {
+  top: 100%;
+}
+.player .eyes .eye:hover:after {
+  transform: translateY(-98%);
+}
+.player .eyes .pupil {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0.4rem;
+  height: 0.4rem;
+  margin: -0.2em 0 0 -0.2em;
+  transform: translate(0, 0);
+  transition: all 0.2s;
+  background: #000;
+  border-radius: 4em;
+  will-change: transform;
+  overflow: hidden;
+}
+.player .mouth {
+  position: absolute;
+  z-index: 6;
+  top: 3.25em;
+  left: 0.5em;
+  right: 0.5em;
+  height: 2.25em;
+  background: #000;
+  border-radius: 0;
+  border: 1px solid black;
+  border-top: 0;
+  border-bottom: 0;
+}
+.player .mouth:before {
+  position: absolute;
+  top: 1em;
+  left: 0.5em;
+  right: 0.5em;
+  bottom: 0;
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  background: #fff;
+  content: '';
+}
+.light .player .mouth:before {
+  background: #c8725b;
+}
+.dark .player .mouth:before {
+  background: #a8525b;
+}
+.player .mouth .top-lip {
+  position: absolute;
+  left: -0.25em;
+  right: -0.25em;
+  bottom: 100%;
+  height: 0;
+  background: #fff;
+  border-bottom: 1px solid #000;
+}
+.light .player .mouth .top-lip {
+  background: #9fb761;
+}
+.dark .player .mouth .top-lip {
+  background: #7f9761;
+}
+.player .mouth .bottom-lip {
+  position: absolute;
+  z-index: 10;
+  top: -1px;
+  left: -0.25em;
+  right: -0.25em;
+  height: 2.5em;
+  margin-left: -1px;
+  margin-right: -1px;
+  transform: translateY(0);
+  transition: all 0.25s;
+  background: #fff;
+  border-top: 1px solid #000;
+  will-change: transform;
+  border-radius: 0;
+  content: '';
+}
+.light .player .mouth .bottom-lip {
+  background: #f8efdf;
+}
+.dark .player .mouth .bottom-lip {
+  background: #f8efdf;
+}
+.player .mouth .bottom-lip:after {
+  display: none;
+  position: absolute;
+  top: 0.5em;
+  left: 1.5em;
+  right: 1.5em;
+  height: 0.25em;
+  border-bottom: 1px solid #000;
+  opacity: 0.1;
+  content: '';
+}
+.player .tongue {
+  pointer-events: none;
+  position: absolute;
+  z-index: 8;
+  bottom: 0.5em;
+  left: 50%;
+  width: 4em;
+  height: 0;
+  margin-left: -2em;
+  overflow: hidden;
+  transform: rotate(0);
+  transform-origin: 50% 100%;
+  will-change: transform;
+}
+.player .tongue-inner {
+  position: absolute;
+  left: 1em;
+  right: 1em;
+  top: 1em;
+  bottom: -1em;
+  transform: translateY(100%);
+  transition: all 0.1s ease-in-out;
+  background: #fff;
+  border: 1px solid black;
+  border-bottom: 0;
+  border-radius: 4em 4em 4em 4em / 4em 4em 60em 60em;
+  box-sizing: border-box;
+  text-align: center;
+  content: '';
+  will-change: transform;
+}
+.light .player .tongue-inner {
+  background: #c8725b;
+}
+.dark .player .tongue-inner {
+  background: #a8525b;
+}
+.player .tongue-inner:before {
+  position: absolute;
+  top: -0.5em;
+  left: -0.5em;
+  right: -0.5em;
+  min-height: 3em;
+  max-height: 6em;
+  height: 50%;
+  background: #fff;
+  border-radius: 50%;
+  border: 1px solid black;
+  border-bottom: none;
+  content: '';
+}
+.light .player .tongue-inner:before {
+  background: #c8725b;
+}
+.dark .player .tongue-inner:before {
+  background: #a8525b;
+}
+.player .tongue .fly {
+  visibility: hidden;
+  margin-top: -1em;
+  font-size: 1.1rem;
+}
+.player .tongue .fly.is-active {
+  animation: dead-fly 0.25s;
+}
+.player .tongue .fly.is-active2 {
+  animation: dead-fly2 0.25s;
+}
+.player .tongue .fly:before, .player .tongue .fly:after {
+  top: 0em;
+}
+.player.is-shooting-down .eyes {
+  z-index: 8;
+}
+.player.is-shooting-down .mouth {
+  z-index: 6;
+}
+.player.is-shooting-down .tongue {
+  z-index: 6;
+  bottom: 1.5em;
+}
+.player.is-shooting-down .top-lip {
+  z-index: 8;
+  height: 1em;
+}
+.player.is-shooting-down .bottom-lip {
+  z-index: 4;
+}
+.player.is-active .tongue-inner {
+  animation: shoot 0.25s;
+}
+.player.is-active .mouth .bottom-lip {
+  animation: mouth 0.25s;
+}
+
+@keyframes dead-fly {
+  0% {
+    visibility: hidden;
+  }
+  49% {
+    visibility: hidden;
+  }
+  50% {
+    visibility: visible;
+  }
+  99% {
+    visibility: visible;
+  }
+  100% {
+    visibility: hidden;
+  }
+}
+@keyframes dead-fly2 {
+  0% {
+    visibility: hidden;
+  }
+  49% {
+    visibility: hidden;
+  }
+  50% {
+    visibility: visible;
+  }
+  99% {
+    visibility: visible;
+  }
+  100% {
+    visibility: hidden;
+  }
+}
+@keyframes shoot {
+  0% {
+    transform: translateY(105%);
+  }
+  50% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(105%);
+  }
+}
+@keyframes body {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-1em);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+@keyframes leftLeg {
+  0% {
+    transform: rotate(0);
+  }
+  50% {
+    transform: rotate(-10deg);
+  }
+  100% {
+    transform: rotate(0);
+  }
+}
+@keyframes rightLeg {
+  0% {
+    transform: rotate(0);
+  }
+  50% {
+    transform: rotate(10deg);
+  }
+  100% {
+    transform: rotate(0);
+  }
+}
+@keyframes arms {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(1em);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+@keyframes mouth {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(1.9em);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+</style>
+
+<script src="js/prefixfree.min.js"></script>
+
+</head>
+<body>
+
+<div class="environment">
+  <div class="sky"></div>
+  <div class="stars"></div>
+  <div class="sun"></div>
+  <div class="moon"></div> 
+  <div class="mountains">
+    <div class="mountain">
+      <div class="trees">
+        <div class="tree"></div>
+        <div class="tree tree--2"></div>
+        <div class="tree tree--3"></div>
+        <div class="tree tree--4"></div>
+      </div>
+    </div>
+    <div class="mountain mountain--2"></div> 
+  </div>
+  <div class="water"></div>
+  <div class="lily lilly-1"></div>
+</div>
+
+<div class="player">
+  
+  <div class="legs">
+    <div class="leg leg--left">
+    </div>
+    <div class="leg leg--right">
+    </div>
+  </div>
+  
+  <div class="body">
+    <div class="crown"></div>
+    <div class="belly"></div>
+    <div class="arms">
+      <div class="arm arm--left">
+        <div class="hand">
+          <div class="toe"></div>
+          <div class="toe"></div>
+          <div class="toe"></div>
+        </div>
+      </div>
+      <div class="arm arm--right">
+        <div class="hand">
+          <div class="toe"></div>
+          <div class="toe"></div>
+          <div class="toe"></div>
+        </div>
+      </div>
+    </div>
+    <div class="mouth">
+      <div class="top-lip"></div>
+      <div class="bottom-lip"></div>
+      <div class="tongue">
+        <div class="tongue-inner">
+          <div class="fly is-dead"></div>
+        </div>
+      </div>
+    </div>
+    <div class="eyes">
+      <div class="eye eye--left">
+        <div class="pupil"></div>
+      </div>
+      <div class="eye eye--right">
+        <div class="pupil"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="screen menu">
+  <h1>青蛙吃苍蝇</h1>
+  <a href="#" class="btn play" onClick="play()">
+    <span class="text">开始游戏</span>
+    <br>
+    <span>最好成绩: <span class="js-best">0</span></span>
+  </a>
+  <a href="#" class="btn" onClick="settings()">游戏设置</a>
+</div>
+
+<div class="screen game">
+  <div class="hud">
+    <div class="time">
+      <span class="label">时间</span>
+      <span class="value js-time">30</span>
+    </div>
+
+    <div class="score">
+      <span class="label">分数</span>
+      <span class="value js-score">0</span>
+    </div>
+  </div>
+  
+  <div class="flies">
+    <div class="path">
+      <div class="target">
+        <div class="fly"></div>
+      </div>
+    </div>
+    <div class="path">
+      <div class="target">
+        <div class="fly"></div>
+      </div>
+    </div>
+    <div class="path">
+      <div class="target">
+        <div class="fly"></div>
+      </div>
+    </div>
+    <div class="path">
+      <div class="target">
+        <div class="fly"></div>
+      </div>
+    </div>
+    <div class="path">
+      <div class="target">
+        <div class="fly"></div>
+      </div>
+    </div>
+    <div class="path">
+      <div class="target">
+        <div class="fly"></div>
+      </div>
+    </div>
+  </div>
+ 
+  
+</div>
+
+<div class="screen win">
+  <h1>完成</h1> 
+  <div class="card">
+    <h3 class="highscore js-highscore is-hidden">新高分！</h3>
+    
+    <div class="score">
+      <span class="label">分数</span>
+      <span class="value js-score">30</span>
+    </div>
+
+    <div class="best">
+      <span class="label">最好成绩</span>
+      <span class="value js-best">0</span>
+    </div>
+    
+  </div>
+  <a href="#" class="btn" onClick="play()">再玩一次</a>
+  <a href="#" class="btn btn--clear" onClick="menu()">返回菜单</a>
+</div>
+
+<div class="screen settings">
+  <h1>设置</h1>
+  
+  <div class="card">
+    <label class="checkbox">
+      <input type="radio" name="theme" value="light" checked onClick="toggleTheme(this.value)">
+      <span>白天</span>
+    </label>
+    <label class="checkbox">
+      <input type="radio" name="theme" value="dark" onClick="toggleTheme(this.value)">
+      <span>晚上</span>
+    </label>
+  </div>
+  
+  <a href="#" class="btn js-toggle-music" onClick="toggleMusic()">打开音乐</a>
+  
+  <a href="#" class="btn" onClick="menu()">返回</a>
+</div>
+
+<div class="screen scoreboard">
+  <h1>记分牌</h1>
+  <div class="card">
+    <ol class="scoreboard-list js-scoreboard"></ol>
+  </div>
+  
+  <a href="#" class="btn" onClick="menu()">返回</a>
+</div>
+
+<audio id="music" src="zzsc.mp3"></audio>
+
+<script  src="js/index.js"></script>
+</body>
+</html>

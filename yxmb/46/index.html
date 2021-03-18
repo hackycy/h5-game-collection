@@ -1,0 +1,63 @@
+<html>
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HTM5 3D飞机飞行躲避障碍</title>
+
+<link href='http://fonts.useso.com/css?family=Playfair+Display:400,700,700italic' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" type="text/css" href="css/demo.css" />
+
+<!--必要样式-->
+<link rel="stylesheet" type="text/css" href="css/game.css" />
+
+<script type="text/javascript" src="js/TweenMax.min.js"></script>
+<script type="text/javascript" src="js/three.min.js"></script>
+<script type="text/javascript" src="js/game.js" /></script>
+<!--[if IE]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+</head>
+<body>
+
+
+<div class="game-holder" id="gameHolder">
+	<div class="header">
+		<h1>3D飞机躲避障</h1>
+		<h2>星益博客：blog.96xy.cn</h2>
+		<div class="score" id="score">
+			<div class="score__content" id="level">
+				<div class="score__label">等级</div>
+				<div class="score__value score__value--level" id="levelValue">1</div>
+				<svg class="level-circle" id="levelCircle" viewbox="0 0 200 200">
+					<circle id="levelCircleBgr" r="80" cx="100" cy="100" fill="none" stroke="#d1b790" stroke-width="24px" />
+					<circle id="levelCircleStroke" r="80" cx="100" cy="100" fill="none" #f25346 stroke="#68c3c0" stroke-width="14px" stroke-dasharray="502" />
+				</svg>
+			</div>
+			<div class="score__content" id="dist">
+				<div class="score__label">距离</div>
+				<div class="score__value score__value--dist" id="distValue">000</div>
+			</div>
+			<div class="score__content" id="energy">
+				<div class="score__label">生命</div>
+				<div class="score__value score__value--energy" id="energyValue">
+					<div class="energy-bar" id="energyBar"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="world" id="world"></div>
+	<div class="message message--replay" id="replayMessage"><h1>【单击重玩】</h1></div>
+	<div class="message message--instructions" id="instructions">吃蓝色物体<span>避开红色物体</span></div>
+</div>
+<!-- 主要代码部分 -->
+
+
+<!-- Demo links -->
+<nav class="meta">
+	<a class="demo-link" href="part1.html">第一部分</a>
+	<a class="demo-link" href="part2.html">第二部分</a>
+</nav>
+
+</body>
+</html>

@@ -1,0 +1,13 @@
+body {
+
+text-align: center
+
+}
+#canvas{
+    padding: 19px;
+}
+#d1 {
+      background-color: black;
+    margin-left:3% ;
+    width: 1000px;
+  }

@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>双人五子棋</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no"/>
+	<style>
+		html,body,section,div,p{
+			padding: 0;
+			margin: 0;
+			font-size: 12px;
+		}
+		body{
+			width: 100%;
+			height: 100%;
+			position: fixed;
+		}
+		#chessboard{
+			width: 90vmin;
+			min-height: 89vmin;
+			margin: calc(50vh - 46vmin + 2px) auto;
+			background: #f5ca69;
+			border: 2px solid #000;
+			border-radius: 7px;
+			-webkit-box-shadow: .1rem .1rem .05rem rgba(0,0,0,.5),   
+                         -.1rem -.1rem .05rem rgba(0,0,0,.5) ;   
+    		box-shadow: .1rem .1rem .05rem rgba(0,0,0,.5),   
+                         -.1rem -.1rem .05rem rgba(0,0,0,.5) ; 
+		}
+		#chessboard::after {
+		    content: "";
+		    display: block;
+		    height: 0;
+		    clear: both;
+		    visibility: hidden;
+		}
+		#chessboard div{
+			width: calc(9vmin - 2px);
+			height: calc(9vmin - 2px);
+			float: left;
+			border: 1px solid #000;
+			border-radius: 5px;
+		}
+		#chessboard div p{
+		    width: 97%;
+		    height: 97%;
+		    margin: 1.5% auto;
+			border-radius: 100%;
+		}
+		.white{
+			background: -webkit-radial-gradient(at 35% 35%,#FFF,#CCC,#FFF);
+		    background: -o-radial-gradient(at 35% 35%,#FFF,#CCC,#FFF); 
+		    background: -moz-radial-gradient(at 35% 35%,#FFF,#CCC,#FFF); 
+		    background: radial-gradient(at 35% 35%,#FFF,#CCC,#FFF); 
+			box-shadow: .1rem .1rem .05rem rgba(0,0,0,.5);
+		}
+		.black{
+			background: -webkit-radial-gradient(at 30% 30%,#999 -13%,#000 35%,#999 200%);
+		    background: -o-radial-gradient(at 30% 30%,#999 -13%,#000 35%,#999 200%); 
+		    background: -moz-radial-gradient(at 30% 30%,#999 -13%,#000 35%,#999 200%); 
+		    background: radial-gradient(at 30% 30%,#999 -13%,#000 35%,#999 200%); 
+			box-shadow: .1rem .1rem .05rem rgba(0,0,0,.5);
+		}
+		#mask{
+			width: 100%;
+			height: 100vh;
+			position: fixed;
+			top: 0;
+			left: 0;
+			background-color: rgba(0,0,0,.7);
+		}
+		.conBox{
+			display: block;
+			width: 300px;
+			height: 200px;
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			margin: auto;
+			background-color: #fff;
+			border-radius: 3px;
+			box-shadow: .1rem .1rem .05rem rgba(0,0,0,.5);
+		}
+		.conBox h1{
+			width: 100%;
+			float: left;
+			margin: 0;
+			line-height: 45px;
+			text-align: center;
+		}
+		.conBox p{
+			display: block;
+			width: 40px;
+			height: 40px;
+			float: left;
+			margin-top: 40px;
+			font-size: 32px;
+			text-align: center;
+			line-height: 40px;
+			cursor: pointer;
+		}
+		.conBox p:nth-child(2){
+			margin-left: 60px;
+		}
+		.conBox p:nth-child(3){
+			width: 100px;
+			font-size: 20px;
+			cursor: initial;
+		}
+		.conBox button{
+			width: 80px;
+			float: left;
+			margin-top: 30px;
+			margin-left: 110px;
+			color: #fff;
+			font-size: 14px;
+			text-align: center;
+			line-height: 28px;
+			background-color: #f60;
+			border: none;
+			outline: none;
+		}
+		.clear::after{
+			content: "";
+			display: block;
+			height: 0;
+			clear: both;
+			visibility: hidden;
+		}
+		.border,
+		.borderTop,
+		.borderBot
+		{
+			position: relative;
+		}
+		.border:after{
+			content: " ";
+		    width: 200%;
+		    height: 200%;
+		    position: absolute;
+		    top: 0;
+		    left: 0;
+		    border: 1px solid rgba(0, 0, 0, 0.2);
+		    -webkit-transform: scale(0.5);
+		    transform: scale(0.5);
+		    -webkit-transform-origin: 0 0;
+		    transform-origin: 0 0;
+		    box-sizing: border-box;
+		}
+		.borderBot:after{
+		    content: " ";
+		    position: absolute;
+		    left: 0;
+		    bottom: 0;
+		    right: 0;
+		    height: 1px;
+		    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+		    -webkit-transform-origin: 0 100%;
+		    transform-origin: 0 100%;
+		    -webkit-transform: scaleY(0.5);
+		    transform: scaleY(0.5);
+		}
+		.borderTop:before{
+			content: " ";
+		    position: absolute;
+		    left: 0; 
+		    top: 0;
+		    right: 0; 
+		    height: 1px;
+		    border-top: 1px solid rgba(0, 0, 0, 0.2);
+		    -webkit-transform-origin: 0 0;
+		    transform-origin: 0 0;
+		    -webkit-transform: scaleY(0.5);
+		    transform: scaleY(0.5);
+		}
+	</style>
+	<script>
+		window.onload=function(){
+			var grid;
+			var chessArr = [];
+			var timer = 0;
+			var lineNum = parseInt(gridNum.innerHTML);
+			var box = document.getElementById('chessboard');
+			var chessBox = box.getElementsByTagName('div');
+			var submitBtn = document.getElementById('submitBtn');
+
+			subBtn.onclick = function(){
+				if ( lineNum > 8 ) {
+					lineNum--;
+				}
+				gridNum.innerHTML = lineNum;
+			}
+			addBtn.onclick = function(){
+				if ( lineNum < 14 ) {
+					lineNum++;
+				}
+				gridNum.innerHTML = lineNum;
+			}
+
+			//棋盘初始化
+			submitBtn.onclick = function(){
+				var chessMaxNum = lineNum * lineNum;
+				var chessWH = 90/lineNum;
+				for (var i = 0; i < chessMaxNum; i++) {
+					grid = document.createElement('div');
+					grid.style.width = 'calc(' + chessWH + 'vmin - 2px)';
+					grid.style.height = 'calc(' + chessWH + 'vmin - 2px)';
+					grid.id=i;
+					box.appendChild(grid);
+					chessArr[i] = 0;
+
+					grid.onclick = function(x){
+						var index = x.target.id||x.target.parentNode.id;
+						return playChess(index);
+					};
+					
+				};
+				mask.style.display = 'none';
+			}
+
+			//棋子对象
+			function Chess(){
+				this.color = 'white';
+				this.site = 0;
+				this.chessDom = function(){
+					var dom = document.createElement('p');
+					dom.setAttribute('class',this.color);
+					return dom;
+				}
+				this.ligature = function(arr){
+					var whiteChess = arr.map(function(s){
+						return (s.color == 'white')?parseInt(s.site):0;
+					});
+					var blackChess = arr.map(function(s){
+						return (s.color == 'black')?parseInt(s.site):0;
+					});
+
+					judge(whiteChess,'白子');
+					judge(blackChess,'黑子');
+
+					function judge(che,color){
+						for (var i = 0;i < che.length;i++) {
+							var x = che[i]%lineNum;
+							var y = parseInt(che[i]/lineNum);
+							if ( x <= lineNum - 5 && y <= lineNum - 5 && che[i] != 0 ) {
+								if( che[i+1*lineNum+1] != 0 && che[i+2*lineNum+2] != 0 && che[i+3*lineNum+3] != 0 && che[i+4*lineNum+4] != 0 ){
+									alert(color+'获胜!');
+									location.replace(location);
+									return true;
+								}
+							};
+							if ( y <= lineNum - 5 && che[i] != 0 ) {
+								if( che[i+1*lineNum] != 0 && che[i+2*lineNum] != 0 && che[i+3*lineNum] != 0 && che[i+4*lineNum] != 0 ){
+									alert(color+'获胜!');
+									location.replace(location);
+									return true;
+								}
+							};
+							if ( x >= 4 && y <= lineNum - 5 && che[i] != 0 ) {
+								if( che[i+1*lineNum-1] != 0 && che[i+2*lineNum-2] != 0 && che[i+3*lineNum-3] != 0 && che[i+4*lineNum-4] != 0 ){
+									alert(color+'获胜!');
+									location.replace(location);
+									return true;
+								}
+							};
+							if ( x <= lineNum - 5 && che[i] != 0 ) {
+								if( che[i+1] != 0 && che[i+2] != 0 && che[i+3] != 0 && che[i+4] != 0 ){
+									alert(color+'获胜!');
+									location.replace(location);
+									return true;
+								}
+							};
+						};
+					}
+				}
+			} 
+
+			function playChess(i){
+				if(chessArr[i] == 0){
+					timer++;
+				    chessArr[i] = new Chess();
+				    timer%2==0?chessArr[i].color = 'black':chessArr[i].color = 'white';
+					chessArr[i].site = i;
+					chessBox[i].appendChild(chessArr[i].chessDom());
+					chessArr[i].ligature(chessArr);
+				}else{
+					alert('此处有子!');
+				}
+			}
+			
+		};
+	</script>
+</head>
+<body>
+	<section id="chessboard" class="clear">
+	</section>
+	<section id="mask">
+		<aside class="conBox">
+			<h1 class="borderBot">[双人游戏]请选择棋盘规格！</h1>
+			<p id="subBtn" class="border">-</p>
+			<p id="gridNum" value="10" class="borderTop borderBot">10</p>
+			<p id="addBtn" class="border">+</p>
+			<button id="submitBtn">确认</button>
+		</aside>
+	</section>
+</body>
+</html>

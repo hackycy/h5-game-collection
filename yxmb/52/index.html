@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html lang="zh" class="no-js demo-1">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+		<script src="js/jquery.min.js"></script>
+		<script src="js/Helper.js"></script>
+		<script src="js/keyboard.js"></script>
+		<script src="js/const.js"></script>
+		<script src="js/level.js"></script>
+		<script src="js/crackAnimation.js"></script>
+		<script src="js/prop.js"></script>
+		<script src="js/bullet.js"></script>
+		<script src="js/tank.js"></script>
+		<script src="js/num.js"></script>
+		<script src="js/menu.js"></script>
+		<script src="js/map.js"></script>
+		<script src="js/Collision.js"></script>
+		<script src="js/stage.js"></script>
+		<script src="js/main.js"></script>
+		<link rel="stylesheet" type="text/css" href="css/default.css" />
+		<style type="text/css">
+			#canvasDiv canvas{
+				position:absolute;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<head><h3>---玩家1：大键盘移动，Space射击<br>---玩家2：小键盘移动，Enter射击<br>---N：下一关，P：上一关，Enter：开始</h3></head>
+			<div class="main clearfix">
+				<div id="canvasDiv" >
+					<canvas id="wallCanvas" ></canvas> 
+					<canvas id="tankCanvas" ></canvas>
+					<canvas id="grassCanvas" ></canvas>
+					<canvas id="overCanvas" ></canvas> 
+					<canvas id="stageCanvas" ></canvas>
+				</div>
+			</div>
+			
+		</div><!-- /container -->
+
+	</body>
+</html>

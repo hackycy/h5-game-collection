@@ -1,0 +1,271 @@
+﻿/* -----样式表-----
+ */
+ @charset "utf-8";
+body{
+	background-color:#ddd;
+	overflow:hidden;
+	background-position: center center;
+}
+body *{font-family:"微软雅黑";}
+h1,h2,h3,h4{
+	margin:0; color:#000;
+	background-color:#eee;
+}
+a,a:link,button{cursor:pointer;}
+hr{margin:2px;}
+
+.aC1,.aC1:link{
+	margin:0 5px 0 5px;
+	font-size:16px;	width:120px;	height:26px;
+	display:inline-block;
+	border:1px solid #FFF;
+	border-bottom:2px solid #aaa;
+	text-align:center;	vertical-align:middle;
+}
+.clr1{
+	background-color:#3CF !important;
+	color:#fff !important;
+}
+.clr2{
+	background-color:#3CF !important;
+	color:#000 !important;
+}
+.aC1:hover{
+	border:1px solid #000;
+	border-bottom:2px solid #fff;
+	color:#FFF;			
+}
+.aC1:active{
+	background-color:#FF6;
+	color:#333;
+}
+
+.aC2,.aC2:link{
+	padding:8px;
+	display:inline-block;
+	border:2px solid #ccc;
+	text-align:center;	vertical-align:middle;
+}
+
+
+.tmpFlo{
+	padding:0; margin:0;
+	position:absolute;
+	z-index:99;
+}
+
+/*游戏棋盘*/
+.panelTb{
+	border:6px solid #ccc;
+	text-align:center;
+	vertical-align:middle;
+	border-collapse:collapse;
+	background-color:#000;
+	overflow:hidden;
+	cursor:pointer; /*!*/
+}
+.panelTb td{
+	text-align:center;
+	vertical-align:middle;
+	margin:0; padding:0;
+	/*border:1px solid #ddd;*/
+}
+
+.panelTb .uni, .tmpFlo .uni{
+	padding:0; margin:0;
+	position:relative;
+	display:block;
+	text-align:center;
+	vertical-align:middle;
+	cursor:pointer;
+}
+.panelTb .uni img, .tmpFlo .uni img{
+	width:100%;
+	height:100%;
+}
+
+.warn1{
+	display:none;	position:absolute;
+	font-weight:900;
+	color:red;
+	text-align:center;
+	width:100%;	height:100%;
+	left:0;	top:0;
+	background-color:#fff;
+	z-index:900;
+}
+
+.warn2{
+	display:none;	position:absolute;
+	color:#000;
+	text-align:center;
+	width:100%;
+	left:0;	top:0;
+	background-color:#3CF;
+	font-weight:bold;
+	z-index:899;
+}
+
+/*调试栏*/
+#debugPanel{ /* display:none;*/
+	background-color:#FFF;
+	position:absolute;
+	height:100%;
+	left:0; top:0;
+	color:#000;
+	z-index:999;
+	overflow:scroll;
+}
+
+
+/*棋子计分面板*/
+#scorePanel{
+	position:absolute;
+	float:left;
+	font-size:12px;
+	color:#396;
+}
+#scorePanel .hiScore{
+	color:#FF0;
+}
+#scorePanel div{
+	white-space:nowrap;
+}
+#scorePanel .uni{
+	display:inline-block;
+	margin-right:5px;
+	cursor:pointer;
+}
+#scorePanel .uni img{
+	width:100%;
+	height:100%;
+	border:1px solid #666;
+}
+#scorePanel .uni img:hover{
+	border-color:#FFF;
+}
+
+/*棋子单独计数栏*/
+.scBar{
+	font-weight:bold;
+}
+
+/*复背景层2*/
+#bgTmp1, #bgTmp2{
+	position:absolute;
+	margin:0; padding:0;
+	width:100%;	height:100%;
+	left:0;	top:0;
+	background-position:center center;
+}#bgTmp2 img{
+	width:100%;
+	height:100%;
+	border:none;
+}
+#bgTmp1{
+	z-index:-99; /*!*/
+}
+#bgTmp2{
+	z-index:-98; /*!*/
+}
+
+/*播放动画的容器*/
+.cartoonPanel{ display:none;
+	position:absolute;
+	margin:0; padding:0;
+	border:1px solid #ccc;
+	z-index:99; /*!*/
+}.cartoonPanel img{
+	width:100%;
+	height:100%;
+	border:none;
+}
+
+/*游戏时间条*/
+#gameTimeBar{
+	position:absolute;
+	border:2px solid #fff;
+	border-top:none;
+	background-color:#555;
+}
+#gameTimeBar #gameTime{
+	color:#000;
+	text-align:center;
+	vertical-align:bottom;
+	width:100%;
+	height:50%;
+	background-color:#CFC;
+	position:inherit;
+	bottom:0;
+}
+
+#uGirl1{
+	position:absolute;
+	bottom:0;
+	right:0;
+	width:497px;
+	height:400px;
+	background-position:right bottom;
+	z-index:-98; /*!*/
+}#uGirl1 img{
+	width:100%; height:100%; border:none;
+}
+
+/*游戏结束后信息面板*/
+#endPanel{ display:none;
+	position:absolute;
+	left:0; top:0;	width:100%; height:100%;
+	text-align:center;
+	/*opacity:0.95;*/
+	background-color:#FFF;
+	color:#000;
+	z-index:200;
+}
+#endPanel #finSumScore{
+	color:#090;
+	font-weight:bold;
+}
+#endPanel p{
+	width:100%; padding:0; margin:0;
+}
+#endPanel #finUni{
+	position:absolute;
+	width:100%; padding:0; margin:0;
+	background-color:#6CF;
+}
+#endPanel .uni{
+	position:inherit;
+	width:20%;
+}
+#endPanel .uni img{
+	border:none;
+	width:100%; height:100%;
+}
+
+/*#fuckA{ display:none;
+	padding:2px 6px 3px 6px;
+	border:2px solid #333;
+	background-color:#F0C;
+	color:#000;
+}#fuckA:hover{
+	background-color:#FFC;
+}
+*/
+
+#btnPnl{
+	position:fixed;
+	width:100%;
+	text-align:center;
+	bottom:10px;
+	z-index:800;
+}
+#endPanel #uGirl1{
+	z-index:798 !important;
+}
+#endPanel #aSpeech{
+	padding:5px;
+	position:absolute;
+	background-color:#eee;
+	color:#06C;
+	opacity:0.8;
+}

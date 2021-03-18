@@ -1,0 +1,11 @@
+*{ margin:0; padding:0;}
+#ul1{ position:relative; margin:100px auto; background:#1b1f2b; overflow:hidden;}
+#ul1 li{ list-style:none;}
+ 
+body { text-align: center; background-color: #00CCCC; }
+.box0{ width:70px; height:70px; background:url(../images/1.jpg) no-repeat; float:left;}
+.box1{ width:70px; height:70px; background:url(../images/2.jpg) no-repeat; float:left;}
+.box2{ width:70px; height:70px; background:url(../images/3.jpg) no-repeat; float:left;}
+.box3{ width:70px; height:70px; background:url(../images/4.jpg) no-repeat; float:left;}
+.box4{ width:70px; height:70px; background:url(../images/5.jpg) no-repeat; float:left;}
+.box5{ width:70px; height:70px; background:url(../images/6.jpg) no-repeat; float:left;}

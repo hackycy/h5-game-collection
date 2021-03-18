@@ -1,0 +1,51 @@
+*{margin:0;padding:0;list-style-type:none;}
+a,img{border:0;}
+html,body{ width: 100%;height: 100%; }
+body{font:12px/180% Arial, Helvetica, sans-serif, "Î¢ÈíÑÅºÚ";background:#ffee97;}
+
+.main{position:relative;margin:0px auto;max-width:375px;width:100%;height:100%;border:0px solid #ccc;overflow:hidden; }
+.ph-main{width: 100%;height: 100%;position: relative;border: none; margin: auto;overflow: hidden;}
+.container{max-width:375px;position:absolute;top:0px;width:100%;height:150%;background:url(../img/bg3.jpg) no-repeat top center;background-size:100% 200%;}
+.row{width:100%;height:20px;}
+.cell{float:left;width:25%;height:40%;}
+.block{background:#ccc;cursor:pointer;background:url(../img/h1.png) no-repeat top center;background-size:80%;}
+.block_click1{background:#ccc;cursor:pointer;background:url(../img/f1.png) no-repeat top center;background-size:80% 100%;}
+.block_click2{background:#ccc;cursor:pointer;background:url(../img/f2.png) no-repeat top center;background-size:80% 100%; }
+
+.mark{ position: absolute; width:80px; height: 30px; background:url(../img/r1.png) no-repeat top center;background-size:100%;
+	 top: 0px; left: 50%; margin-left: -42px; text-align: center; line-height: 20px;z-index: 1;font-size:20px;color:#fff;padding-top:10px;}
+.mask , .again-mask{position: absolute;top: 0;left: 0;width: 100%;height: 100%;background: rgba(0,0,0,.3);text-align: center;z-index: 2;background:url(../img/bg1.jpg) no-repeat top center;background-size:cover;}
+
+
+.mask span ,.again-mask span{ display: block; width: 150px;height: 80px;font-size: 20px; text-align: center; line-height: 1.3em;margin:80% auto 3%;  cursor: pointer;  }
+#start img{width:100%;}
+#start_piv{margin:0 auto;}
+#start_piv img{width:100%;}
+
+
+.ft{width:100%;margin:0 auto;max-width:375px;}
+.ft img{width:100%;position:fixed;bottom:0;max-width:375px;} 
+
+#againMask{background:rgba(0,0,0,0.5);z-index:99;width:100%;}
+
+
+#gove{background: url(../img/bg.png) no-repeat top center;background-size:100%;top:0%;height:400px;
+	position:absolute;top:10%;left:0%;width:100%;}
+.again-mask h2{ color: #fff;padding:2% 1%;line-height:1.3em;font-family: 'Î¢ÈíÑÅºÚ';margin: 35% auto 0;
+	background:rgba(252,217,24,0.8); width:70%; font-size:30px;position:relative;}
+
+.mask h1 , .again-mask h1{ font-size:20px;color: #333;height: 50px;line-height: 50px;font-family: 'Î¢ÈíÑÅºÚ'; }
+#againStart{margin:0 auto;position:absolute;margin-top:92%;left:1%;top:0;}
+#againStart_two{position:absolute;top:11%;right:1%;}
+#againStart img{width:100%}
+#againStart_two img{width:100%}
+
+
+
+
+
+
+
+
+
+

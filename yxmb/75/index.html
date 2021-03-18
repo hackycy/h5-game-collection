@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html> 
+<html manifest="offline.manifest">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>森林协奏曲HTML5游戏</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-touch-fullscreen" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<script type="text/javascript" src="js/game.js"></script>
+
+<meta name="viewport" content="target-densitydpi=device-dpi, user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1">
+
+</head>
+
+<body style="margin: 0px; padding: 0px; background-color: rgb(0, 0, 0); overflow: hidden; background-position: initial initial; background-repeat: initial initial;">
+
+
+<div id="main_container">
+
+	<div id="progress_container" align="center" style="height: 959px; display: none; width: 100%; position: absolute; left: 0px; top: 0px;">
+		<table cellspacing="0" cellpadding="0">
+			<tbody>
+				<tr>
+					<td id="progress" align="center" valign="middle" style="width: 639px; height: 959px; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255); font-weight: bold; font-family: Verdana; font-size: 18px; vertical-align: middle; background-position: initial initial; background-repeat: initial initial;">Loading: 98%<br><br><div style="display: block; background: #000; width: 294px; height: 15px;">&nbsp;</div></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<div id="screen_background_container" align="center" style="width: 100%; height: 959px; position: absolute; left: 0px; top: 0px; display: block; z-index: 2;">
+		<div id="screen_background_wrapper" style="width: 639px; height: 959px; overflow: hidden; position: relative;">
+			<canvas id="screen_background" width="639" height="959"></canvas>
+		</div>
+	</div>
+	
+	<div id="screen_container" align="center" style="width: 100%; height: 959px; position: absolute; left: 0px; top: 0px; display: block; z-index: 3;">
+		<div id="screen_wrapper" style="width: 639px; height: 959px; overflow: hidden; position: relative;">
+			<canvas id="screen" style="position: absolute; left: 0px; top: 0px; z-index: 1000000;" width="639" height="959">您的浏览器不支持这个游戏 :(</canvas>
+		</div>
+	</div>
+	
+</div>
+
+<div id="advert" align="center" style="position: absolute; left: 0px; top: 909px; width: 100%; z-index: 100000;"></div>
+
+<script type="text/javascript">
+window.addEventListener("load", function()
+{
+	Utils.addEventListener("lockscreen", hideAdvertising);
+	Utils.addEventListener("unlockscreen", showAdvertising);
+	Utils.addEventListener("fitlayout", setAdvertisingPosition);
+}, false);
+
+function hideAdvertising()
+{
+	document.getElementById("advert").style.display = "none";
+}
+
+function showAdvertising()
+{
+	document.getElementById("advert").style.display = "";
+}
+
+function setAdvertisingPosition()
+{
+	var y = document.getElementById("screen").offsetHeight - 50;
+	document.getElementById("advert").style.top = y+"px";
+}
+</script>
+
+
+</body>
+</html>

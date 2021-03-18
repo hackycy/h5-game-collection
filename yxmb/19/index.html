@@ -1,0 +1,585 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>生存游戏</title>
+<style>
+a {
+	cursor: pointer;
+}
+html, body {
+	margin: 0;
+	padding: 0;
+}
+fieldset, img {
+	border: 0;
+}
+li {
+	list-style: none;
+}
+
+.pos{
+  position: relative;
+  top: -90px;
+}
+/*input[type="Submit"]{cursor:pointer;}*/
+
+strong {
+	font-weight: bold;
+}
+body {
+	overflow: hidden;
+	font-family: 'Comfortaa', cursive;
+	font-size: 11px;
+}
+canvas {
+	background-image:url(p9mUO.jpg);
+  background-position-x: initial;
+  background-position-y: initial;
+  background-size: cover;
+  background-repeat-x: initial;
+  background-repeat-y: initial;
+  background-attachment: initial;
+  background-origin: initial;
+  background-clip: initial;
+  background-position: center;
+	font-family: 'Comfortaa', cursive;
+}
+.ui {
+	border-radius: 50px 120px 120px;
+	font-family: 'Comfortaa', cursive;
+	font-size: 17px;
+	color: #fa3380;
+  background: linear-gradient(to right, rgba(2, 179, 228, 0.6) 0%, rgba(2, 204, 186,0.6) 100%);
+	position: absolute;
+	width: 70%;
+
+  
+}
+
+#message {
+	border-radius: 50px 120px 120px;
+	padding: 70px;
+  position: relative;
+  margin: 0 auto;
+  -webkit-animation:colorchange 50s infinite alternate;
+}
+#startButton {
+	margin-top: 50px;
+}
+#status {
+	width: 100%;
+	height: 15px;
+	padding: 8px;
+	display: none;
+}
+#status span {
+	color: #fff;
+	font-weight: bold;
+	margin-right: 20px;
+  
+}
+#title {
+  text-transform: uppercase;
+  text-align: center; 	
+	margin-top: 10px;
+	color: #fa3380;
+-webkit-animation:colorchange 7s infinite alternate;
+}
+.ui a {
+	outline: none;
+	font-family: 'Comfortaa', cursive;
+	font-size: 38px;
+  width: 150px;
+  text-align: center;
+  margin: 0 auto;
+	text-decoration: none;
+	color: deepskyblue;
+	padding: 2px;
+	display: block;
+  -webkit-animation:colorchange 1s infinite alternate;
+}
+.ui a:hover {
+  font-weight: bold;
+   background: linear-gradient(to right, rgba(2, 179, 228, 0.9) 0%, rgba(2, 204, 186,0.9) 100%);
+	border-radius: 50px 120px 120px;
+}
+
+
+
+
+@-webkit-keyframes colorchange {
+      0% {
+        
+        color: darkviolet;
+      }
+      
+      10% {
+        
+        color: #fa3380;
+      }
+      
+      20% {
+        
+        color: rgba(2,179,228,0.8);
+      }
+      
+      30% {
+        
+        color: rgba(2,204,186,0.8);
+      }
+      
+      40% {
+        
+        color: rgba(169,81,237,0.8);
+      }
+      
+      50% {
+        
+        color: rgba(255,162,52,0.8);
+      }
+      
+      60% {
+        
+        color: rgba(255,84,131,0.8);
+      }
+      
+      70% {
+        
+        color: deepskyblue;
+      }
+      80% {
+     
+        color: purple;
+      }
+      
+      90% {
+     
+        color: lightpink;
+      }
+      
+      100% {
+        
+        color: rgba(125,151,173,0.8);
+      }
+    }
+
+</style>
+</head>
+<body>
+<canvas id='world'></canvas>
+<div id="status" class="ui"></div>
+<div class="pos">
+<div id="message" class="ui">
+  <h2 id="title">Survival Game</h2>
+  <ul>
+    <li>1. 避免白点。</li>
+    <li>2. 触摸绿色点刀枪不入。</li>
+    <li>3. 停留在中心, 不要接触侧面</li>
+    <li>4. 使用不易破坏的白点。</li>
+    <li>5. 通过到处移动来获得额外的分数。</li>
+    <li>6. 活下去</li>
+  </ul>
+  <a href="#" class="btn" id="startButton">Play</a>
+</div>
+</div>
+
+
+<script>
+SinuousWorld = new function(){
+  
+  var isMobile = (navigator.userAgent.toLowerCase().indexOf('android') != -1) || (navigator.userAgent.toLowerCase().indexOf('iphone') != -1);
+  
+  var SCREEN_WIDTH = window.innerWidth;
+  var SCREEN_HEIGHT = window.innerHeight;
+  
+  var canvas;
+  var context;
+  
+  var status;
+  var message;
+  var title;
+  var startButton;
+  
+  var enemies = [];
+  var boosts = [];
+  var particles = [];
+  var player;
+  
+  var mouseX = (window.innerWidth - SCREEN_WIDTH);
+  var mouseY = (window.innerHeight - SCREEN_HEIGHT);
+  var mouseIsDown = false;
+  
+  var playing = false;
+  var score = 0;
+  var time = 0;
+  
+  var velocity = { x: -1.3, y: 1 };
+  var difficulty = 1;
+  
+  this.init = function(){
+  
+    canvas = document.getElementById('world');
+    status = document.getElementById('status');
+    message = document.getElementById('message');
+    title = document.getElementById('title');
+    startButton = document.getElementById('startButton');
+    
+    if (canvas && canvas.getContext) {
+      context = canvas.getContext('2d');
+      
+      // Register event listeners
+      document.addEventListener('mousemove', documentMouseMoveHandler, false);
+      document.addEventListener('mousedown', documentMouseDownHandler, false);
+      document.addEventListener('mouseup', documentMouseUpHandler, false);
+      canvas.addEventListener('touchstart', documentTouchStartHandler, false);
+      document.addEventListener('touchmove', documentTouchMoveHandler, false);
+      document.addEventListener('touchend', documentTouchEndHandler, false);
+      window.addEventListener('resize', windowResizeHandler, false);
+      startButton.addEventListener('click', startButtonClickHandler, false);
+      
+      player = new Player();
+      
+      windowResizeHandler();
+      
+      setInterval(loop, 3000 / 100);
+    }
+  };
+  
+  function startButtonClickHandler(event){
+    event.preventDefault();
+    
+    if( playing == false ) {
+      playing = true;
+      
+      enemies = [];
+      boosts = [];
+      score = 0;
+      difficulty = 1;
+      
+      player.trail = [];
+      player.position.x = mouseX;
+      player.position.y = mouseY;
+      player.boost = 0;
+      
+      message.style.display = 'none';
+      status.style.display = 'block';
+      
+      time = new Date().getTime();
+    }
+  }
+  
+  function gameOver() {
+    playing = false;
+    
+    message.style.display = 'block';
+    
+    title.innerHTML = 'You Lost( ' + Math.round (score ) + ' points)';
+  }
+  
+  function documentMouseMoveHandler(event){
+    mouseX = event.clientX - (window.innerWidth - SCREEN_WIDTH) * .5 - 10;
+    mouseY = event.clientY - (window.innerHeight - SCREEN_HEIGHT) * .5 - 10;
+  }
+  
+  function documentMouseDownHandler(event){
+    mouseIsDown = true;
+  }
+  
+  function documentMouseUpHandler(event) {
+    mouseIsDown = false;
+  }
+  
+  function documentTouchStartHandler(event) {
+    if(event.touches.length == 1) {
+      event.preventDefault();
+      
+      mouseX = event.touches[0].pageX - (window.innerWidth - SCREEN_WIDTH) * .5;
+      mouseY = event.touches[0].pageY - (window.innerHeight - SCREEN_HEIGHT) * .5;
+      
+      mouseIsDown = true;
+    }
+  }
+  
+  function documentTouchMoveHandler(event) {
+    if(event.touches.length == 1) {
+      event.preventDefault();
+
+      mouseX = event.touches[0].pageX - (window.innerWidth - SCREEN_WIDTH) * .5;
+      mouseY = event.touches[0].pageY - (window.innerHeight - SCREEN_HEIGHT) * .5;
+    }
+  }
+  
+  function documentTouchEndHandler(event) {
+    mouseIsDown = false;
+  }
+  
+  function windowResizeHandler() {
+    SCREEN_WIDTH = window.innerWidth;
+    SCREEN_HEIGHT = window.innerHeight;
+    
+    canvas.width = SCREEN_WIDTH;
+    canvas.height = SCREEN_HEIGHT;
+    
+    var cvx = (window.innerWidth - SCREEN_WIDTH) * .5;
+    var cvy = (window.innerHeight - SCREEN_HEIGHT) * .5;
+    
+    canvas.style.position = 'absolute';
+    canvas.style.left = cvx + 'px';
+    canvas.style.top = cvy + 'px';
+    
+    message.style.left = cvx + 'px';
+    message.style.top = cvy + 200 + 'px';
+  }
+  
+  function createParticles( position, spread, color ) {
+    var q = 10 + ( Math.random() * 15 );
+    
+    while( --q >= 0 ) {
+      var p = new Particle();
+      p.position.x = position.x + ( Math.sin(q) * spread );
+      p.position.y = position.y + ( Math.cos(q) * spread );
+      p.velocity = { x: -4 + Math.random() * 8, y: - 4 + Math.random() * 8 };
+      p.alpha = 1;
+      
+      particles.push( p );
+    }
+  }
+
+  function loop() {
+    
+    context.clearRect(0,0,canvas.width,canvas.height);
+    
+    var svelocity = { x: velocity.x * difficulty, y: velocity.y * difficulty };
+    
+    var i, j, ilen, jlen;
+    
+    if( playing ) {
+      difficulty += 0.0008;
+      
+      pp = player.clonePosition();
+      
+      player.position.x += ( mouseX - player.position.x ) * 0.13;
+      player.position.y += ( mouseY - player.position.y ) * 0.13;
+      
+      score += 0.4 * difficulty;
+      score += player.distanceTo( pp ) * 0.1;
+      
+      player.boost = Math.max( player.boost - 1, 0 );
+      
+      if( player.boost > 0 && ( player.boost > 100 || player.boost % 2 != 0 ) ) {
+        context.beginPath();
+        context.fillStyle = '#fa3380';
+        context.strokeStyle = 'rgba(2,179,228,0.8)';
+        context.arc(player.position.x, player.position.y, player.size*2, 0, Math.PI*2, true);
+        context.fill();
+        context.stroke();
+      }
+      
+      player.trail.push( new Point( player.position.x, player.position.y ) );
+      
+      context.beginPath();
+      context.strokeStyle = '#fa3380';
+      context.lineWidth = 3;
+      
+      for( i = 0, ilen = player.trail.length; i < ilen; i++ ) {
+        p = player.trail[i];
+        
+        context.lineTo( p.position.x, p.position.y );
+        
+        p.position.x += svelocity.x;
+        p.position.y += svelocity.y;
+      }
+      
+      context.stroke();
+      context.closePath();
+      
+      if( player.trail.length > 40 ) {
+        player.trail.shift();
+      }
+      
+      context.beginPath();
+      context.fillStyle = 'deepskyblue';
+      context.arc(player.position.x, player.position.y, player.size/2, 0, Math.PI*2, true);
+      context.fill();
+    }
+    
+    if( playing && ( player.position.x < 0 || player.position.x > SCREEN_WIDTH || player.position.y < 0 || player.position.y > SCREEN_HEIGHT ) ) {
+      gameOver();
+    }
+    
+    for( i = 0; i < enemies.length; i++ ) {
+      p = enemies[i];
+      
+      if( playing ) {
+        if( player.boost > 0 && p.distanceTo( player.position ) < ( ( player.size * 4 ) + p.size ) * 0.5 ) {
+          createParticles( p.position, 10 );
+          enemies.splice( i, 1 );
+          i --;
+          score += 10;
+          continue;
+        }
+        else if( p.distanceTo( player.position ) < ( player.size + p.size ) * 0.5 ) {
+          createParticles( player.position, 10 );
+          gameOver();
+        }
+      }
+      
+      context.beginPath();
+      context.fillStyle = 'white';
+      context.arc(p.position.x, p.position.y, p.size/1, 0, Math.PI*2, true);
+      context.fill();
+      
+      p.position.x += svelocity.x * p.force;
+      p.position.y += svelocity.y * p.force;
+      
+      if( p.position.x < 0 || p.position.y > SCREEN_HEIGHT ) {
+        enemies.splice( i, 1 );
+        i --;
+      }
+    }
+    
+    for( i = 0; i < boosts.length; i++ ) {
+      p = boosts[i];
+      
+      if( p.distanceTo( player.position ) < ( player.size + p.size ) * 0.5 && playing ) {
+        player.boost = 2000;
+        
+        for( j = 0; j < enemies.length; j++ ) {
+          e = enemies[j];
+          
+          if( e.distanceTo( p.position ) < 100 ) {
+            createParticles( e.position, 10 );
+            enemies.splice( j, 1 );
+            j--;
+            score += 10;
+          }
+        }
+      }
+      
+      context.beginPath();
+      context.fillStyle = 'lightgreen';
+      context.arc(p.position.x, p.position.y, p.size/1, 0, Math.PI*2, true);
+      context.fill();
+      
+      p.position.x += svelocity.x * p.force;
+      p.position.y += svelocity.y * p.force;
+      
+      if( p.position.x < 0 || p.position.y > SCREEN_HEIGHT || player.boost != 0 ) {
+        boosts.splice( i, 9 );
+        i --;
+      }
+    }
+    
+    if( enemies.length < 25 * difficulty ) {
+      enemies.push( positionNewOrganism( new Enemy() ) );
+    }
+    
+    if( boosts.length < 1 && Math.random() > 0.997 && player.boost == 0 ) {
+      boosts.push( positionNewOrganism( new Boost() ) );
+    }
+    
+    for( i = 0; i < particles.length; i++ ) {
+      p = particles[i];
+      
+      p.velocity.x += ( svelocity.x - p.velocity.x ) * 0.04;
+      p.velocity.y += ( svelocity.y - p.velocity.y ) * 0.04;
+      
+      p.position.x += p.velocity.x;
+      p.position.y += p.velocity.y;
+      
+      p.alpha -= 0.02;
+      
+      context.fillStyle = 'rgba(2,179,228,0.8)'+Math.max(p.alpha,0)+')';
+      context.fillRect( p.position.x, p.position.y, 1, 1 );
+      
+      if( p.alpha <= 0 ) {
+        particles.splice( i, 1 );
+      }
+    }
+    
+    if( playing ) {
+      scoreText = 'Score: <span>' + Math.round( score ) + '</span>';
+      scoreText += ' Time: <span>' + Math.round( ( ( new Date().getTime() - time ) / 1000 ) * 100 ) / 100 + 's</span>';
+      status.innerHTML = scoreText;
+    }
+  }
+  
+  function positionNewOrganism( p ) {
+    if( Math.random() > 0.5 ) {
+      p.position.x = Math.random() * SCREEN_WIDTH;
+      p.position.y = -20;
+    }
+    else {
+      p.position.x = SCREEN_WIDTH + 20;
+      p.position.y = (-SCREEN_HEIGHT * 0.2) + ( Math.random() * SCREEN_HEIGHT * 1.2 );
+    }
+    
+    return p;
+  }
+  
+};
+
+/**
+ * 
+ */
+function Point( x, y ) {
+  this.position = { x: x, y: y };
+}
+Point.prototype.distanceTo = function(p) {
+  var dx = p.x-this.position.x;
+  var dy = p.y-this.position.y;
+  return Math.sqrt(dx*dx + dy*dy);
+};
+Point.prototype.clonePosition = function() {
+  return { x: this.position.x, y: this.position.y };
+};
+
+/**
+ * 
+ */
+function Player() {
+  this.position = { x: 0, y: 0 };
+  this.trail = [];
+  this.size = 8;
+  this.boost = 0;
+}
+Player.prototype = new Point();
+
+/**
+ * 
+ */
+function Enemy() {
+  this.position = { x: 0, y: 0 };
+  this.size = 6 + ( Math.random() * 4 );
+  this.force = 1 + ( Math.random() * 0.4 );
+}
+Enemy.prototype = new Point();
+
+/**
+ * 
+ */
+function Boost() {
+  this.position = { x: 0, y: 0 };
+  this.size = 10 + ( Math.random() * 8 );
+  this.force = 1 + ( Math.random() * 0.4 );
+}
+Boost.prototype = new Point();
+
+/**
+ * 
+ */
+function Particle() {
+  this.position = { x: 0, y: 0 };
+  this.force = 1 + ( Math.random() * 0.4 );
+  this.color = '#fa3380';
+}
+Particle.prototype = new Point();
+
+
+
+SinuousWorld.init();
+  
+  </script>
+</body>
+</html>

@@ -1,0 +1,294 @@
+/**
+ * Created by jicemoon on 2015/9/1.
+ */
+* {
+    margin: 0px;
+    padding: 0px;
+    -webkit-tap-highlight-color: transparent; 
+	
+}
+input{
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0); 
+    -webkit-user-select: none;
+    -webkit-appearance:none;
+    outline: none;
+}
+body,html{
+    overflow: hidden;
+    font-family: "微软雅黑";
+    moz-user-select: -moz-none; 
+    -moz-user-select: none; 
+    -o-user-select:none; 
+    -khtml-user-select:none; 
+    -webkit-user-select:none; 
+    -ms-user-select:none; 
+    user-select:none;
+    background: #290b56;
+}
+img{
+    display: block;
+}
+.BulletNumBox{
+    position: absolute;
+    width: 4.08rem;
+    height: 4.08rem;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    text-align: center;
+    line-height: 4.08rem;
+    font-size: 1.2rem;
+    top: 5.94rem;
+    z-index: 30;
+
+*filter: Glow(color=#000, strength=1);
+}
+.levelSwitchBox{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 20;
+    background: #FFF;
+}
+.hidden{
+    animation:hidden 1s infinite;
+    animation-iteration-count:1;
+    animation-delay:2s;
+    animation-fill-mode:forwards;
+}
+
+@keyframes hidden
+{
+from {opacity: 1}
+to {opacity: 0;}
+}
+.levelSwitchBoxMain{
+    width: 100%;
+    height:100%;
+}
+.levelSwitchBoxBottom{
+    width: 100%;
+    position: absolute;
+    bottom: 60px;
+    left: 0;
+}
+.clearfix {
+    zoom: 1;
+}
+.clearfix:after, .clearfix:before {
+    clear: both;
+    content: "";
+    display: block;
+}
+
+.layoutRoot{
+    position: relative;
+    text-align: center;
+    background: #FFF;
+    background-image: url("../img/bg.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    transition: 0.2s all;
+}
+.PopupBox{
+    width: 266px;
+    background:rgba(252,252,252,1);
+    position: absolute;
+    top: 0;
+    left: calc(50% - 133px);
+    z-index: 10;
+	border-radius: 12px;
+}
+.PopupBox#gameSuccessBox{
+    top: calc(50% - 155px);
+    height: 150px;
+	
+}
+.PopupBox#gameOverBox{
+    top: calc(50% - 150px);
+    height: 158px;
+}
+#gameOverBoxTitle{
+    position: absolute;
+    top: 57px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 22px;
+    line-height: 18px;
+    text-align: center;
+    color: #FE5A99;
+}
+.gameOverIcon{
+    height: 60px;
+    width: 54px;
+    position: absolute;
+    top: 34px;
+    left: 106px;
+    background: url('../img/game_over.png');
+    background-size: 100%;
+}
+.PopupBoxBtn{
+    width: 70%;
+    font-size: .36rem;
+    line-height: 0.8rem;
+    text-align: center;
+    height: 0.8rem;
+    background-color: #FE5A99;
+    border-radius:25px;
+    color: white;
+    margin: 0 auto;
+    position: absolute;
+    bottom: 20px;
+    left: 15%;
+}
+#gameOverBoxBtn{
+    margin-top: 0.18rem;
+}
+#gameSuccessBoxBtn{
+    position: absolute;
+    bottom: 30px;
+    z-index: 99999;
+}
+.close{
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.close img{
+    width: 0.54rem;
+    height: 0.54rem;
+    padding: .24rem .32rem;
+}
+#gameSuccessProductBox{
+    position: absolute;
+    top: 30px;
+    left: calc(50% - 50px);
+    width: 100px;
+    height: 188px;
+    padding: 4px 4px;
+    background: #FFF;
+    border:1px solid rgba(236,236,236,1);
+}
+.gameSuccessTextLine1{
+    margin-top: 4px;
+    height:28px;
+    font-size:10px;
+    font-weight:300;
+    color:rgba(0,0,0,1);
+    line-height:14px;
+}
+.gameSuccessTextLine2{
+    font-weight: border;
+    height:13px;
+    font-size:10px;
+    font-weight:500;
+    color:rgba(0,0,0,1);
+    line-height:13px;
+    margin-top: 5px;
+}
+#gameSuccessBoxText{
+    position: absolute;
+    top: 38px;
+    width: 100%;
+    text-align: center;
+    font-size: 22px;
+    color: #000;
+    font-weight: bolder;
+}
+#gameSuccessProductPic{
+    width: 100%;
+    height: 132px;
+    background-color: #F2F2F2;
+    background-repeat: no-repeat;
+    background-size: auto 100%;
+    background-position: center;
+}
+#gameSuccessProductTextBox{
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    height: calc(100% - 139px);
+    color: #000;
+}
+.layoutRoot .game{
+   position: relative;
+   left: 50%;
+   transform: translateX(-50%);
+}
+.layoutRoot .game .tips{
+    opacity: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: rgba(55, 1, 1, 0.4);
+    display: inline-block;
+    min-width: 150px;
+    border: 1px solid rgba(243, 0, 255, 0.5);
+    box-shadow: 5px 5px 5px rgba(136, 136, 136, 0.6);
+    font-size: 20px;
+    padding: 5px 10px;
+    text-align: left;
+    color:#cccccc;
+}
+.layoutRoot .game .levelbox{
+    position: absolute;
+    left: 15px;
+    top: 15px;
+}
+#timebox{
+    position: absolute;
+    right: 14px;
+    top: 14px;
+    width: 52px;
+    height: 55px;
+    background: url("../img/timebox_bg.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    font-size: 26px;
+    text-align: center;
+    line-height: 58px;
+    font-weight: 300;
+    color: #000;
+}
+.levelSwitchBox .trail{
+    width: 100%;
+    height: 20px;
+    line-height: 20px;
+    font-size: 20px;
+    position: absolute;
+    top: 15px;
+    left: 0;
+    text-align: center;
+    color: #DDD;
+}
+.layoutRoot .game .levelbox .level{
+    float: left;
+    width: 30px;
+    margin-right: .20rem;
+}
+.level img{width: 100%;}
+.layoutRoot .game .tips>p span{
+    color:#ffffff;
+}
+.layoutRoot .game .tips>p:nth-child(2){
+    color: #85ff02;
+}
+.blur {
+    opacity: 0.6;
+}
+.bulletsNumBox{
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 10;
+    overflow: hidden;
+    top: 4.94rem;
+    display: none;
+}
+.bulletsNum{
+    float: left;
+    height: 1.04rem;
+    display: none;
+}

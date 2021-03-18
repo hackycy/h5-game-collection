@@ -1,0 +1,333 @@
+﻿@charset "utf-8";
+/**
+ * 公共样式
+ Download by http://www.codefans.net*/
+body, ul, ol, li, p, h1, h2, h3, h4, h5, h6, form, fieldset, table, th, td, img, div {
+	margin: 0px;
+	padding: 0px;
+	border: 0px;
+}
+body {
+	background: #ffffff;
+	color: #000000;
+	font-size: 14px;
+	font-family: 'Arial Unicode MS', Verdana, Arial, Helvetica, sans-serif;
+}
+ul, ol {
+	list-style-type: none;
+}
+input, textarea, select {
+	vertical-align: middle;
+	font-size: 14px;
+	padding: 2px;
+	font-family: 'Arial Unicode MS', Verdana, Arial, Helvetica, sans-serif;
+}
+a, a:hover {
+	text-decoration: none;
+}
+.clear {
+	clear: both;
+	display: block;
+	font-size: 0px;
+	line-height: 0px;
+	margin: 0px;
+	padding: 0px;
+	border: 0px;
+}
+/**
+ * page
+ */
+#donkeyJump {
+	width: 480px;
+	height: 800px;
+	position: absolute;
+	left: 50%;
+	margin-left: -240px;
+	top: 0px;
+}
+#donkeyJump .block {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 480px;
+	height: 800px;
+}
+#donkeyJump .background {
+	background-image: url(../images/system/background.jpg);
+	background-repeat: no-repeat;
+}
+#donkeyJump .icon {
+	background-image: url(../images/system/icon.png);
+	background-repeat: no-repeat;
+}
+/**
+ * 预备界面
+ */
+#gameCover {
+	background-position: 0px 0px;
+}
+#btnSound {
+	display: block;
+	position: absolute;
+	left: 15px;
+	top: 15px;
+	width: 52px;
+	height: 52px;
+	background-position: -17px -1023px;
+}
+#btnSound.disabled {
+	background-position: -17px -971px;
+}
+#btnCup {
+	display: block;
+	position: absolute;
+	left: 260px;
+	top: 455px;
+	width: 79px;
+	height: 79px;
+	background-position: -390px -1786px;
+}
+#btnCup:hover {
+	background-position: -390px -1707px;
+}
+#btnScore {
+	display: block;
+	position: absolute;
+	left: 20px;
+	top: 535px;
+	width: 152px;
+	height: 110px;
+	background-position: -225px -1246px;
+}
+#btnScore:hover {
+	background-position: -225px -1136px;
+}
+#btnPlay {
+	display: block;
+	position: absolute;
+	left: 175px;
+	top: 595px;
+	width: 166px;
+	height: 107px;
+	background-position: -220px -1508px;
+}
+#btnPlay:hover {
+	background-position: -220px -1401px;
+}
+#btnMore {
+	display: block;
+	position: absolute;
+	left: 345px;
+	top: 535px;
+	width: 117px;
+	height: 110px;
+	background-position: -220px -1782px;
+}
+#btnMore:hover {
+	background-position: -220px -1673px;
+}
+#btnShare {
+	display: block;
+	position: absolute;
+	left: 381px;
+	top: 0px;
+	width: 99px;
+	height: 99px;
+	background-position: -257px -970px;
+}
+#progressText {
+	display: block;
+	position: absolute;
+	left: 281px;
+	top: 385px;
+	-webkit-transform: rotate(-8deg);
+	-moz-transform: rotate(-8deg);
+}
+/**
+ * 游戏主体
+ */
+#gameBody {
+	display: none;
+}
+#gameCanvas canvas {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+}
+#btnPause {
+	display: block;
+	position: absolute;
+	left: 410px;
+	top: 740px;
+	width: 57px;
+	height: 54px;
+	background-position: -154px -970px;
+}
+#number {
+	position: absolute;
+	left: 8px;
+	top: 8px;
+	width: 190px;
+	padding-left: 66px;
+	height: 128px;
+	background-position: -21px -749px;
+}
+#number span {
+	display: block;
+	width: 16px;
+	height: 24px;
+	background-image: url(../images/system/icon.png);
+	background-repeat: no-repeat;
+	float: left;
+	margin: 30px 3px 0px 0px;
+}
+#number .number0 {
+	background-position: -8px -880px;
+}
+#number .number1 {
+	background-position: -26px -880px;
+}
+#number .number2 {
+	background-position: -44px -880px;
+}
+#number .number3 {
+	background-position: -62px -880px;
+}
+#number .number4 {
+	background-position: -80px -880px;
+}
+#number .number5 {
+	background-position: -98px -880px;
+}
+#number .number6 {
+	background-position: -116px -880px;
+}
+#number .number7 {
+	background-position: -134px -880px;
+}
+#number .number8 {
+	background-position: -152px -880px;
+}
+#number .number9 {
+	background-position: -170px -880px;
+}
+#panelResume {
+	position: absolute;
+	left: 76px;
+	top: 160px;
+	width: 327px;
+	height: 402px;
+	background-position: -6px -277px;
+	display: none;
+}
+#btnResumeExit, #btnResume {
+	display: block;
+	position: absolute;
+	top: 246px;
+	width: 97px;
+	height: 97px;
+}
+#btnResumeExit {
+	left: 50px;
+}
+#btnResume {
+	left: 187px;
+}
+#beingReady {
+	position: absolute;
+	left: 46px;
+	top: 346px;
+	width: 388px;
+	height: 108px;
+	background-position: 0px 0px;
+	display: none;
+}
+#beingGo {
+	position: absolute;
+	left: 130px;
+	top: 355px;
+	width: 220px;
+	height: 90px;
+	background-position: -4px -137px;
+	display: none;
+}
+#canvasSkyLayer {
+	background: #0D1635;
+}
+/**
+ * 游戏结束
+ */
+#gameOver {
+	display: none;
+	background-position: -480px 0px;
+}
+#btnShare2 {
+	display: block;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 99px;
+	height: 99px;
+	background-position: -357px -970px;
+}
+#name, #score {
+	display: block;
+	position: absolute;
+	left: 145px;
+	top: 465px;
+	height: 33px;
+	line-height: 33px;
+	font-size: 22px;
+	color: #ffb34a;
+}
+#score {
+	top: 498px;
+}
+#btnScore2 {
+	display: block;
+	position: absolute;
+	left: 20px;
+	top: 600px;
+	width: 144px;
+	height: 117px;
+	background-position: -18px -1247px;
+}
+#btnScore2:hover {
+	background-position: -18px -1130px;
+}
+#btnRetry {
+	display: block;
+	position: absolute;
+	left: 168px;
+	top: 600px;
+	width: 158px;
+	height: 117px;
+	background-position: -15px -1519px;
+}
+#btnRetry:hover {
+	background-position: -15px -1403px;
+}
+#btnMore2 {
+	display: block;
+	position: absolute;
+	left: 331px;
+	top: 600px;
+	width: 131px;
+	height: 117px;
+	background-position: -19px -1784px;
+}
+#btnMore2:hover {
+	background-position: -19px -1667px;
+}
+#btnCup2 {
+	display: block;
+	position: absolute;
+	left: 380px;
+	top: 515px;
+	width: 79px;
+	height: 79px;
+	background-position: -390px -1786px;
+}
+#btnCup2:hover {
+	background-position: -390px -1707px;
+}

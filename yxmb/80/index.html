@@ -1,0 +1,236 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>健康消消乐</title>
+<meta charset="utf-8">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,width=device-width,minimal-ui" />
+<script type="text/javascript" src="js/jquery.1.9.1.min.js"></script>
+<script type="text/javascript" src="js/layer.js"></script>
+<link href="css/allf.css" rel="stylesheet" type="text/css" />
+<link rel="shortcut icon" href="icon.png">
+<link rel="icon" href="icon.png">
+<style>
+body {
+	margin: 0px;
+	padding: 0px;
+	width: 100%;
+	background-color: black;
+}
+
+canvas {
+	image-rendering: -o-crisp-edges;
+	image-rendering: optimize-contrast;
+	-ms-interpolation-mode: nearest-neighbor;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	-moz-tap-highlight-color: rgba(0, 0, 0, 0);
+	tap-highlight-color: rgba(0, 0, 0, 0);
+	user-select: none;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+}
+
+.layui-layer-btn a {
+	background: #2D93CA;
+	border-radius: 2px;
+}
+
+.layui-layer-dialog, .layui-layer-prompt .layui-layer-input,
+	.layui-layer-title {
+	border-radius: 3px;
+}
+
+.layui-layer-setwin .layui-layer-close1 {
+	display: none;
+}
+
+.layui-layer-dialog .layui-layer-content {
+	text-align: center;
+}
+
+.mainInfomyAction {
+	background-color: #fcb733;
+	border-bottom-color: #f8a425;
+	border-bottom-style: solid;
+	border-bottom-width: 8px;
+	color: white;
+	font-size: 14px;
+	font-weight: bolder;
+	height: 36px;
+	line-height: 36px;
+	margin-bottom: 6px;
+	margin-left: auto;
+	margin-right: auto;
+	/*    margin-top: 15px; */
+	margin-top: 10px;
+	text-align: center;
+	width: 95%;
+}
+
+.myActionConifrm {
+	background-color: #fcb733;
+	border-bottom-color: #f8a425;
+	border-bottom-style: solid;
+	border-bottom-width: 8px;
+	color: white;
+	font-size: 14px;
+	font-weight: bolder;
+	height: 36px;
+	line-height: 36px;
+	margin-bottom: 6px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10px;
+	text-align: center;
+	width: 40%;
+	float: left;
+	margin-left: 5%;
+}
+
+.myActioncancel {
+	background-color: #fcb733;
+	border-bottom-color: #f8a425;
+	border-bottom-style: solid;
+	border-bottom-width: 8px;
+	color: white;
+	font-size: 14px;
+	font-weight: bolder;
+	height: 36px;
+	line-height: 36px;
+	margin-bottom: 6px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10px;
+	text-align: center;
+	width: 40%;
+	float: right;
+	margin-right: 5%;
+}
+</style>
+
+<script src="js/viewporter.js"></script>
+
+<script>
+	// Kaisergames API development prototype
+	// make sure this code is executed before the game calls any kaisergames.* methods!
+	if (typeof window !== "undefined" && !window.kaisergames) {
+		window.kaisergames = new function() {
+			return {
+				/**
+				 * @param level string[optional]
+				 * @param score number[optional]
+				 */
+				gameOver : function(level, score) {
+					if (!level)
+						level = "-";
+				},
+
+				/**
+				 * @param level string[optional]
+				 * @param score number[optional]
+				 */
+				levelUp : function(level, score) {
+					if (!level)
+						level = "-";
+				},
+
+				/**
+				 * @param level string
+				 * @param score number
+				 */
+				submitHighscore : function(level, score) {
+					if (!level)
+						level = "-";
+
+				}
+			}
+		}
+	}
+</script>
+</head>
+
+<body>
+	<input id="parentUserId" type="hidden">
+	<input id="userId" type="hidden">
+	<input id="playGameCount" type="hidden" value="0" />
+	<div id="viewporter">
+		<canvas id="canvas" moz-opaque></canvas>
+	</div>
+	<div id="somedialog_alert" class="dialog">
+		<div class="dialog__overlay"></div>
+		<div class="dialog__content" style="width: 100%;">
+			<div class="img_box">
+				<img style="width: 100%;" src="../../CMBSActivity/images/msxxl.png">
+			</div>
+			<div class="text_box"
+				style="width: 90%; height: 120px; margin: 0 auto; padding-top: 10px;">
+				<table
+					style="padding-left: 10px; padding-right: 10px; border-right: none; border-left: none; border-bottom: none; border-top: none;"
+					calss="code_now" width="100%" border="0" cellpadding="1"
+					cellspacing="0" id="excodeTbalert">
+
+				</table>
+				<div style="background-color: white; padding-bottom: 3px;">
+					<div id="alertInfoId" class="mainInfomyAction" data-dialog-close>确认</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="somedialog_alert_confirm" class="dialog">
+		<div class="dialog__overlay"></div>
+		<div class="dialog__content" style="width: 100%;">
+			<div class="img_box">
+				<img style="width: 100%;" src="../../CMBSActivity/images/msxxl.png">
+			</div>
+			<div class="text_box"
+				style="width: 90%; height: 120px; margin: 0 auto; padding-top: 10px;">
+				<table
+					style="padding-left: 10px; padding-right: 10px; border-right: none; border-left: none; border-bottom: none; border-top: none;"
+					calss="code_now" width="100%" border="0" cellpadding="1"
+					cellspacing="0" id="excodeTbalertconfirm">
+
+				</table>
+				<div
+					style="background-color: white; padding-bottom: 3px; position: relative;">
+					<div id="alertInfoIdconfirm" class="myActionConifrm"
+						data-dialog-close>确认</div>
+					<div id="alertInfoIdcancel" class="myActioncancel"
+						data-dialog-close>取消</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+<script src="js/TweenMax.min.js"></script>
+<script src="js/howler.js"></script>
+<script src="js/app.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+		if (getParentUserId()) {
+			$("#parentUserId").val(getParentUserId())
+		}
+		if (getId()) {
+			$("#userId").val(getId())
+		}
+	})
+
+	var $_REQUEST = new Object();
+	var aParams = document.location.search.substr(1).split('&');
+	for (i = 0; i < aParams.length; i++) {
+		var aParam = aParams[i].split('=');
+		$_REQUEST[aParam[0]] = aParam[1];
+	}
+
+	function getParentUserId() {
+		return $_REQUEST["parentUserId"];
+	}
+	function getId() {
+		return $_REQUEST["id"];
+	}
+</script>
+</html>

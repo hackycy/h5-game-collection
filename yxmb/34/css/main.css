@@ -1,0 +1,72 @@
+@charset "utf-8";/* -----总样式表----- */
+
+body{
+	overflow:hidden;
+	background-position: center center;
+	background-image:url(../_img/sys/bg0.jpg);
+	background-repeat:no-repeat;
+	background-color:#eee;
+	background-attachment:fixed;
+}
+body *{font-family:"微软雅黑";}
+/*table{border-collapse:collapse;}*/
+h1,h2,h3,h4{
+	margin:0; color:#d31b00;
+	background-color:#FFF;
+}
+a,a:link,button{cursor:pointer;}
+hr{margin:2px;}
+
+
+.aC2,.aC2:link{
+	padding:.2em .8em .2em .8em;
+	display:inline-block;
+	text-align:center;	vertical-align:middle;
+	font-size:.9em;
+}
+.aC2:hover{ font-weight:bolder;}
+
+
+.happyBtn{
+	display:none;
+}
+.happyBtn:hover{ 
+	font-weight:bolder;
+}
+
+.cover{
+	position:absolute;
+	left:0; top:0;	width:100%; height:100%;
+	text-align:center;
+	z-index:200;
+}
+
+/*************************************/
+/*调试栏*/
+#debugPanel{ display:none;
+	background-color:#000;
+	position:absolute;
+	height:30%;	width:100%;
+	left:0; top:0;
+	color:#fff;
+	opacity:0.6;
+	z-index:999;
+}
+/*18+*/
+.fd18{
+	padding:.2em;
+	margin-right:.2em;
+	float:right;
+	font-weight:900;
+	color:#FFC;
+	font-size:36px;
+}
+/*遮罩层*/
+.mask {
+	position: absolute; top: 0px; background-color: #FFF;     
+	width:100%; height:100%;
+	z-index: 1; left: 0px;
+	filter: alpha(opacity=50);
+	opacity:0.5;
+	-moz-opacity:0.5;
+} 

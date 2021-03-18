@@ -1,0 +1,75 @@
+/*
+    作者:helang
+    邮箱:helang.love@qq.com
+    jQuery插件库:http://www.jq22.com/mem395541
+    CSDN博客:https://blog.csdn.net/u013350495
+    微信公众号:web-7258
+*/
+
+/* index.html 样式开始 */
+html{
+    font-size: 50px;
+}
+html,body,.hl_idiom{
+    height: 100%;
+}
+.hl_idiom>div{
+    width: 100%;
+    padding: 0 0.5rem;
+}
+
+.hl_idiom .img_box{
+    margin: 0.25rem 0;
+    border: #ccc solid 1px;
+    padding: 0.25rem;
+}
+.hl_idiom .img_box>div{
+    width: 6rem;
+    height: 4rem;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    margin: 0 auto;
+}
+.hl_idiom .btn{
+    border: #ccc solid 1px;
+    line-height: 0.6rem;
+    width: 1.6rem;
+    border-radius: 0.3rem;
+    margin: 0 auto;
+}
+.hl_idiom .select_box{
+    margin: 0.25rem 1rem 0 1rem;
+}
+.hl_idiom .select_box>div{
+    margin-bottom: 0.15rem;
+}
+.hl_idiom .select_box .item{
+    width: 0.7rem;
+    height: 0.7rem;
+    line-height: 0.7rem;
+    margin: 0 auto;
+    background-color: #425cb3;
+    border-radius: 4px;
+}
+.hl_idiom .select_box.selected_box .item{
+    background-color: #ffc029;
+}
+
+
+.top_msg{
+    position: fixed;
+    width: 100%;
+    padding: 0.2rem 0;
+    background-color: rgba(0,0,0,0.5);
+    top: 0;
+    left: 0;
+}
+.bottom_msg{
+    position: fixed;
+    width: 100%;
+    padding: 0.2rem 0;
+    background-color: rgba(0,0,0,0.5);
+    bottom: 0;
+    left: 0;
+}

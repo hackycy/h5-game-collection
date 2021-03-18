@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8 GBK">
+<title>jQuery扫雷游戏网页版</title>
+<link rel="stylesheet" type="text/css" media="screen" href="css/styles.css" />
+
+</head>
+<body>
+<div class="wrapper">
+<h1>扫雷</h1>
+<div id="minesweeper">
+  <ul class="level-select">
+	<li><button data-level="easy">容易</button></li>
+	<li><button data-level="mid">中等</button></li>
+	<li><button data-level="hard">困难</button></li>
+  </ul>
+  <div class="menu">
+	<ul>
+	  <li class="timer">000</li>
+	  <li class="reset"><button> :) </button></li>
+	  <li class="mine-count">010</li>
+	</ul>
+  </div>
+  <div id="mine-grid"></div>
+</div>
+</div>
+<script src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/JSweeper.js"></script>
+</body>
+</html>

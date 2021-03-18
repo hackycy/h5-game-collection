@@ -1,0 +1,232 @@
+* {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-webkit-tap-highlight-color: transparent
+}
+html, body{
+	height: 100%;
+	position: relative;
+	margin: 0;
+	overflow: hidden;
+	-webkit-user-select:none;
+	-webkit-tap-highlight-color: transparent;
+}
+body{
+	background-color: #000018;
+	font-family: '微软雅黑';
+}
+a{
+	text-decoration: none;
+}
+#container{
+	width: 100%;
+	position: relative;
+	overflow: hidden;
+}
+#startgame{
+	position: absolute;
+	right: 20px;
+	bottom: 20px;
+}
+#gamepanel{
+	width: 320px;
+	margin: 0 auto;
+	height: 568px;
+	position: relative;
+	overflow: hidden;
+}
+@media screen and (min-width: 1024px) {
+	#gamepanel, body, html{
+		width: 320px;
+		margin: 0 auto;
+	}
+}
+#stage{
+	background-color: #CCC;
+}
+
+.score-wrap {
+	background: url(../img/scorebg.png) no-repeat;
+	background-size: 100%;
+	color: #FFF;
+	/*display: none;*/
+	font-family: "Helvetica","Microsoft YaHei",sans-serif;
+	font-style: italic;
+	font-size: 17px;
+	font-weight: 700;
+	height: 32px;
+	letter-spacing: 2px;
+	padding: 7px 10px;
+	position: absolute;
+	right: 20px;
+	text-align: right;
+	text-shadow: 1.5px 0 0 #613209,-1.5px 0 0 #613209,0 1px 0 #613209,0 -1.5px 0 #613209,1px 1px 0 #613209,-1px 1px 0 #613209,1px -1px 0 #613209,-1px -1px 0 #613209;
+	top: 10px;
+	width: 105px;
+	z-index: 1005
+}
+
+.score-wrap div {
+	background: url(../img/heart.png) no-repeat;
+	background-size: 100%;
+	height: 26px;
+	left: 2px;
+	position: absolute;
+	top: 2px;
+	width: 26px;
+	z-index: 1009
+}
+
+div.hearthot {
+	-webkit-animation: fire .2s linear;
+	-o-animation: fire .2s linear;
+	animation: fire .2s linear
+}
+
+@-webkit-keyframes fire {
+	0% {
+		opacity: 1;
+		-webkit-transform: scale(1.1);
+		-moz-transform: scale(1.1);
+		-ms-transform: scale(1.1);
+		-o-transform: scale(1.1);
+		transform: scale(1.1)
+	}
+
+	100% {
+		opacity: 0;
+		-webkit-transform: scale(3.0);
+		-moz-transform: scale(3.0);
+		-ms-transform: scale(3.0);
+		-o-transform: scale(3.0);
+		transform: scale(3.0)
+	}
+}
+
+@keyframes fire {
+	0% {
+		-webkit-transform: scale(1.1);
+		-moz-transform: scale(1.1);
+		-ms-transform: scale(1.1);
+		-o-transform: scale(1.1);
+		transform: scale(1.1)
+	}
+
+	100% {
+		-webkit-transform: scale(1.0);
+		-moz-transform: scale(1.0);
+		-ms-transform: scale(1.0);
+		-o-transform: scale(1.0);
+		transform: scale(1.0)
+	}
+}
+#guidePanel {
+	background: rgba(0,0,0,0.6) url(../img/startbg.png) center 50% no-repeat;
+	background-size: 219px 369px;
+	height: 100%;
+	left: 0;
+	position: absolute;
+	top: 0;
+	width: 100%;
+	z-index: 10000
+}
+#gameoverPanel {
+	background: rgba(0,0,0,0.8) url(../img/gameover.png) center 30% no-repeat;
+	background-size: 230px 260px;
+	top: 0
+}
+
+#gameoverPanel,#resultPanel {
+	display: none;
+	height: 100%;
+	position: absolute;
+	width: 100%;
+	z-index: 10000
+}
+
+#resultPanel{
+	background:url(../img/endpage.jpg) center top no-repeat;
+}
+
+#resultPanel,#resultPanel .weixin-share {
+	left: 0;
+	top: 0
+}
+#resultPanel .weixin-share {
+	background: rgba(0,0,0,.8) url(../img/weixin.png) right top no-repeat;
+	background-size: 212px 196px;
+	display: none;
+	height: 100%;
+	position: absolute;
+	width: 100%;
+	z-index: 100
+}
+
+#resultPanel .replay {
+	background: url(../img/replay.png) 0 0 no-repeat;
+	height: 36px;
+	line-height: 36px;
+	left: 16px;
+	overflow: hidden;
+	position: absolute;
+	top: 11px;
+	width: 86px;
+	z-index: 10;
+	color: #E44324;
+	text-align: right;
+	padding-right: 6px;
+	font-weight: 700;
+	font-size: 12px;
+}
+#resultPanel .panel,#scoreBoard .score-result {
+	display: none;
+	height: 100%;
+	left: 0;
+	position: absolute;
+	top: 0;
+	width: 100%
+}
+#fenghao{
+	height: 68px;
+	margin-top: 90px;
+}
+#scorecontent{
+	font-size: 16px;
+	font-weight: 700;
+	color: #FFF;
+	text-align: center;
+	line-height: 1.8em;
+	margin-top: 5px;
+}
+.lighttext{
+	color: #F6DE0A;
+}
+.geili{
+	background: url(../img/geili.png) center no-repeat;
+}
+.yinhen{
+	background: url(../img/yinhen.png) center no-repeat;
+}
+.textc{
+	text-align: center;
+}
+.btn1, .btn2{
+	display: inline-block;
+	width: 196px;
+	height: 54px;
+	line-height: 54px;
+	color: #FFF;
+	font-size: 20px;
+	border-radius: 5px;
+	text-align: center;
+}
+.btn1{
+	margin-top: 22px;
+	background-color: #E8722C;
+}
+.btn2{
+	margin-top: 12px;
+	border: 1px solid #6A6B6D;
+
+}

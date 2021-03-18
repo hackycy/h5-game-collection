@@ -1,0 +1,220 @@
+body {
+	width: 100%;
+	overflow: hidden;
+	padding:0;
+	margin:0;
+}
+
+.hide {
+	display: none;
+}
+
+.page {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	font-size: 100px;
+	background-size: cover;
+	background-position: center center;
+	background-repeat: no-repeat;
+	text-align: center;
+}
+
+.page .wrap {
+	height: 500px;
+}
+
+.page-1-1 {
+	background-image: url(../images/1_index.png);
+}
+
+.page-2-1 {
+	background-image: url(../images/2_index.png);
+}
+
+.page-3-1 {
+	background-image: url(../images/3_index.png);
+}
+
+.page-4-1 {
+	background-image: url(../images/4_index.png);
+}
+
+.page-5-1 {
+	background-image: url(../images/5_index.png);
+}
+
+.page-6-1 {
+	background-image: url(../images/6_index.png);
+}
+
+.page-7-1 {
+	background-image: url(../images/7_index.png);
+}
+
+.page-8-1 {
+	background-image: url(../images/8_index.png);
+}
+
+.page-current {
+	z-index: 1;
+}
+
+.page8Img1 {
+	width: 70%;
+	position: absolute;
+	top: 8%;
+	left: 15%;
+}
+
+.page8Img2 {
+	width: 55%;
+	position: absolute;
+	bottom: 12%;
+	left: 20%;
+}
+
+.page-1-1 .img_1, .page-2-1 .img_1, .page-3-1 .img_1, .page-4-1 .img_1,
+	.page-5-1 .img_1, .page-6-1 .img_1, .page-7-1 .img_1 {
+	height: auto;
+	width: 25px;
+	position: absolute;
+	left: 50%;
+	top: 93%;
+	margin-left: -12px;
+}
+
+#loading {
+	display: block;
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	color: white;
+	background: #cf232f;
+	font-size: 1em;
+	text-align: center;
+	overflow: hidden;
+	z-index: 9999;
+}
+
+.spinner {
+	margin: 0 auto;
+	width: 60px;
+	height: 60px;
+	position: relative;
+	top: 40%;
+}
+
+@
+-webkit-keyframes bouncedelay { 0%, 80%, 100% {
+	-webkit-transform: scale(0.0)
+}
+
+40%
+{
+-webkit-transform
+
+
+
+
+
+
+:
+
+
+
+ 
+
+
+
+scale
+
+
+
+
+
+
+(1
+.0
+
+
+
+
+
+
+)
+}
+}
+@
+keyframes bouncedelay { 0%, 80%, 100% {
+	transform: scale(0.0);
+	-webkit-transform: scale(0.0);
+}
+40%
+{
+transform
+
+
+
+
+
+
+:
+
+
+
+ 
+
+
+
+scale
+
+
+
+
+
+
+(1
+.0
+
+
+
+
+
+
+);
+-webkit-transform
+
+
+
+
+
+
+:
+
+
+
+ 
+
+
+
+scale
+
+
+
+
+
+
+(1
+.0
+
+
+
+
+
+
+);
+}
+}

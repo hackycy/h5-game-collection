@@ -1,0 +1,59 @@
+{"frames": {
+
+"bottom-bar.png":
+{
+	"frame": {"x":0,"y":0,"w":765,"h":72},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":765,"h":72},
+	"sourceSize": {"w":765,"h":72}
+},
+"cannon_minus.png":
+{
+	"frame": {"x":132,"y":72,"w":44,"h":31},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":44,"h":31},
+	"sourceSize": {"w":44,"h":31}
+},
+"cannon_minus_down.png":
+{
+	"frame": {"x":88,"y":72,"w":44,"h":31},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":44,"h":31},
+	"sourceSize": {"w":44,"h":31}
+},
+"cannon_plus.png":
+{
+	"frame": {"x":44,"y":72,"w":44,"h":31},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":44,"h":31},
+	"sourceSize": {"w":44,"h":31}
+},
+"cannon_plus_down.png":
+{
+	"frame": {"x":0,"y":72,"w":44,"h":31},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":44,"h":31},
+	"sourceSize": {"w":44,"h":31}
+},
+"energy-bar.png":
+{
+	"frame": {"x":0,"y":103,"w":213,"h":19},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":213,"h":19},
+	"sourceSize": {"w":213,"h":19}
+}
+}, 
+"meta": {
+	"app": "http://www.texturepacker.com",
+	"version": "1.0",
+	"image": "bottom.png",
+	"format": "RGBA8888",
+	"size": {"w":765,"h":122}
+}
+}
